@@ -1,0 +1,18 @@
+package com.acterics.racesclient.ui.base
+
+import com.arellomobile.mvp.MvpView
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.commands.*
+
+/**
+ * Created by root on 28.09.17.
+ */
+interface BaseMvpNavigationView: MvpView {
+    fun forward(command: Forward)
+    fun replace(command: Replace)
+    fun back(command: Back)
+    fun systemMessage(command: SystemMessage)
+    fun invalidCommand(command: Command)
+    fun registerNavigator(navigationHolder: NavigatorHolder)
+    fun unregisterNavigator(navigationHolder: NavigatorHolder)
+}

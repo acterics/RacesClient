@@ -2,6 +2,7 @@ package com.acterics.racesclient.ui.base
 
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -11,7 +12,7 @@ import timber.log.Timber
 /**
  * Created by root on 28.09.17.
  */
-abstract class BaseMvpNavigationActivity: MvpAppCompatActivity() {
+abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(), BaseMvpNavigationView {
 
     private val navigator = Navigator { command -> when (command) {
         is Forward -> forward(command)
@@ -21,33 +22,34 @@ abstract class BaseMvpNavigationActivity: MvpAppCompatActivity() {
         else -> invalidCommand(command)
     } }
 
-    abstract fun getRouter(): Router
-    abstract fun getNavigationHolder(): NavigatorHolder
-    abstract fun injectComponents()
+    abstract fun getBasePresenter(): BaseNavigationPresenter<*>
 
-    abstract fun forward(command: Forward)
-    abstract fun replace(command: Replace)
-    abstract fun back(command: Back)
-    abstract fun systemMessage(command: SystemMessage)
+    override fun registerNavigator(navigationHolder: NavigatorHolder) {
+        navigationHolder.setNavigator(navigator)
+    }
 
-    protected fun invalidCommand(command: Command) {
+    override fun unregisterNavigator(navigationHolder: NavigatorHolder) {
+        navigationHolder.removeNavigator()
+    }
+
+    override fun invalidCommand(command: Command) {
         Timber.w("Invalid command ${command.javaClass.name}")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectComponents()
         super.onCreate(savedInstanceState)
     }
 
 
     override fun onResume() {
         super.onResume()
-        getNavigationHolder().setNavigator(navigator)
+        getBasePresenter().onResume()
+
     }
 
     override fun onPause() {
-        getNavigationHolder().removeNavigator()
         super.onPause()
+        getBasePresenter().onPause()
     }
 
 }
