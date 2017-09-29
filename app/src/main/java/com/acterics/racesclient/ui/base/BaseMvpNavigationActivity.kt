@@ -14,18 +14,11 @@ import timber.log.Timber
  */
 abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(), BaseMvpNavigationView {
 
-    private val navigator = Navigator { command -> when (command) {
-        is Forward -> forward(command)
-        is Replace -> replace(command)
-        is Back -> back(command)
-        is SystemMessage -> systemMessage(command)
-        else -> invalidCommand(command)
-    } }
 
-    abstract fun getBasePresenter(): BaseNavigationPresenter<*>
+    abstract fun getNavigator(): Navigator
 
     override fun registerNavigator(navigationHolder: NavigatorHolder) {
-        navigationHolder.setNavigator(navigator)
+        navigationHolder.setNavigator(getNavigator())
     }
 
     override fun unregisterNavigator(navigationHolder: NavigatorHolder) {
@@ -36,20 +29,6 @@ abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(), BaseMvpNavigat
         Timber.w("Invalid command ${command.javaClass.name}")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
-
-    override fun onResume() {
-        super.onResume()
-        getBasePresenter().onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        getBasePresenter().onPause()
-    }
 
 }

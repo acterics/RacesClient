@@ -6,6 +6,7 @@ import com.arellomobile.mvp.MvpView
 import okhttp3.Route
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,16 +23,14 @@ abstract class BaseNavigationPresenter<T: BaseMvpNavigationView>: MvpPresenter<T
     override fun attachView(view: T) {
         super.attachView(view)
         injectComponents()
+        view.registerNavigator(navigationHolder)
+    }
+
+    override fun detachView(view: T) {
+        super.detachView(view)
+        view.unregisterNavigator(navigationHolder)
     }
 
     protected abstract fun injectComponents()
-
-    fun onResume() {
-        viewState.registerNavigator(navigationHolder)
-    }
-
-    fun onPause() {
-        viewState.unregisterNavigator(navigationHolder)
-    }
 
 }
