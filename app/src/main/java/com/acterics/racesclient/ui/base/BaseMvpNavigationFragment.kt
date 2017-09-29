@@ -1,19 +1,21 @@
 package com.acterics.racesclient.ui.base
 
-import android.os.Bundle
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.arellomobile.mvp.MvpAppCompatFragment
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
-import ru.terrakok.cicerone.commands.*
+import ru.terrakok.cicerone.commands.Command
 import timber.log.Timber
 
 /**
- * Created by root on 28.09.17.
+ * Created by root on 29.09.17.
  */
-abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(),
+abstract class BaseMvpNavigationFragment: MvpAppCompatFragment(),
         BaseMvpNavigationView, NavigatorProvider {
+
+
+    override fun invalidCommand(command: Command) {
+        Timber.w("Invalid command ${command.javaClass.name}")
+    }
 
     override fun registerNavigator(navigationHolder: NavigatorHolder) {
         navigationHolder.setNavigator(getNavigator())
@@ -22,11 +24,5 @@ abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(),
     override fun unregisterNavigator(navigationHolder: NavigatorHolder) {
         navigationHolder.removeNavigator()
     }
-
-    override fun invalidCommand(command: Command) {
-        Timber.w("Invalid command ${command.javaClass.name}")
-    }
-
-
 
 }

@@ -28,8 +28,6 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
 
     private val imLogo by lazy { findViewById<ImageView>(R.id.im_logo) }
 
-
-
     override fun getNavigator(): Navigator {
         return Navigator { command -> when (command) {
             is Replace -> {

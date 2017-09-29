@@ -6,9 +6,11 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.widget.ImageView
 import com.acterics.racesclient.R
+import com.acterics.racesclient.ui.auth.signin.SignInFragment
 import com.acterics.racesclient.ui.base.BaseMvpNavigationActivity
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
+import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.getStatusBarSize
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.terrakok.cicerone.commands.Back
@@ -25,16 +27,19 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView {
 
     private val imLogo by lazy { findViewById<ImageView>(R.id.im_logo) }
 
-    override fun getFragment(screenKey: String?, data: Any?): Fragment {
-        TODO("not implemented")
-    }
-
-    override fun getNavigationIntent(screenKey: String?, data: Any?): Intent {
-        TODO("not implemented")
-    }
-
     @InjectPresenter
     lateinit var presenter: AuthenticatePresenter
+
+    override fun getFragment(screenKey: String?, data: Any?): Fragment {
+        if (screenKey == Screens.SIGN_IN_SCREEN) {
+            return SignInFragment()
+        }
+        throw UnsupportedOperationException()
+    }
+
+    override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
+        return null
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

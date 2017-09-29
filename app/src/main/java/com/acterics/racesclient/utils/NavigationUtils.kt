@@ -10,4 +10,6 @@ object Screens {
     const val DASHBOARD_SCREEN = "com.acterics.racesclient.utils.DASHBOARD_SCREEN"
     const val MAIN_SCREEN = "com.acterics.racesclient.utils.MAIN_SCREEN"
     const val AUTHENTICATE_SCREEN = "com.acterics.racesclient.utils.AUTHENTICATE_SCREEN"
+    const val SIGN_IN_SCREEN = "com.acterics.racesclient.utils.SIGN_IN_SCREEN"
+    const val SIGN_UP_SCREEN = "com.acterics.racesclient.utils.SIGN_UP_SCREEN"
 }
