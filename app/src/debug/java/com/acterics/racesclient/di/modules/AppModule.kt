@@ -21,6 +21,7 @@ class AppModule(val app: Application) {
         return app.applicationContext
     }
 
+
     @Provides
     @Singleton
     fun provideApplicationConfiguration(): ApplicationConfiguration {

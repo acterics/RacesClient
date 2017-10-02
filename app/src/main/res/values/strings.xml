@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RacesClient</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="error_invalid_email">Email is invalid</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in_or">or</string>
 </resources>

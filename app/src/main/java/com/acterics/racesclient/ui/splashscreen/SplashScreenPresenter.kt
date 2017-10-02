@@ -20,7 +20,7 @@ import javax.inject.Inject
 class SplashScreenPresenter: BaseNavigationPresenter<SplashScreenView>() {
 
     companion object {
-        const val DELAY_TIME = 1000L
+        const val DELAY_TIME = 600L
     }
 
     @Inject

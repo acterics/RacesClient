@@ -11,13 +11,20 @@ import com.arellomobile.mvp.InjectViewState
 @InjectViewState
 class AuthenticatePresenter: BaseNavigationPresenter<AuthenticateView>() {
 
+
+
     override fun attachView(view: AuthenticateView) {
         super.attachView(view)
-        router.navigateTo(Screens.SIGN_IN_SCREEN)
+        router.replaceScreen(Screens.SIGN_IN_SCREEN)
     }
 
     override fun injectComponents() {
         RacesApplication.applicationComponent.inject(this)
+    }
+
+
+    fun onBackPressed() {
+        router.exit()
     }
 
 }

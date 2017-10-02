@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
     <style name="SplashScreenTheme" parent="NoActionBarTheme">
         <item name="android:windowBackground">@drawable/bg_splash</item>
+
     </style>
 </resources>
