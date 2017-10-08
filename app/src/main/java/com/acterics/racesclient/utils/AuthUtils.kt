@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 
 /**
- * Created by root on 27.09.17.
- */
+* Created by root on 27.09.17.
+*/
 
 object Constants {
     const val PREFERENCES_NAME = "com.acterics.racesclient.utils.AUTH_PREFERENCES"

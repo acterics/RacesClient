@@ -1,12 +1,8 @@
 package com.acterics.racesclient.ui.base
 
-import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.ProvidePresenter
-import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
-import ru.terrakok.cicerone.commands.*
+import ru.terrakok.cicerone.commands.Command
 import timber.log.Timber
 
 /**

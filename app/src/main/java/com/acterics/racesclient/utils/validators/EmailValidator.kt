@@ -1,7 +1,5 @@
 package com.acterics.racesclient.utils.validators
 
-import java.util.regex.Pattern
-
 /**
  * Created by root on 02.10.17.
  */

@@ -4,13 +4,9 @@ import android.content.Context
 import android.os.Handler
 import com.acterics.racesclient.RacesApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.isAuthenticate
 import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
-import ru.terrakok.cicerone.Router
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

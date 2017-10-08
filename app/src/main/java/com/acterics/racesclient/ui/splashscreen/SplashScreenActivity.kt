@@ -4,20 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
-import android.widget.ImageView
 import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.auth.AuthenticateActivity
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.getStatusBarSize
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_splash.*
 import ru.terrakok.cicerone.Navigator
-import ru.terrakok.cicerone.android.SupportAppNavigator
-import ru.terrakok.cicerone.commands.*
-import timber.log.Timber
+import ru.terrakok.cicerone.commands.Replace
 import java.lang.UnsupportedOperationException
 
 /**

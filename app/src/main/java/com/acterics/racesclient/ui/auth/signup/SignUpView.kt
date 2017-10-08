@@ -1,6 +1,5 @@
 package com.acterics.racesclient.ui.auth.signup
 
-import com.acterics.racesclient.ui.base.BaseMvpNavigationView
 import com.arellomobile.mvp.MvpView
 
 /**

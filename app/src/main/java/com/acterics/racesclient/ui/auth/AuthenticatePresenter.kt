@@ -2,7 +2,6 @@ package com.acterics.racesclient.ui.auth
 
 import com.acterics.racesclient.RacesApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.arellomobile.mvp.InjectViewState
 
@@ -12,10 +11,8 @@ import com.arellomobile.mvp.InjectViewState
 @InjectViewState
 class AuthenticatePresenter: ActivityBaseNavigationPresenter<AuthenticateView>() {
 
-
-
-    override fun attachView(view: AuthenticateView) {
-        super.attachView(view)
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
         router.replaceScreen(Screens.SIGN_IN_SCREEN)
     }
 
@@ -28,9 +25,5 @@ class AuthenticatePresenter: ActivityBaseNavigationPresenter<AuthenticateView>()
         router.exit()
     }
 
-
-    fun onSignIn() {
-        router.navigateTo(Screens.SIGN_UP_SCREEN)
-    }
 
 }

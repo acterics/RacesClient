@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.View
-import android.widget.ImageView
 import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.auth.signin.SignInFragment
 import com.acterics.racesclient.ui.auth.signup.SignUpFragment
@@ -21,19 +20,18 @@ import com.acterics.racesclient.utils.keyboard.KeyboardMvpView
 import com.acterics.racesclient.utils.keyboard.KeyboardPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_authenticate.*
-import ru.terrakok.cicerone.commands.*
-import timber.log.Timber
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Forward
+import ru.terrakok.cicerone.commands.Replace
 
 /**
  * Created by root on 28.09.17.
  */
 class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, KeyboardMvpView {
 
-
     companion object {
         val KEYBOARD_SLIDE_ANIMATION_DURATION = 150L
     }
-
 
     private var isAnimate = false
 
@@ -43,12 +41,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
     @InjectPresenter
     lateinit var keyboardPresenter: KeyboardPresenter
 
-
-    private val signInFragment = SignInFragment()
-    private val signUpFragment = SignUpFragment()
-
     override fun getFragment(screenKey: String?, data: Any?): Fragment {
-        Timber.i("getFragment: $screenKey")
         return when(screenKey) {
             Screens.SIGN_IN_SCREEN -> SignInFragment()
             Screens.SIGN_UP_SCREEN -> SignUpFragment()
@@ -62,11 +55,10 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
             is Replace -> {
                 when(command.screenKey) {
                     Screens.SIGN_IN_SCREEN -> fragmentTransaction?.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                    Screens.SIGN_UP_SCREEN -> fragmentTransaction?.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out, R.anim.slide_left_in, R.anim.slide_left_out)
                 }
             }
             is Forward -> fragmentTransaction?.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out, R.anim.slide_right_in, R.anim.slide_right_out)
-//            is Back -> fragmentTransaction?.setCustomAnimations(R.anim.slide_left_out, R.anim.slide_left_in)
+
         }
     }
 
@@ -74,18 +66,14 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
         return null
     }
 
-    fun onSignIn(view: View) {
-        presenter.onSignIn()
-        Timber.i("onSignIn: ")
 
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_authenticate)
         keyboardPresenter.root = holderRoot
-        imLogo?.setPadding(0, 0, 0, getStatusBarSize())
+        imLogo.setPadding(0, 0, 0, getStatusBarSize())
     }
 
     override fun onKeyboardVisibleChanged(visible: Boolean) {
@@ -126,9 +114,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
         presenter.onBackPressed()
-//        finish()
     }
 
 

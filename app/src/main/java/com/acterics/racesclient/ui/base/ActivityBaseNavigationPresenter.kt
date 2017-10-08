@@ -1,7 +1,6 @@
 package com.acterics.racesclient.ui.base
 
 import ru.terrakok.cicerone.NavigatorHolder
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -14,11 +13,9 @@ abstract class ActivityBaseNavigationPresenter<T: BaseMvpNavigationView>: BaseNa
 
     fun onPause() {
         viewState.unregisterNavigator(navigationHolder)
-        Timber.i("detachView: navigator unregistrated")
     }
 
     fun onResume() {
         viewState.registerNavigator(navigationHolder)
-        Timber.i("attachView: navigator registrated")
     }
 }
