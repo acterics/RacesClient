@@ -3,6 +3,7 @@ package com.acterics.racesclient.ui.splashscreen
 import android.content.Context
 import android.os.Handler
 import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.isAuthenticate
@@ -17,7 +18,7 @@ import javax.inject.Inject
  */
 
 @InjectViewState
-class SplashScreenPresenter: BaseNavigationPresenter<SplashScreenView>() {
+class SplashScreenPresenter: ActivityBaseNavigationPresenter<SplashScreenView>() {
 
     companion object {
         const val DELAY_TIME = 600L

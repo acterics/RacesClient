@@ -14,33 +14,40 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.auth.signup.SignUpFragment
-import com.acterics.racesclient.ui.base.common.CommonMvpNavigationFragment
+import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
+import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
+import kotlinx.android.synthetic.main.fragment_sign_in.*
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
+import timber.log.Timber
 
 /**
  * Created by root on 29.09.17.
  */
-class SignInFragment: CommonMvpNavigationFragment(), SignInView {
-
-
-    private var rootView: View? = null
-    private val holderEmail by lazy { rootView?.findViewById<TextInputLayout>(R.id.holder_email) }
-    private val holderPassword by lazy { rootView?.findViewById<TextInputLayout>(R.id.holder_password) }
-    private val etEmail by lazy { rootView?.findViewById<TextInputEditText>(R.id.et_email) }
-    private val etPassword by lazy { rootView?.findViewById<TextInputEditText>(R.id.et_password) }
-    private val btSignUp by lazy { rootView?.findViewById<Button>(R.id.bt_sign_up) }
+class SignInFragment: MvpAppCompatFragment(), SignInView {
+    override fun onViewAttached() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     @InjectPresenter
     lateinit var presenter: SignInPresenter
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater?.inflate(R.layout.fragment_sign_in, container, false)
+    override fun onStart() {
+        super.onStart()
 
-        etEmail?.addTextChangedListener( object: TextWatcher {
+        presenter.ping()
+
+    }
+
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        etSignInEmail.addTextChangedListener( object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
             }
@@ -53,7 +60,8 @@ class SignInFragment: CommonMvpNavigationFragment(), SignInView {
                 presenter.onEmailInputChanged(s)
             }
         })
-        etPassword?.addTextChangedListener(object: TextWatcher {
+
+        etSignInPassword.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
             }
@@ -67,40 +75,37 @@ class SignInFragment: CommonMvpNavigationFragment(), SignInView {
 
         })
 
-        btSignUp?.setOnClickListener { presenter.onSignUpButtonClick() }
-
-
-
-
-        return rootView
-    }
-
-    override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
-        if (command is Forward && command.screenKey == Screens.SIGN_UP_SCREEN) {
-            fragmentTransaction?.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
-        }
-
-    }
-
-    override fun getNavigationIntent(screenKey: String?, data: Any?): Intent {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getFragment(screenKey: String?, data: Any?): Fragment {
-        return when (screenKey) {
-            Screens.SIGN_UP_SCREEN -> SignUpFragment()
-            else -> throw IllegalStateException()
+        btToSignUp.setOnClickListener {
+            //            fragmentManager.beginTransaction()
+//                    .replace(R.id.holder_content, SignUpFragment())
+//                    .addToBackStack(null)
+//                    .commit()
+            presenter.onSignUpButtonClick()
         }
     }
+
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_sign_in, container, false) ?: throw IllegalStateException()
+
+    }
+
+
+
 
 
     override fun showEmailInputError(errorRes: Int) {
         holderEmail?.error = getString(errorRes)
     }
+    override fun hideEmailInputError() {
+        holderEmail?.isErrorEnabled = false
+    }
 
     override fun showPasswordInputError(errorRes: Int) {
         holderPassword?.error = getString(errorRes)
     }
+
 
 
 

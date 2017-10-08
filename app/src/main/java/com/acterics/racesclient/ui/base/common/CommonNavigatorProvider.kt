@@ -17,7 +17,7 @@ import ru.terrakok.cicerone.commands.Command
 class CommonNavigatorProvider(private val navigationScreen: CommonNavigatorScreen,
                               private val fragmentActivity: FragmentActivity) : NavigatorProvider {
     override fun getNavigator(): Navigator {
-        return object: SupportAppNavigator(fragmentActivity, R.id.holder_content) {
+        return object: SupportAppNavigator(fragmentActivity, R.id.holderContent) {
             override fun createActivityIntent(screenKey: String?, data: Any?): Intent? {
                 return navigationScreen.getNavigationIntent(screenKey, data)
             }
@@ -33,6 +33,8 @@ class CommonNavigatorProvider(private val navigationScreen: CommonNavigatorScree
             override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
                 return navigationScreen.setupFragmentTransactionAnimation(command, currentFragment, nextFragment, fragmentTransaction)
             }
+
+
         }
     }
 }

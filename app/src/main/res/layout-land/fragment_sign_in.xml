@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/holder_email"
+        android:id="@+id/holderEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_email"
+            android:id="@+id/etSignInEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -32,7 +32,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/holder_password"
+        android:id="@+id/holderPassword"
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:layout_marginEnd="32dp"
@@ -44,12 +44,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/holder_email"
+        app:layout_constraintTop_toBottomOf="@+id/holderEmail"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/black">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_password"
+            android:id="@+id/etSignInPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -59,7 +59,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/bt_sign_in"
+        android:id="@+id/btSignIn"
         android:layout_width="wrap_content"
         android:layout_height="49dp"
         android:layout_marginEnd="8dp"
@@ -68,7 +68,7 @@
         android:text="@string/sign_in"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/holder_password" />
+        app:layout_constraintTop_toBottomOf="@+id/holderPassword" />
 
     <TextView
         android:id="@+id/textView"
@@ -79,14 +79,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/sign_in_or"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_sign_in"
+        app:layout_constraintBottom_toBottomOf="@+id/btSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bt_sign_up" />
+        app:layout_constraintTop_toTopOf="@+id/btToSignUp" />
 
 
     <Button
-        android:id="@+id/bt_sign_up"
+        android:id="@+id/btToSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -95,6 +95,6 @@
         android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/holder_password" />
+        app:layout_constraintTop_toBottomOf="@+id/holderPassword" />
 
 </android.support.constraint.ConstraintLayout>

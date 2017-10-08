@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
     <ImageView
-        android:id="@+id/im_logo"
+        android:id="@+id/imLogo"
         android:transitionName="logo"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

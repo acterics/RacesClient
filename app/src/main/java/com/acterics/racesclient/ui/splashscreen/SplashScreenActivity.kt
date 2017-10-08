@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment
 import android.widget.ImageView
 import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.auth.AuthenticateActivity
+import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.getStatusBarSize
 import com.arellomobile.mvp.presenter.InjectPresenter
+import kotlinx.android.synthetic.main.activity_splash.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.*
@@ -26,7 +28,6 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     @InjectPresenter
     lateinit var presenter: SplashScreenPresenter
 
-    private val imLogo by lazy { findViewById<ImageView>(R.id.im_logo) }
 
     override fun getNavigator(): Navigator {
         return Navigator { command -> when (command) {
@@ -57,6 +58,10 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
         setContentView(R.layout.activity_splash)
         window.setBackgroundDrawableResource(R.color.white)
         imLogo.setPadding(0, 0, 0, getStatusBarSize())
+    }
+
+    override fun getBasePresenter(): ActivityBaseNavigationPresenter<*> {
+        return presenter
     }
 
 }

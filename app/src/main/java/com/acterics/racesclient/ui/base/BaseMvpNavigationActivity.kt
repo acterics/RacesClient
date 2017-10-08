@@ -27,6 +27,18 @@ abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(),
         Timber.w("Invalid command ${command.javaClass.name}")
     }
 
+    override fun onResume() {
+        super.onResume()
+        getBasePresenter().onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getBasePresenter().onPause()
+    }
+
+    abstract fun getBasePresenter(): ActivityBaseNavigationPresenter<*>
+
 
 
 }

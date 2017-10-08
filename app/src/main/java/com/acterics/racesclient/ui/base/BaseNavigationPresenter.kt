@@ -12,10 +12,7 @@ import javax.inject.Inject
 /**
  * Created by root on 28.09.17.
  */
-abstract class BaseNavigationPresenter<T: BaseMvpNavigationView>: MvpPresenter<T>() {
-
-    @Inject
-    lateinit var navigationHolder: NavigatorHolder
+abstract class BaseNavigationPresenter<T: MvpView>: MvpPresenter<T>() {
 
     @Inject
     lateinit var router: Router
@@ -23,14 +20,10 @@ abstract class BaseNavigationPresenter<T: BaseMvpNavigationView>: MvpPresenter<T
     override fun attachView(view: T) {
         super.attachView(view)
         injectComponents()
-        view.registerNavigator(navigationHolder)
-    }
 
-    override fun detachView(view: T) {
-        super.detachView(view)
-        view.unregisterNavigator(navigationHolder)
     }
 
     protected abstract fun injectComponents()
+
 
 }
