@@ -25,9 +25,15 @@ fun Context.getUser() {
 }
 
 fun Context.login() {
-
+    getAuthPreferences()
+            .edit()
+            .putBoolean(Constants.EXTRA_IS_AUTH, true)
+            .apply()
 }
 
 fun Context.logout() {
-
+    getAuthPreferences()
+            .edit()
+            .putBoolean(Constants.EXTRA_IS_AUTH, false)
+            .apply()
 }

@@ -14,6 +14,7 @@ import com.acterics.racesclient.ui.auth.signin.SignInFragment
 import com.acterics.racesclient.ui.auth.signup.SignUpFragment
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
+import com.acterics.racesclient.ui.main.MainActivity
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.getStatusBarSize
 import com.acterics.racesclient.utils.keyboard.KeyboardMvpView
@@ -63,7 +64,10 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
     }
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
-        return null
+        return when(screenKey) {
+            Screens.MAIN_SCREEN -> Intent(this, MainActivity::class.java)
+            else -> null
+        }
     }
 
 

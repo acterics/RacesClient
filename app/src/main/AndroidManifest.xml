@@ -22,5 +22,8 @@
         <activity android:name=".ui.auth.AuthenticateActivity"
             android:theme="@style/NoActionBarTheme"/>
 
+        <activity android:name=".ui.main.MainActivity"
+            android:theme="@style/AppTheme"/>
+
     </application>
 </manifest>

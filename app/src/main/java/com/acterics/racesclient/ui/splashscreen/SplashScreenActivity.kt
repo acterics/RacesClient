@@ -8,6 +8,7 @@ import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.auth.AuthenticateActivity
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
+import com.acterics.racesclient.ui.main.MainActivity
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.getStatusBarSize
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -40,7 +41,7 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent {
         return when (screenKey) {
             Screens.AUTHENTICATE_SCREEN -> Intent(this, AuthenticateActivity::class.java)
-            Screens.MAIN_SCREEN -> TODO("not implemented")
+            Screens.MAIN_SCREEN -> Intent(this, MainActivity::class.java)
             else -> throw UnsupportedOperationException()
         }
     }
