@@ -1,4 +1,4 @@
-package com.acterics.racesclient.ui.main.schedule
+package com.acterics.racesclient.ui.schedule
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -20,5 +20,9 @@ class ScheduleFragment: MainDrawerFragment() {
 
     override fun getToolbar(): Toolbar {
         return scheduleToolbar
+    }
+
+    override fun isLightTheme(): Boolean {
+        return false
     }
 }

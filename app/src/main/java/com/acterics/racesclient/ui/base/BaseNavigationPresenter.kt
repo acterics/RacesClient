@@ -16,8 +16,6 @@ abstract class BaseNavigationPresenter<T: MvpView>: MvpPresenter<T>() {
     override fun attachView(view: T) {
         injectComponents()
         super.attachView(view)
-
-
     }
 
     protected abstract fun injectComponents()

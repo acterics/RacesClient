@@ -5,6 +5,6 @@ import com.acterics.racesclient.ui.base.BaseMvpNavigationView
 /**
  * Created by root on 09.10.17.
  */
-interface MainActivityView: BaseMvpNavigationView {
-
+interface MainActivityView: BaseMvpNavigationView, OnDrawerFragmentViewCreatedListener {
+    fun closeDrawer()
 }

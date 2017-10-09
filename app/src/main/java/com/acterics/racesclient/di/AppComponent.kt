@@ -8,6 +8,8 @@ import com.acterics.racesclient.ui.auth.AuthenticatePresenter
 import com.acterics.racesclient.ui.auth.signin.SignInPresenter
 import com.acterics.racesclient.ui.auth.signup.SignUpPresenter
 import com.acterics.racesclient.ui.main.MainActivityPresenter
+import com.acterics.racesclient.ui.profile.ProfilePresenter
+import com.acterics.racesclient.ui.profile.edit.EditProfilePresenter
 import com.acterics.racesclient.ui.splashscreen.SplashScreenPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -28,4 +30,6 @@ interface AppComponent {
     fun inject(signInScreen: SignInPresenter)
     fun inject(signUpScreen: SignUpPresenter)
     fun inject(mainActivityPresenter: MainActivityPresenter)
+    fun inject(profileScreen: ProfilePresenter)
+    fun inject(editProfileScreen: EditProfilePresenter)
 }

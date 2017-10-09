@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
+    android:id="@+id/holderDrawer"
     tools:openDrawer="start">
 
     <FrameLayout
@@ -18,7 +18,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/view_drawer_header"
-        android:fitsSystemWindows="true"
         app:menu="@menu/menu_drawer">
 
     </android.support.design.widget.NavigationView>

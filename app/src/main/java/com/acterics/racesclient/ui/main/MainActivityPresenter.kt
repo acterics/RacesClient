@@ -1,7 +1,9 @@
 package com.acterics.racesclient.ui.main
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.design.widget.NavigationView
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
 import com.acterics.racesclient.R
@@ -17,7 +19,9 @@ import javax.inject.Inject
  * Created by root on 09.10.17.
  */
 @InjectViewState
-class MainActivityPresenter: ActivityBaseNavigationPresenter<MainActivityView>(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivityPresenter: ActivityBaseNavigationPresenter<MainActivityView>(),
+        NavigationView.OnNavigationItemSelectedListener
+{
 
     @Inject
     lateinit var context: Context
@@ -40,6 +44,18 @@ class MainActivityPresenter: ActivityBaseNavigationPresenter<MainActivityView>()
             else -> return false
         }
         return true
+    }
+
+    fun onDrawerFragmentChanged(drawerFragment: MainDrawerFragment) {
+        viewState.closeDrawer()
+    }
+
+    fun getNavigationIcon(lightTheme: Boolean): Drawable? {
+        return if (lightTheme) {
+            ResourcesCompat.getDrawable(context.resources, R.drawable.ic_menu_black, null)
+        } else {
+            ResourcesCompat.getDrawable(context.resources, R.drawable.ic_menu_white, null)
+        }
     }
 
 
