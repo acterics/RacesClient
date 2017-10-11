@@ -4,6 +4,7 @@ import android.content.Context
 import com.acterics.racesclient.R
 import com.acterics.racesclient.RacesApplication
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
+import com.acterics.racesclient.utils.DebugTools
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.login
 import com.acterics.racesclient.utils.validators.EmailValidator
@@ -16,11 +17,9 @@ import javax.inject.Inject
 @InjectViewState
 class SignInPresenter: BaseNavigationPresenter<SignInView>() {
 
-    @Inject
-    lateinit var emailValidator: EmailValidator
-
-    @Inject
-    lateinit var context: Context
+    @Inject lateinit var emailValidator: EmailValidator
+    @Inject lateinit var context: Context
+    @Inject lateinit var debugTools: DebugTools
 
     override fun injectComponents() {
         RacesApplication.applicationComponent.inject(this)
@@ -45,7 +44,7 @@ class SignInPresenter: BaseNavigationPresenter<SignInView>() {
 
     fun onSignInButtonClick() {
         //TODO add authorization logic
-        context.login()
+        context.login(debugTools.getUser())
         router.newRootScreen(Screens.MAIN_SCREEN)
     }
 

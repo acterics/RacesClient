@@ -94,6 +94,15 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
         }
     }
 
+    override fun onBackPressed() {
+        presenter.onBackPressed()
+    }
+
+
+    override fun getBasePresenter(): ActivityBaseNavigationPresenter<*> {
+        return presenter
+    }
+
 
     private fun showKeyboardAnimatorSet(): AnimatorSet {
         return AnimatorSet().apply {
@@ -117,14 +126,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), AuthenticateView, Key
         }
     }
 
-    override fun onBackPressed() {
-        presenter.onBackPressed()
-    }
 
-
-    override fun getBasePresenter(): ActivityBaseNavigationPresenter<*> {
-        return presenter
-    }
 
 
 }

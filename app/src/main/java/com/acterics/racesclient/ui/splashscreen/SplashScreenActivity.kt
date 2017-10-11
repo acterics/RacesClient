@@ -29,8 +29,13 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     override fun getNavigator(): Navigator {
         return Navigator { command -> when (command) {
             is Replace -> {
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        this, imLogo, "logo").toBundle()
+                val options: Bundle? = when(command.screenKey) {
+                    Screens.AUTHENTICATE_SCREEN -> {
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                this, imLogo, "logo").toBundle()
+                    }
+                    else -> null
+                }
                 startActivity(getNavigationIntent(command.screenKey, null), options)
                 imLogo.postDelayed( { finish() }, 500)
             }

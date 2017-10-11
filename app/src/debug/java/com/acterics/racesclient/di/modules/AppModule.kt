@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.acterics.racesclient.DebugApplicationConfiguration
 import com.acterics.racesclient.ApplicationConfiguration
+import com.acterics.racesclient.utils.DebugTools
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,6 +27,13 @@ class AppModule(val app: Application) {
     @Singleton
     fun provideApplicationConfiguration(): ApplicationConfiguration {
         return DebugApplicationConfiguration()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideDebugTools(): DebugTools {
+        return DebugTools()
     }
 
 

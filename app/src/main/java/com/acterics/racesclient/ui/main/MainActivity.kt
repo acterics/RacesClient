@@ -58,7 +58,6 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
 
     override fun onDrawerFragmentViewCreated(toolbarHolder: ToolbarHolder, lightTheme: Boolean) {
         setSupportActionBar(toolbarHolder.getToolbar())
-
         val toggle = ActionBarDrawerToggle(this, holderDrawer,
                 toolbarHolder.getToolbar(), R.string.app_name, R.string.app_name)
         holderDrawer.addDrawerListener(toggle)

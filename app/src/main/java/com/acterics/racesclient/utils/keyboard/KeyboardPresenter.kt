@@ -36,12 +36,7 @@ class KeyboardPresenter: MvpPresenter<KeyboardMvpView>(), ViewTreeObserver.OnGlo
         val b = isKeyboardShown(root?.rootView)
         if (b != keyboardVisible) {
             keyboardVisible = b
-
-            if (!keyboardVisible) {
-                viewState.onKeyboardVisibleChanged(false)
-            } else {
-                viewState.onKeyboardVisibleChanged(true)
-            }
+            viewState.onKeyboardVisibleChanged(keyboardVisible)
         }
     }
 
