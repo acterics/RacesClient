@@ -27,5 +27,6 @@ Vis choro saepe no, dico facete mei cu. In iuvaret aliquam sit, sit postea nusqu
     <string name="username_template">%s %s</string>
     <string name="profile_general">General</string>
     <string name="profile_history">History</string>
+    <string name="filter">Filter</string>
 
 </resources>
