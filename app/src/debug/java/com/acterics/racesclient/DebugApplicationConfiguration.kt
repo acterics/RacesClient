@@ -1,6 +1,7 @@
 package com.acterics.racesclient
 
 import android.app.Application
+import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
 /**
@@ -12,6 +13,9 @@ class DebugApplicationConfiguration: ApplicationConfiguration {
     override fun initialize(app: Application) {
         //Timber
         Timber.plant(Timber.DebugTree())
+
+        //JodaTime
+        JodaTimeAndroid.init(app)
 
     }
 
