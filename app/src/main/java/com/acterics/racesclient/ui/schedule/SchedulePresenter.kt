@@ -8,10 +8,6 @@ import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.DebugTools
 import com.acterics.racesclient.utils.Screens
 import com.arellomobile.mvp.InjectViewState
-import com.mikepenz.fastadapter.IAdapter
-import com.mikepenz.fastadapter.IItem
-import kotlinx.android.synthetic.main.item_race.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -20,12 +16,13 @@ import javax.inject.Inject
 @InjectViewState
 class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
 
-
     @Inject lateinit var debugTools: DebugTools
 
     private val handler = Handler()
-    private var page = 0
+    private var page = -1
+
     val sharedElements = HashMap<String, View?>()
+
 
     override fun injectComponents() {
         RacesApplication.applicationComponent.inject(this)
@@ -34,9 +31,12 @@ class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
 
     override fun attachView(view: ScheduleView) {
         super.attachView(view)
-        if (page >= 0) {
-            view.resetScrollListener(page)
+        if (page == -1) {
+            view.resetPage(0)
+        } else {
+            view.resetPage(page)
         }
+
     }
 
     override fun detachView(view: ScheduleView?) {
@@ -46,21 +46,16 @@ class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
     }
 
 
-
     fun onLoadMore(currentPage: Int) {
-        val isFirstPage = page == 0
-        Timber.e("onLoadMore: page: $page currentPage: $currentPage")
-        if (currentPage > page) {
-            viewState.startScheduleLoading(isFirstPage)
+        if (currentPage > page || page == -1) {
+            viewState.startScheduleLoading(currentPage == 0)
             handler.postDelayed({
-                with(viewState) {
-                    page = currentPage
-                    stopScheduleLoading()
-                    showRaces(debugTools.getRacesPage(currentPage).map { ScheduleItem(it) })
-                    Timber.e("onLoadedx: page: $page currentPage: $currentPage")
-                }
+                page = currentPage
+                viewState.stopScheduleLoading()
+                viewState.showRaces(debugTools.getRacesPage(currentPage).map { ScheduleItem(it) })
             }, debugTools.getNetworkDelay())
         }
+
     }
 
     fun onScheduleItemClick(view: View?, item: ScheduleItem?) : Boolean {

@@ -14,5 +14,6 @@ interface ScheduleView: MvpView {
     fun stopScheduleLoading()
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun resetScrollListener(page: Int)
+    fun resetPage(page: Int)
+
 }

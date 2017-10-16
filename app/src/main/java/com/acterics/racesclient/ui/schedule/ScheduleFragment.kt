@@ -3,6 +3,7 @@ package com.acterics.racesclient.ui.schedule
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.acterics.racesclient.R
@@ -28,12 +29,16 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     private val scheduleAdapter = FastItemAdapter<ScheduleItem>()
     private val footerAdapter = FooterAdapter<ProgressItem>()
 
+
+    private lateinit var layoutManager: RecyclerView.LayoutManager
     private val endlessScrollListener = object: EndlessRecyclerOnScrollListener(footerAdapter) {
         override fun onLoadMore(currentPage: Int) {
             presenter.onLoadMore(currentPage)
         }
 
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,15 +52,19 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         return localInflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(scheduleAdapter.saveInstanceState(outState))
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        layoutManager = LinearLayoutManager(context)
+
         scheduleAdapter.withOnClickListener { v, _, item, _ -> presenter.onScheduleItemClick(v, item) }
-        rvSchedule.layoutManager = LinearLayoutManager(context)
+        rvSchedule.layoutManager = layoutManager
         rvSchedule.adapter = footerAdapter.wrap(scheduleAdapter)
         rvSchedule.itemAnimator = DefaultItemAnimator()
         rvSchedule.addOnScrollListener(endlessScrollListener)
-
-
     }
 
     override fun getToolbar(): Toolbar {
@@ -69,8 +78,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_schedule, menu)
     }
-
-    override fun resetScrollListener(page: Int) {
+    override fun resetPage(page: Int) {
         endlessScrollListener.resetPageCount(page)
     }
 
