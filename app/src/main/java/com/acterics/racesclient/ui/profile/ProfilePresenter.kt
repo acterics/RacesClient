@@ -42,9 +42,9 @@ class ProfilePresenter: BaseNavigationPresenter<ProfileView>() {
                 .isLight()
 
         val usernameIsLight = avatarBitmap
-                .transform {Bitmap.createBitmap(it, rectUsername.left - xOffset, rectUsername.top - yOffset,
-                        rectUsername.width(), rectUsername.height())}
-                .transform {Bitmap.createScaledBitmap(it, 1, 1, false).getPixel(0, 0) }
+                .transform { Bitmap.createBitmap(it, rectUsername.left - xOffset, rectUsername.top - yOffset,
+                        rectUsername.width(), rectUsername.height()) }
+                .transform { Bitmap.createScaledBitmap(it, 1, 1, false).getPixel(0, 0) }
                 .isLight()
 
 

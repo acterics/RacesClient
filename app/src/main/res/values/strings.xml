@@ -29,4 +29,9 @@ Vis choro saepe no, dico facete mei cu. In iuvaret aliquam sit, sit postea nusqu
     <string name="profile_history">History</string>
     <string name="filter">Filter</string>
 
+
+    <string name="translation_name_auth_logo">AuthLogo</string>
+    <string name="translation_name_item_race">ItemRace</string>
+    <string name="race">Race</string>
+
 </resources>

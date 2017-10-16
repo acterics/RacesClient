@@ -1,9 +1,14 @@
 package com.acterics.racesclient.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.support.annotation.DrawableRes
+import android.support.v4.content.res.ResourcesCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageButton
@@ -25,6 +30,10 @@ fun Context.getStatusBarSize(): Int {
     return result
 }
 
+fun Context.getSupportDrawable(@DrawableRes drawableRes: Int, theme: Resources.Theme? = null): Drawable? {
+    return ResourcesCompat.getDrawable(resources, drawableRes, theme)
+}
+
 fun Toolbar.getNavigationIconView(): View {
     (0..childCount)
             .map { getChildAt(it) }
@@ -38,6 +47,11 @@ fun View.getGlobalVisibleRect(): Rect {
     getGlobalVisibleRect(rect)
     return rect
 }
+
+fun View.setSupportTranslationName(translationName: String) {
+    ViewCompat.setTransitionName(this, translationName)
+}
+
 
 fun <T>Bitmap.transform(transformation: (Bitmap) -> T): T {
     return transformation(this)

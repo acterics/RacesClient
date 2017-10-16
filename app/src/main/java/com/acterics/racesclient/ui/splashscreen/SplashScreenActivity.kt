@@ -22,6 +22,7 @@ import java.lang.UnsupportedOperationException
  */
 class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
 
+
     @InjectPresenter
     lateinit var presenter: SplashScreenPresenter
 
@@ -31,8 +32,7 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
             is Replace -> {
                 val options: Bundle? = when(command.screenKey) {
                     Screens.AUTHENTICATE_SCREEN -> {
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                this, imLogo, "logo").toBundle()
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, imLogo, getString(R.string.translation_name_auth_logo)).toBundle()
                     }
                     else -> null
                 }
@@ -65,5 +65,6 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     override fun getBasePresenter(): ActivityBaseNavigationPresenter<*> {
         return presenter
     }
+
 
 }

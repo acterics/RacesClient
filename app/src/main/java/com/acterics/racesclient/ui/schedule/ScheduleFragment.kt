@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.acterics.racesclient.R
+import com.acterics.racesclient.ui.base.SharedElementsHolder
 import com.acterics.racesclient.ui.main.MainDrawerFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mikepenz.fastadapter.adapters.FooterAdapter
@@ -18,8 +19,7 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
 /**
  * Created by root on 09.10.17.
  */
-class ScheduleFragment: MainDrawerFragment(), ScheduleView {
-
+class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder {
 
 
     @InjectPresenter
@@ -42,15 +42,20 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_schedule, container, false)
+        val contextWrapper = ContextThemeWrapper(context, R.style.ScheduleTheme)
+        val localInflater = inflater.cloneInContext(contextWrapper)
+        return localInflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        scheduleAdapter.withOnClickListener { v, _, item, _ -> presenter.onScheduleItemClick(v, item) }
         rvSchedule.layoutManager = LinearLayoutManager(context)
         rvSchedule.adapter = footerAdapter.wrap(scheduleAdapter)
         rvSchedule.itemAnimator = DefaultItemAnimator()
         rvSchedule.addOnScrollListener(endlessScrollListener)
+
+
     }
 
     override fun getToolbar(): Toolbar {
@@ -73,14 +78,19 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView {
         scheduleAdapter.add(scheduleAdapter.adapterItemCount, races)
     }
 
-    override fun startScheduleLoading() {
+    override fun startScheduleLoading(isFirstPage: Boolean) {
         footerAdapter.clear()
-        footerAdapter.add(ProgressItem().withEnabled(true))
+        val progressItem = if (isFirstPage) { PageProgressItem() } else { ProgressItem() }
+                .withEnabled(true)
+        footerAdapter.add(progressItem)
     }
 
     override fun stopScheduleLoading() {
         footerAdapter.clear()
     }
 
+    override fun getSharedElements(): Map<String, View?> {
+        return presenter.sharedElements
+    }
 
 }

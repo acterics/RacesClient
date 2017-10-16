@@ -4,19 +4,27 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import com.acterics.racesclient.R
+import com.acterics.racesclient.data.entity.Race
 import com.acterics.racesclient.ui.auth.AuthenticateActivity
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
+import com.acterics.racesclient.ui.base.SharedElementHolder
+import com.acterics.racesclient.ui.base.SharedElementsHolder
 import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
 import com.acterics.racesclient.ui.profile.ProfileFragment
 import com.acterics.racesclient.ui.profile.edit.EditProfileActivity
+import com.acterics.racesclient.ui.race.RaceDetailFragment
 import com.acterics.racesclient.ui.schedule.ScheduleFragment
+import com.acterics.racesclient.ui.schedule.ScheduleItem
 import com.acterics.racesclient.ui.settings.SettingsFragment
 import com.acterics.racesclient.utils.Screens
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Forward
 
 /**
  * Created by root on 08.10.17.
@@ -44,13 +52,16 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     }
 
     override fun getFragment(screenKey: String?, data: Any?): Fragment? {
-        val drawerFragment: MainDrawerFragment = when(screenKey) {
+        val drawerFragment: Fragment? = when(screenKey) {
             Screens.PROFILE_SCREEN -> ProfileFragment()
             Screens.RACES_SCREEN -> ScheduleFragment()
             Screens.SETTINGS_SCREEN -> SettingsFragment()
+            Screens.RACE_DETAIL_SCREEN -> RaceDetailFragment().apply { scheduleItem = data as ScheduleItem }
             else -> return null
         }
-        presenter.onDrawerFragmentChanged(drawerFragment)
+        if (drawerFragment is MainDrawerFragment) {
+            presenter.onDrawerFragmentChanged(drawerFragment)
+        }
         return drawerFragment
 
 
@@ -64,6 +75,24 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
         toggle.syncState()
         toolbarHolder.getToolbar().navigationIcon = presenter.getNavigationIcon(lightTheme)
 
+    }
+
+    override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
+        when(command) {
+            is Forward -> {
+                when (currentFragment) {
+                    is SharedElementHolder -> fragmentTransaction?.addSharedElement(currentFragment.getSharedView(), currentFragment.getSharedTranslationName())
+                    is SharedElementsHolder -> currentFragment.getSharedElements().entries.forEach {
+                        fragmentTransaction?.addSharedElement(it.value, it.key)
+                    }
+                }
+            }
+
+
+        }
+        if (currentFragment is SharedElementHolder && command is Forward) {
+
+        }
     }
 
     override fun getBasePresenter(): ActivityBaseNavigationPresenter<*> {
@@ -81,5 +110,6 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
             super.onBackPressed()
         }
     }
+
 
 }

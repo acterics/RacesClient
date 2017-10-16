@@ -11,6 +11,7 @@ import com.acterics.racesclient.ui.auth.signup.SignUpPresenter
 import com.acterics.racesclient.ui.main.MainActivityPresenter
 import com.acterics.racesclient.ui.profile.ProfilePresenter
 import com.acterics.racesclient.ui.profile.edit.EditProfilePresenter
+import com.acterics.racesclient.ui.race.RaceDetailPresenter
 import com.acterics.racesclient.ui.schedule.SchedulePresenter
 import com.acterics.racesclient.ui.splashscreen.SplashScreenPresenter
 import dagger.Component
@@ -36,4 +37,5 @@ interface AppComponent {
     fun inject(profileScreen: ProfilePresenter)
     fun inject(editProfileScreen: EditProfilePresenter)
     fun inject(scheduleScreen: SchedulePresenter)
+    fun inject(raceDetailScreen: RaceDetailPresenter)
 }

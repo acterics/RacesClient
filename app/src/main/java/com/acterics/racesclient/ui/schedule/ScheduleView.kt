@@ -10,7 +10,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
  */
 interface ScheduleView: MvpView {
     fun showRaces(races: List<ScheduleItem>)
-    fun startScheduleLoading()
+    fun startScheduleLoading(isFirstPage: Boolean)
     fun stopScheduleLoading()
 
     @StateStrategyType(OneExecutionStateStrategy::class)
