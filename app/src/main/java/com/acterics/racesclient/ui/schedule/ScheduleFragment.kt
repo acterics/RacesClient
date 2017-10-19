@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.base.SharedElementsHolder
 import com.acterics.racesclient.ui.main.MainDrawerFragment
@@ -37,9 +38,6 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         }
 
     }
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,4 +99,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         return presenter.sharedElements
     }
 
+    override fun showError(message: String?) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 }

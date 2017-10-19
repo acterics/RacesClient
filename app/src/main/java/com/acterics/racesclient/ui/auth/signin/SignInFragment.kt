@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.acterics.racesclient.R
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_sign_in.*
  * Created by root on 29.09.17.
  */
 class SignInFragment: MvpAppCompatFragment(), SignInView {
+
 
     @InjectPresenter
     lateinit var presenter: SignInPresenter
@@ -39,7 +41,11 @@ class SignInFragment: MvpAppCompatFragment(), SignInView {
         })
 
         btToSignUp.setOnClickListener{ presenter.onSignUpButtonClick() }
-        btSignIn.setOnClickListener { presenter.onSignInButtonClick() }
+        btSignIn.setOnClickListener {
+            presenter.onSignInButtonClick(
+                    etSignInEmail.text.toString(),
+                    etSignInPassword.text.toString())
+        }
     }
 
 
@@ -57,6 +63,10 @@ class SignInFragment: MvpAppCompatFragment(), SignInView {
 
     override fun showPasswordInputError(errorRes: Int) {
         holderPassword?.error = getString(errorRes)
+    }
+
+    override fun showError(message: String?) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 

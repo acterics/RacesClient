@@ -1,10 +1,7 @@
 package com.acterics.racesclient.di
 
 import com.acterics.racesclient.RacesApplication
-import com.acterics.racesclient.di.modules.AppModule
-import com.acterics.racesclient.di.modules.NavigationModule
-import com.acterics.racesclient.di.modules.NetworkModule
-import com.acterics.racesclient.di.modules.ValidationModule
+import com.acterics.racesclient.di.modules.*
 import com.acterics.racesclient.ui.auth.AuthenticatePresenter
 import com.acterics.racesclient.ui.auth.signin.SignInPresenter
 import com.acterics.racesclient.ui.auth.signup.SignUpPresenter
@@ -24,6 +21,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         NavigationModule::class,
         AppModule::class,
+        ApiModule::class,
+        BuildModule::class,
         ValidationModule::class,
         NetworkModule::class
 ))

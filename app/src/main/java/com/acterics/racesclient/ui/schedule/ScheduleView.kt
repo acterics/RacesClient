@@ -12,6 +12,7 @@ interface ScheduleView: MvpView {
     fun showRaces(races: List<ScheduleItem>)
     fun startScheduleLoading(isFirstPage: Boolean)
     fun stopScheduleLoading()
+    fun showError(message: String?)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun resetPage(page: Int)

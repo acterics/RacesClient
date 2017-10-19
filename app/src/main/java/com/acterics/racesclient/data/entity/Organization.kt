@@ -6,14 +6,17 @@ import android.os.Parcelable
 /**
  * Created by root on 15.10.17.
  */
-data class Organization(val name: String) : Parcelable {
+data class Organization(val id: Long,
+                        val name: String) : Parcelable {
     constructor(source: Parcel) : this(
+            source.readLong(),
             source.readString()
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeLong(id)
         writeString(name)
     }
 

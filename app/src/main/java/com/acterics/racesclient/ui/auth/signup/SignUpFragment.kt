@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.acterics.racesclient.R
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -27,5 +28,7 @@ class SignUpFragment: MvpAppCompatFragment(), SignUpView {
         btSignUp.setOnClickListener { presenter.onSignUpButtonClick() }
     }
 
-
+    override fun showError(message: String?) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 }

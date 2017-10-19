@@ -4,10 +4,13 @@ import android.os.Handler
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
-import com.acterics.racesclient.utils.DebugTools
 import com.acterics.racesclient.utils.Screens
+import com.acterics.racesclient.utils.checkStatus
 import com.arellomobile.mvp.InjectViewState
+import io.reactivex.rxkotlin.subscribeBy
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -16,9 +19,8 @@ import javax.inject.Inject
 @InjectViewState
 class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
 
-    @Inject lateinit var debugTools: DebugTools
+    @Inject lateinit var apiService: ApiService
 
-    private val handler = Handler()
     private var page = -1
 
     val sharedElements = HashMap<String, View?>()
@@ -42,18 +44,27 @@ class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
     override fun detachView(view: ScheduleView?) {
         super.detachView(view)
         sharedElements.clear()
-        handler.removeCallbacksAndMessages(null)
     }
 
 
     fun onLoadMore(currentPage: Int) {
+        Timber.e("onLoadMore: ")
         if (currentPage > page || page == -1) {
             viewState.startScheduleLoading(currentPage == 0)
-            handler.postDelayed({
-                page = currentPage
-                viewState.stopScheduleLoading()
-                viewState.showRaces(debugTools.getRacesPage(currentPage).map { ScheduleItem(it) })
-            }, debugTools.getNetworkDelay())
+            apiService.getSchedule(currentPage)
+                    .checkStatus()
+                    .map { it.races }
+                    .subscribeBy(
+                            onNext = { races ->
+                                page = currentPage
+                                viewState.stopScheduleLoading()
+                                viewState.showRaces(races.map { race -> ScheduleItem(race) })
+                            },
+                            onError = { throwable ->
+                                viewState.stopScheduleLoading()
+                                viewState.showError(throwable.message)
+                            }
+                    )
         }
 
     }

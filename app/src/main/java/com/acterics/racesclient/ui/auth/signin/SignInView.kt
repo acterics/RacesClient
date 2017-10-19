@@ -10,4 +10,5 @@ interface SignInView: MvpView {
     fun showEmailInputError(@StringRes errorRes: Int)
     fun hideEmailInputError()
     fun showPasswordInputError(@StringRes errorRes: Int)
+    fun showError(message: String?)
 }

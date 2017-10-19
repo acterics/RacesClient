@@ -6,11 +6,13 @@ import android.os.Parcelable
 /**
  * Created by root on 09.10.17.
  */
-data class User(val firstName: String,
+data class User(val id: Long,
+                val firstName: String,
                 val lastName: String,
                 val email: String,
                 val avatar: String) : Parcelable {
     constructor(source: Parcel) : this(
+            source.readLong(),
             source.readString(),
             source.readString(),
             source.readString(),
@@ -20,6 +22,7 @@ data class User(val firstName: String,
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeLong(id)
         writeString(firstName)
         writeString(lastName)
         writeString(email)

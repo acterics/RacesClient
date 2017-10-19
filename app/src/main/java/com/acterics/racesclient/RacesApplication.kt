@@ -3,8 +3,7 @@ package com.acterics.racesclient
 import android.app.Application
 import com.acterics.racesclient.di.AppComponent
 import com.acterics.racesclient.di.DaggerAppComponent
-import com.acterics.racesclient.di.modules.AppModule
-import com.acterics.racesclient.di.modules.NavigationModule
+import com.acterics.racesclient.di.modules.*
 import javax.inject.Inject
 
 /**
@@ -25,6 +24,9 @@ class RacesApplication: Application() {
         applicationComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .navigationModule(NavigationModule())
+                .validationModule(ValidationModule())
+                .buildModule(BuildModule())
+                .apiModule(ApiModule())
                 .build()
         applicationComponent.inject(this)
 

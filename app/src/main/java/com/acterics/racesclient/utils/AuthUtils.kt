@@ -15,6 +15,7 @@ private object AuthUtilsConstants {
     const val EXTRA_LAST_NAME = "com.acterics.racesclient.utils.EXTRA_LAST_NAME"
     const val EXTRA_AVATAR = "com.acterics.racesclient.utils.EXTRA_AVATAR"
     const val EXTRA_EMAIL = "com.acterics.racesclient.utils.EXTRA_EMAIL"
+    const val EXTRA_ID = "com.acterics.racesclient.utils.EXTRA_ID"
 }
 
 fun Context.getAuthPreferences(): SharedPreferences {
@@ -31,7 +32,8 @@ fun Context.getUser(): User {
     val lastName = prefs.getString(AuthUtilsConstants.EXTRA_LAST_NAME, "")
     val email = prefs.getString(AuthUtilsConstants.EXTRA_EMAIL, "")
     val avatar = prefs.getString(AuthUtilsConstants.EXTRA_AVATAR, "")
-    return User(firstName, lastName, email, avatar)
+    val id = prefs.getLong(AuthUtilsConstants.EXTRA_ID, -1)
+    return User(id, firstName, lastName, email, avatar)
 }
 
 fun Context.login(user: User) {
@@ -42,6 +44,7 @@ fun Context.login(user: User) {
             .putString(AuthUtilsConstants.EXTRA_LAST_NAME, user.lastName)
             .putString(AuthUtilsConstants.EXTRA_EMAIL, user.email)
             .putString(AuthUtilsConstants.EXTRA_AVATAR, user.avatar)
+            .putLong(AuthUtilsConstants.EXTRA_ID, user.id)
             .apply()
 }
 
