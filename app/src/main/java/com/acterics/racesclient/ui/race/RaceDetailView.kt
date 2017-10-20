@@ -1,5 +1,6 @@
 package com.acterics.racesclient.ui.race
 
+import com.acterics.racesclient.data.entity.Participant
 import com.arellomobile.mvp.MvpView
 
 /**
@@ -7,4 +8,9 @@ import com.arellomobile.mvp.MvpView
  */
 interface RaceDetailView: MvpView {
 
+    fun onViewAttached()
+    fun showParticipants(participants: List<ParticipantItem>)
+    fun startParticipantsLoading()
+    fun stopParticipantsLoading()
+    fun showError(message: String?)
 }

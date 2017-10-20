@@ -14,7 +14,6 @@ import org.joda.time.DateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 /**
@@ -42,6 +41,7 @@ class DebugApiService : ApiService {
         private val HORSE_POOL_SIZE = 100
 
         private val RACES_PAGE_SIZE = 10
+        private val RACE_PARTICIPATIONS_MAX = 15
 
 
         private val NETWORK_DELAY_MILLS = 1000L
@@ -102,7 +102,8 @@ class DebugApiService : ApiService {
         val debugParticipation = participationPool[id] ?: throw IllegalArgumentException()
         val race = racesPool[id.toInt()]
         return RaceDetailResponse(race,
-                debugParticipation.map { Participant(it, debugRandom.nextFloat()) })
+                debugParticipation.map { Participant(it,
+                        (debugRandom.nextFloat() + 0.01f) * (debugRandom.nextInt(3) + 1)) })
 
 
     }
@@ -154,7 +155,7 @@ class DebugApiService : ApiService {
 
     private fun newParticipation(): Set<Horse> {
         return HashSet<Horse>().apply {
-            (0..debugRandom.nextInt(HORSE_POOL_SIZE))
+            (0..debugRandom.nextInt(RACE_PARTICIPATIONS_MAX))
                     .map { getHorse() }
                     .forEach { add(it) }
         }

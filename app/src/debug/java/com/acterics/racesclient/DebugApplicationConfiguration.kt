@@ -1,6 +1,8 @@
 package com.acterics.racesclient
 
 import android.app.Application
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
@@ -15,6 +17,10 @@ class DebugApplicationConfiguration: ApplicationConfiguration {
         Timber.plant(Timber.DebugTree())
         //JodaTime
         JodaTimeAndroid.init(app)
+
+        //Crashlytics
+        Fabric.with(app, Crashlytics())
+
     }
 
 

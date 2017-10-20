@@ -1,7 +1,6 @@
 package com.acterics.racesclient.di.modules
 
 import com.acterics.racesclient.BuildConfig
-import com.acterics.racesclient.data.rest.ApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

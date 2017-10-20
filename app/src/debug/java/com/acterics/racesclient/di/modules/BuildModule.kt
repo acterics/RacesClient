@@ -1,7 +1,7 @@
 package com.acterics.racesclient.di.modules
 
-import com.acterics.racesclient.DebugApplicationConfiguration
 import com.acterics.racesclient.ApplicationConfiguration
+import com.acterics.racesclient.DebugApplicationConfiguration
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -1,6 +1,5 @@
 package com.acterics.racesclient.ui.profile
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -10,7 +9,6 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.User
 import com.acterics.racesclient.ui.main.MainDrawerFragment
@@ -25,8 +23,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.fragment_profile.*
-
-import timber.log.Timber
 import java.lang.Exception
 
 /**

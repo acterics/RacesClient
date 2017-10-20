@@ -1,14 +1,11 @@
 package com.acterics.racesclient.ui.main
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import com.acterics.racesclient.R
-import com.acterics.racesclient.data.entity.Race
 import com.acterics.racesclient.ui.auth.AuthenticateActivity
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.ui.base.SharedElementHolder

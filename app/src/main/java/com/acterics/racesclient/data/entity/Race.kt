@@ -3,7 +3,6 @@ package com.acterics.racesclient.data.entity
 import android.os.Parcel
 import android.os.Parcelable
 import org.joda.time.DateTime
-import java.io.Serializable
 
 /**
  * Created by root on 15.10.17.

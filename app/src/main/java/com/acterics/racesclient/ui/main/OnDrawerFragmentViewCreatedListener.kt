@@ -1,7 +1,6 @@
 package com.acterics.racesclient.ui.main
 
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 /**

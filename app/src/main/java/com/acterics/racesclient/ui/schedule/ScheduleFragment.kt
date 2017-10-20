@@ -11,11 +11,13 @@ import com.acterics.racesclient.R
 import com.acterics.racesclient.ui.base.SharedElementsHolder
 import com.acterics.racesclient.ui.main.MainDrawerFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import com.mikepenz.fastadapter.adapters.FooterAdapter
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import com.mikepenz.fastadapter_extensions.items.ProgressItem
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 import kotlinx.android.synthetic.main.fragment_schedule.*
+import timber.log.Timber
 
 
 /**
@@ -24,15 +26,15 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
 class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder {
 
 
-    @InjectPresenter
+    @InjectPresenter(type = PresenterType.WEAK)
     lateinit var presenter: SchedulePresenter
 
     private val scheduleAdapter = FastItemAdapter<ScheduleItem>()
-    private val footerAdapter = FooterAdapter<ProgressItem>()
+    private val progressAdapter = FooterAdapter<ProgressItem>()
 
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private val endlessScrollListener = object: EndlessRecyclerOnScrollListener(footerAdapter) {
+    private val endlessScrollListener = object: EndlessRecyclerOnScrollListener(progressAdapter) {
         override fun onLoadMore(currentPage: Int) {
             presenter.onLoadMore(currentPage)
         }
@@ -57,12 +59,18 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(context)
-
         scheduleAdapter.withOnClickListener { v, _, item, _ -> presenter.onScheduleItemClick(v, item) }
         rvSchedule.layoutManager = layoutManager
-        rvSchedule.adapter = footerAdapter.wrap(scheduleAdapter)
+        rvSchedule.adapter = progressAdapter.wrap(scheduleAdapter)
         rvSchedule.itemAnimator = DefaultItemAnimator()
         rvSchedule.addOnScrollListener(endlessScrollListener)
+
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        presenter.shouldRestore = true
     }
 
     override fun getToolbar(): Toolbar {
@@ -81,18 +89,21 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     }
 
     override fun showRaces(races: List<ScheduleItem>) {
+        Timber.e("showRaces: ")
         scheduleAdapter.add(scheduleAdapter.adapterItemCount, races)
+
+
     }
 
     override fun startScheduleLoading(isFirstPage: Boolean) {
-        footerAdapter.clear()
+        progressAdapter.clear()
         val progressItem = if (isFirstPage) { PageProgressItem() } else { ProgressItem() }
                 .withEnabled(true)
-        footerAdapter.add(progressItem)
+        progressAdapter.add(progressItem)
     }
 
     override fun stopScheduleLoading() {
-        footerAdapter.clear()
+        progressAdapter.clear()
     }
 
     override fun getSharedElements(): Map<String, View?> {

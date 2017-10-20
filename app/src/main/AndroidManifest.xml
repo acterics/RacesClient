@@ -29,5 +29,10 @@
         <activity android:name=".ui.profile.edit.EditProfileActivity"
             android:theme="@style/AppTheme"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f1c07163b1ed6df9d047b3bb99202534bb6fbf4c"
+            />
+
     </application>
 </manifest>

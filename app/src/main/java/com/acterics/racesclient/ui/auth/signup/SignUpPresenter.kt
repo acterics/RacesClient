@@ -2,12 +2,8 @@ package com.acterics.racesclient.ui.auth.signup
 
 import android.content.Context
 import com.acterics.racesclient.RacesApplication
-import com.acterics.racesclient.data.entity.User
-import com.acterics.racesclient.data.model.request.SignUpRequest
 import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
-import com.acterics.racesclient.utils.Screens
-import com.acterics.racesclient.utils.login
 import com.arellomobile.mvp.InjectViewState
 import javax.inject.Inject
 

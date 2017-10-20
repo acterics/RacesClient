@@ -7,7 +7,6 @@ import com.acterics.racesclient.data.model.response.BaseResponse
 import com.acterics.racesclient.data.model.response.RaceDetailResponse
 import com.acterics.racesclient.data.model.response.ScheduleResponse
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.*
 
 /**

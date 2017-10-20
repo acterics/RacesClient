@@ -4,12 +4,10 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.design.widget.NavigationView
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
 import com.acterics.racesclient.R
 import com.acterics.racesclient.RacesApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.logout
 import com.arellomobile.mvp.InjectViewState

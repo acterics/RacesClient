@@ -15,7 +15,7 @@ fun <D, T: BaseResponse<D>> Observable<T>.checkStatus(): Observable<D> {
         val observable = if (it.status == BaseResponse.STATUS_SUCCESS) {
             Observable.just(it.data)
         } else {
-            io.reactivex.Observable.error(NetworkStatusException(it.message))
+            Observable.error(NetworkStatusException(it.message))
         }
         observable
     }

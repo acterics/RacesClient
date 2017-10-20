@@ -1,7 +1,7 @@
 package com.acterics.racesclient.ui.schedule
 
-import com.acterics.racesclient.data.entity.Race
 import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
@@ -9,6 +9,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
  * Created by root on 15.10.17.
  */
 interface ScheduleView: MvpView {
+
+
     fun showRaces(races: List<ScheduleItem>)
     fun startScheduleLoading(isFirstPage: Boolean)
     fun stopScheduleLoading()
@@ -16,5 +18,6 @@ interface ScheduleView: MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun resetPage(page: Int)
+
 
 }

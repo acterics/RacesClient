@@ -9,7 +9,10 @@ import android.support.v4.content.res.ResourcesCompat
 import com.acterics.racesclient.R
 import com.acterics.racesclient.RacesApplication
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
-import com.acterics.racesclient.utils.*
+import com.acterics.racesclient.utils.Screens
+import com.acterics.racesclient.utils.getUser
+import com.acterics.racesclient.utils.isLight
+import com.acterics.racesclient.utils.transform
 import com.arellomobile.mvp.InjectViewState
 import javax.inject.Inject
 
