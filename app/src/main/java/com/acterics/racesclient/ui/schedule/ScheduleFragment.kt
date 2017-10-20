@@ -34,12 +34,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
 
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private val endlessScrollListener = object: EndlessRecyclerOnScrollListener(progressAdapter) {
-        override fun onLoadMore(currentPage: Int) {
-            presenter.onLoadMore(currentPage)
-        }
-
-    }
+    private lateinit var endlessScrollListener : EndlessRecyclerOnScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,20 +53,25 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         layoutManager = LinearLayoutManager(context)
         scheduleAdapter.withOnClickListener { v, _, item, _ -> presenter.onScheduleItemClick(v, item) }
         rvSchedule.layoutManager = layoutManager
         rvSchedule.adapter = progressAdapter.wrap(scheduleAdapter)
         rvSchedule.itemAnimator = DefaultItemAnimator()
+
+        endlessScrollListener = object: EndlessRecyclerOnScrollListener(layoutManager, 5, progressAdapter) {
+            override fun onLoadMore(currentPage: Int) {
+                presenter.onLoadMore(currentPage)
+            }
+        }
+
         rvSchedule.addOnScrollListener(endlessScrollListener)
 
 
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        presenter.shouldRestore = true
-    }
 
     override fun getToolbar(): Toolbar {
         return scheduleToolbar
@@ -89,10 +89,12 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     }
 
     override fun showRaces(races: List<ScheduleItem>) {
-        Timber.e("showRaces: ")
         scheduleAdapter.add(scheduleAdapter.adapterItemCount, races)
+    }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scheduleAdapter.clear()
     }
 
     override fun startScheduleLoading(isFirstPage: Boolean) {
