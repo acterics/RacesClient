@@ -52,7 +52,7 @@ class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contextWrapper = ContextThemeWrapper(context, R.style.ScheduleTheme)
+        val contextWrapper = ContextThemeWrapper(context, R.style.BlackAccentTheme)
         val localInflater = inflater.cloneInContext(contextWrapper)
         return localInflater.inflate(R.layout.fragment_race, container, false)
     }

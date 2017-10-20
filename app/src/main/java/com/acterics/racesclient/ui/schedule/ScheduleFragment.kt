@@ -17,7 +17,6 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import com.mikepenz.fastadapter_extensions.items.ProgressItem
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 import kotlinx.android.synthetic.main.fragment_schedule.*
-import timber.log.Timber
 
 
 /**
@@ -42,7 +41,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contextWrapper = ContextThemeWrapper(context, R.style.ScheduleTheme)
+        val contextWrapper = ContextThemeWrapper(context, R.style.BlackAccentTheme)
         val localInflater = inflater.cloneInContext(contextWrapper)
         return localInflater.inflate(R.layout.fragment_schedule, container, false)
     }

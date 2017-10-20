@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="drawer_header_height">160dp</dimen>
+    <dimen name="button_width">120dp</dimen>
+    <dimen name="button_height">36dp</dimen>
 </resources>

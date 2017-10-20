@@ -119,7 +119,8 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     //Log
-    compile 'com.jakewharton.timber:timber:4.5.1'
+    debugCompile 'com.jakewharton.timber:timber:4.5.1'
+    debugCompile 'com.facebook.stetho:stetho:1.5.0'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true
