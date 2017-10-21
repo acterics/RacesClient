@@ -4,7 +4,6 @@ import com.acterics.racesclient.data.entity.*
 import com.acterics.racesclient.data.model.request.SignInRequest
 import com.acterics.racesclient.data.model.request.SignUpRequest
 import com.acterics.racesclient.data.model.response.BaseResponse
-import com.acterics.racesclient.data.model.response.RaceDetailResponse
 import com.acterics.racesclient.data.model.response.ScheduleResponse
 import com.acterics.racesclient.data.rest.ApiService
 import io.reactivex.Observable

@@ -1,10 +1,10 @@
 package com.acterics.racesclient.data.rest
 
-import com.acterics.racesclient.data.entity.User
+import com.acterics.racesclient.data.model.RaceModel
+import com.acterics.racesclient.data.model.UserModel
 import com.acterics.racesclient.data.model.request.SignInRequest
 import com.acterics.racesclient.data.model.request.SignUpRequest
 import com.acterics.racesclient.data.model.response.BaseResponse
-import com.acterics.racesclient.data.model.response.RaceDetailResponse
 import com.acterics.racesclient.data.model.response.ScheduleResponse
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -14,17 +14,16 @@ import retrofit2.http.*
  */
 interface ApiService {
     @POST("/signin")
-    fun signIn(@Body signInRequest: SignInRequest): Observable<BaseResponse<User>>
+    fun signIn(@Body signInRequest: SignInRequest): Observable<BaseResponse<UserModel>>
 
     @POST("/signup")
-    fun signUp(@Body signUpRequest: SignUpRequest): Observable<BaseResponse<User>>
+    fun signUp(@Body signUpRequest: SignUpRequest): Observable<BaseResponse<UserModel>>
 
     @GET("/schedule")
-    fun getSchedule(@Query("page") page: Int): Observable<BaseResponse<ScheduleResponse>>
+    fun getSchedule(@Query("skip") skip: Int, @Query("count") count: Int): Observable<BaseResponse<ScheduleResponse>>
 
     @GET("/race/{id}")
-    fun getRace(@Path("id") raceId: Long): Observable<BaseResponse<RaceDetailResponse>>
-
+    fun getRace(@Path("id") raceId: Long): Observable<BaseResponse<RaceModel>>
 
 
 }

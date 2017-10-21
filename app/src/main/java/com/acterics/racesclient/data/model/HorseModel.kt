@@ -1,0 +1,7 @@
+package com.acterics.racesclient.data.model
+
+/**
+ * Created by root on 21.10.17.
+ */
+data class HorseModel(val id: Long,
+                      val name: String)

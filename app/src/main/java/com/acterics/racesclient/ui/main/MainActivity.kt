@@ -15,7 +15,6 @@ import com.acterics.racesclient.ui.profile.ProfileFragment
 import com.acterics.racesclient.ui.profile.edit.EditProfileActivity
 import com.acterics.racesclient.ui.race.RaceDetailFragment
 import com.acterics.racesclient.ui.schedule.ScheduleFragment
-import com.acterics.racesclient.ui.schedule.ScheduleItem
 import com.acterics.racesclient.ui.settings.SettingsFragment
 import com.acterics.racesclient.utils.Screens
 import com.arellomobile.mvp.presenter.InjectPresenter

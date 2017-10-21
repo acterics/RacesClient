@@ -1,12 +1,11 @@
 package com.acterics.racesclient.ui.race
 
 import com.acterics.racesclient.RacesApplication
-import com.acterics.racesclient.data.model.response.RaceDetailResponse
+import com.acterics.racesclient.ui.item.ParticipantItem
 import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.checkStatus
 import com.arellomobile.mvp.InjectViewState
-import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 /**

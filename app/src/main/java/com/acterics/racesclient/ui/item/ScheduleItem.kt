@@ -1,29 +1,27 @@
-package com.acterics.racesclient.ui.schedule
-
-/**
- * Created by root on 15.10.17.
- */
+package com.acterics.racesclient.ui.item
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.ui.schedule.ScheduleItemHolder
 import com.acterics.racesclient.utils.Formats
 import com.acterics.racesclient.utils.formattedDate
 import com.acterics.racesclient.utils.setSupportTranslationName
 import com.acterics.racesclient.utils.suffixedFormattedDate
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class ScheduleItem(val race: Race) : AbstractItem<ScheduleItem, ScheduleItem.ScheduleItemViewHolder>(), Parcelable {
+/**
+ * Created by root on 21.10.17.
+ */
+class ScheduleItem(val race: Race) : AbstractItem<ScheduleItem, ScheduleItemHolder>(), Parcelable {
     val holderTranslationName = "${race.title} holder"
     val titleTranslationName = "${race.title} title"
     val organizerTranslationName = "${race.title} organizer"
 
-    override fun getViewHolder(v: View): ScheduleItemViewHolder {
-        return ScheduleItemViewHolder(v)
+    override fun getViewHolder(v: View): ScheduleItemHolder {
+        return ScheduleItemHolder(v)
     }
 
     override fun getLayoutRes(): Int {
@@ -34,7 +32,7 @@ class ScheduleItem(val race: Race) : AbstractItem<ScheduleItem, ScheduleItem.Sch
         return R.id.itemRace
     }
 
-    override fun bindView(holder: ScheduleItemViewHolder, payloads: MutableList<Any>?) {
+    override fun bindView(holder: ScheduleItemHolder, payloads: MutableList<Any>?) {
         super.bindView(holder, payloads)
 
         holder.tvRaceTitle.text = race.title
@@ -48,13 +46,6 @@ class ScheduleItem(val race: Race) : AbstractItem<ScheduleItem, ScheduleItem.Sch
 
     }
 
-    class ScheduleItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvRaceDate: TextView by lazy { itemView.findViewById<TextView>(R.id.tvRaceDate) }
-        val tvRaceTime: TextView by lazy { itemView.findViewById<TextView>(R.id.tvRaceTime) }
-        val tvRaceOrganizer: TextView by lazy { itemView.findViewById<TextView>(R.id.tvRaceOrganizer) }
-        val tvRaceTitle: TextView by lazy { itemView.findViewById<TextView>(R.id.tvRaceTitle) }
-
-    }
 
     constructor(source: Parcel) : this(
             source.readParcelable<Race>(Race::class.java.classLoader)

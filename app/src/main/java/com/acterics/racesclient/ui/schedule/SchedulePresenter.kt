@@ -4,13 +4,12 @@ import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.RacesApplication
 import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.ui.item.ScheduleItem
 import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.checkStatus
 import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.MvpViewState
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
