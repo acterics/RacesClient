@@ -2,17 +2,17 @@ package com.acterics.racesclient.ui.schedule
 
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.data.model.RaceModel
 import com.acterics.racesclient.ui.item.ScheduleItem
 import com.acterics.racesclient.data.rest.ApiService
+import com.acterics.racesclient.data.usecase.GetRaces
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
-import com.acterics.racesclient.utils.checkStatus
 import com.arellomobile.mvp.InjectViewState
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -21,15 +21,15 @@ import javax.inject.Inject
 @InjectViewState
 class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
 
-    @Inject lateinit var apiService: ApiService
+    @Inject lateinit var getRaces: GetRaces
 
     private var page = -1
-    private var disposable: Disposable? = null
-
+    private val pageSize = 10
+    private var loading = false
     val sharedElements = HashMap<String, View?>()
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
     override fun attachView(view: ScheduleView) {
@@ -48,48 +48,47 @@ class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
         sharedElements.clear()
     }
 
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        getRaces.dispose()
+    }
+    //TODO fix page duplicating issue
     fun onLoadMore(currentPage: Int) {
-        if (currentPage > page || page == -1) {
+        if (currentPage > page || page == -1 && !loading) {
+            loading = true
             viewState.startScheduleLoading(currentPage == 0)
-            if (disposable?.isDisposed != false) {
-                disposable = apiService.getSchedule(currentPage)
-                        .checkStatus()
-                        .map { it.races }
-                        .subscribeBy(
-                                onNext = { races -> onSchedulePageLoaded(races, currentPage) },
-                                onError = { throwable -> onSchedulePageLoadError(throwable) }
-                        )
-            }
+            getRaces.execute(
+                    params = GetRaces.Params(currentPage * pageSize, pageSize),
+                    onSuccess = { races -> onSchedulePageLoaded(races, currentPage) },
+                    onError = { throwable -> onSchedulePageLoadError(throwable) }
+            )
         }
-
     }
 
 
     fun onScheduleItemClick(view: View?, item: ScheduleItem?) : Boolean {
         sharedElements.clear()
         item?.let {
-            sharedElements.put(item.holderTranslationName, view)
-            sharedElements.put(item.titleTranslationName, view?.findViewById(R.id.tvRaceTitle))
-            sharedElements.put(item.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
+            sharedElements.put(item.scheduleRaceTranslation.holderTranslationName, view)
+            sharedElements.put(item.scheduleRaceTranslation.titleTranslationName, view?.findViewById(R.id.tvRaceTitle))
+            sharedElements.put(item.scheduleRaceTranslation.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
         }
-        router.navigateTo(Screens.RACE_DETAIL_SCREEN, item)
+        router.navigateTo(Screens.RACE_DETAIL_SCREEN, item?.scheduleRaceTranslation)
         return true
     }
 
     private fun onSchedulePageLoaded(races: List<Race>, currentPage: Int) {
         page = currentPage
-        Timber.e("onSchedulePageLoaded")
+        loading = false
         viewState.stopScheduleLoading()
-        viewState.showRaces(races.map { race -> ScheduleItem(race) })
-        disposable?.dispose()
+        viewState.showRaces(races
+                .map { race -> ScheduleItem(race) })
     }
 
     private fun onSchedulePageLoadError(throwable: Throwable) {
+        loading = false
         viewState.stopScheduleLoading()
         viewState.showError(throwable.message)
-        disposable?.dispose()
     }
 
 

@@ -1,6 +1,6 @@
 package com.acterics.racesclient.ui.profile.edit
 
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.arellomobile.mvp.InjectViewState
 
@@ -11,7 +11,7 @@ import com.arellomobile.mvp.InjectViewState
 class EditProfilePresenter: ActivityBaseNavigationPresenter<EditProfileView>() {
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
 }

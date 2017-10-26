@@ -7,7 +7,7 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.support.v4.content.res.ResourcesCompat
 import com.acterics.racesclient.R
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.getUser
@@ -25,7 +25,7 @@ class ProfilePresenter: BaseNavigationPresenter<ProfileView>() {
     @Inject lateinit var context: Context
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
     override fun attachView(view: ProfileView) {
@@ -39,7 +39,7 @@ class ProfilePresenter: BaseNavigationPresenter<ProfileView>() {
         val xOffset = rectAvatar.left
 
         val navIsLight = avatarBitmap
-                .transform { Bitmap.createBitmap(it, rectNavIcon.left - xOffset, rectNavIcon.top - yOffset,
+                .transform { Bitmap.createBitmap(it, rectNavIcon.left - xOffset,    rectNavIcon.top - yOffset,
                         rectNavIcon.width(), rectNavIcon.height()) }
                 .transform { Bitmap.createScaledBitmap(it, 1, 1, false).getPixel(0, 0) }
                 .isLight()

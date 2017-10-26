@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
+import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.ui.item.ParticipantItem
 import com.acterics.racesclient.ui.item.ScheduleItem
 import com.acterics.racesclient.ui.schedule.PageProgressItem
@@ -27,10 +29,9 @@ import kotlinx.android.synthetic.main.fragment_race.*
 class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
 
     companion object {
-        const val EXTRA_RACE = "com.acterics.racesclient.ui.race.EXTRA_RACE"
+        const val EXTRA_TRANSLATION = "com.acterics.racesclient.ui.race.EXTRA_TRANSLATION"
     }
-
-    lateinit var scheduleItem: ScheduleItem
+    lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
 
     private val participantsAdapter = FastItemAdapter<ParticipantItem>()
     private val progressAdapter = FooterAdapter<PageProgressItem>()
@@ -40,14 +41,14 @@ class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState?.let {
-            scheduleItem = it.getParcelable(EXTRA_RACE)
+            scheduleRaceTranslation = it.getParcelable(EXTRA_TRANSLATION)
         }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState?.putParcelable(EXTRA_RACE, scheduleItem)
+        outState?.putParcelable(EXTRA_TRANSLATION, scheduleRaceTranslation)
     }
 
 
@@ -61,12 +62,11 @@ class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        holderRaceDetails.setSupportTranslationName(scheduleItem.holderTranslationName)
-        tvRaceTitle.setSupportTranslationName(scheduleItem.titleTranslationName)
-        tvRaceOrganizer.setSupportTranslationName(scheduleItem.organizerTranslationName)
+        holderRaceDetails.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
+        tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
+        tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
 
-        tvRaceOrganizer.text = scheduleItem.race.organizer.name
-        tvRaceTitle.text = scheduleItem.race.title
+
 
 
         raceDetailsToolbar.navigationIcon = context.getSupportDrawable(R.drawable.ic_arrow_back_white)
@@ -79,8 +79,13 @@ class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
 
     }
 
+    override fun showRace(race: Race) {
+        tvRaceOrganizer.text = race.organizer?.name
+        tvRaceTitle.text = race.title
+    }
+
     override fun onViewAttached() {
-        presenter.loadDetails(scheduleItem.race.id)
+        presenter.loadDetails(scheduleRaceTranslation.raceId)
     }
 
     override fun showParticipants(participants: List<ParticipantItem>) {

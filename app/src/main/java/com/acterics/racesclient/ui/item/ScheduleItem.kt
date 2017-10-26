@@ -1,10 +1,12 @@
 package com.acterics.racesclient.ui.item
 
+import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.ui.schedule.ScheduleItemHolder
 import com.acterics.racesclient.utils.Formats
 import com.acterics.racesclient.utils.formattedDate
@@ -15,10 +17,13 @@ import com.mikepenz.fastadapter.items.AbstractItem
 /**
  * Created by root on 21.10.17.
  */
-class ScheduleItem(val race: Race) : AbstractItem<ScheduleItem, ScheduleItemHolder>(), Parcelable {
-    val holderTranslationName = "${race.title} holder"
-    val titleTranslationName = "${race.title} title"
-    val organizerTranslationName = "${race.title} organizer"
+class ScheduleItem(var race: Race) : AbstractItem<ScheduleItem, ScheduleItemHolder>() {
+    var scheduleRaceTranslation = ScheduleRaceTranslation(
+            race.id,
+            "${race.title} holder",
+            "${race.title} title",
+            "${race.title} organizer"
+    )
 
     override fun getViewHolder(v: View): ScheduleItemHolder {
         return ScheduleItemHolder(v)
@@ -36,32 +41,13 @@ class ScheduleItem(val race: Race) : AbstractItem<ScheduleItem, ScheduleItemHold
         super.bindView(holder, payloads)
 
         holder.tvRaceTitle.text = race.title
-        holder.tvRaceOrganizer.text = race.organizer.name
-        holder.tvRaceDate.text = race.date.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT)
-        holder.tvRaceTime.text = race.date.formattedDate(Formats.SCHEDULE_TIME_FORMAT)
+        holder.tvRaceOrganizer.text = race.organizer?.name
+        holder.tvRaceDate.text = race.dateTime?.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT)
+        holder.tvRaceTime.text = race.dateTime?.formattedDate(Formats.SCHEDULE_TIME_FORMAT)
 
-        holder.itemView.setSupportTranslationName(holderTranslationName)
-        holder.tvRaceTitle.setSupportTranslationName(titleTranslationName)
-        holder.tvRaceOrganizer.setSupportTranslationName(organizerTranslationName)
+        holder.itemView.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
+        holder.tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
+        holder.tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
 
-    }
-
-
-    constructor(source: Parcel) : this(
-            source.readParcelable<Race>(Race::class.java.classLoader)
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeParcelable(race, 0)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<ScheduleItem> = object : Parcelable.Creator<ScheduleItem> {
-            override fun createFromParcel(source: Parcel): ScheduleItem = ScheduleItem(source)
-            override fun newArray(size: Int): Array<ScheduleItem?> = arrayOfNulls(size)
-        }
     }
 }

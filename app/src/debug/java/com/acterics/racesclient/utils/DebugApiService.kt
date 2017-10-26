@@ -1,14 +1,16 @@
 package com.acterics.racesclient.utils
 
-import com.acterics.racesclient.data.entity.*
+import com.acterics.racesclient.data.model.*
 import com.acterics.racesclient.data.model.request.SignInRequest
 import com.acterics.racesclient.data.model.request.SignUpRequest
 import com.acterics.racesclient.data.model.response.BaseResponse
 import com.acterics.racesclient.data.model.response.ScheduleResponse
 import com.acterics.racesclient.data.rest.ApiService
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.joda.money.Money
 import org.joda.time.DateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -18,9 +20,6 @@ import kotlin.collections.HashSet
 /**
  * Created by root on 10.10.17.
  */
-
-typealias DebugParticipation = HashMap<Long, Set<Horse>>
-
 class DebugApiService : ApiService {
 
     companion object {
@@ -28,6 +27,7 @@ class DebugApiService : ApiService {
         private val LNAME = "Lipskiy"
         private val EMAIL = "lolego1601@gmail.com"
         private val AVATAR = "https://preview.ibb.co/g0vYow/Sqf5u_Fdh3yo.jpg"
+        private val BALANCE = "USD 100"
 //        private val AVATAR = "https://image.ibb.co/ir41Ab/images.jpg"
 
         private val RACE_TITLE = "Mock race title #%d"
@@ -50,43 +50,39 @@ class DebugApiService : ApiService {
 
     private val debugRandom = Random()
 
-    private val organizationsPool = ArrayList<Organization>(ORGANIZATIONS_POOL_SIZE)
-    private val racesPool = ArrayList<Race>(RACES_POOL_SIZE)
-    private val horsesPool = ArrayList<Horse>(HORSE_POOL_SIZE)
-    private val user = User(0, FNAME, LNAME, EMAIL, AVATAR)
+    private val organizationsPool = ArrayList<OrganizationModel>(ORGANIZATIONS_POOL_SIZE)
+    private val racesPool = ArrayList<RaceModel>(RACES_POOL_SIZE)
+    private val horsesPool = ArrayList<HorseModel>(HORSE_POOL_SIZE)
+    private val user = UserModel(0, FNAME, LNAME, EMAIL, UserInfoModel(AVATAR, Money.parse(BALANCE)))
 
-    private val participationPool = DebugParticipation()
+    private val participationPool = ArrayList<ParticipantModel>()
 
     init {
         (0..ORGANIZATIONS_POOL_SIZE).forEach { organizationsPool.add(newOrganization()) }
         (0..HORSE_POOL_SIZE).forEach { horsesPool.add(newHorse()) }
-
-        (0..RACES_POOL_SIZE).forEach {
-            racesPool.add(newRace())
-            participationPool[racesPool[it].id] = newParticipation()
-        }
+        (0..RACES_POOL_SIZE).forEach { racesPool.add(newRace()) }
     }
 
-    override fun signIn(signInRequest: SignInRequest): Observable<BaseResponse<User>> {
-        return getNetworkObservable(user)
+    override fun signIn(signInRequest: SignInRequest): Single<BaseResponse<UserModel>> {
+        return getNetworkSingle(user)
     }
 
-    override fun signUp(signUpRequest: SignUpRequest): Observable<BaseResponse<User>> {
-        return getNetworkObservable(user)
+    override fun signUp(signUpRequest: SignUpRequest): Single<BaseResponse<UserModel>> {
+        return getNetworkSingle(user)
 
     }
 
-    override fun getSchedule(page: Int): Observable<BaseResponse<ScheduleResponse>> {
-        return getNetworkObservable(ScheduleResponse(getRacesPage(page)))
+    override fun getSchedule(skip: Int, count: Int): Single<BaseResponse<ScheduleResponse>> {
+        return getNetworkSingle(ScheduleResponse(getRacesPage(skip, count)))
 
     }
 
-    override fun getRace(raceId: Long): Observable<BaseResponse<RaceDetailResponse>> {
-        return getNetworkObservable(getRaceDetails(raceId))
+    override fun getRace(raceId: Long): Single<BaseResponse<RaceModel>> {
+        return getNetworkSingle(racesPool[raceId.toInt()])
     }
 
-    private fun <T> getNetworkObservable(data: T): Observable<BaseResponse<T>> {
-        return Observable.timer(NETWORK_DELAY_MILLS, TimeUnit.MILLISECONDS)
+    private fun <T> getNetworkSingle(data: T): Single<BaseResponse<T>> {
+        return Single.timer(NETWORK_DELAY_MILLS, TimeUnit.MILLISECONDS)
                 .map { getSuccessResponse(data) }
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -97,67 +93,67 @@ class DebugApiService : ApiService {
     }
 
 
-    private fun getRaceDetails(id: Long): RaceDetailResponse {
-        val debugParticipation = participationPool[id] ?: throw IllegalArgumentException()
-        val race = racesPool[id.toInt()]
-        return RaceDetailResponse(race,
-                debugParticipation.map { Participant(it,
-                        (debugRandom.nextFloat() + 0.01f) * (debugRandom.nextInt(3) + 1)) })
 
 
-    }
-
-    private fun getHorse(): Horse {
+    private fun getHorse(): HorseModel {
         return horsesPool[debugRandom.nextInt(HORSE_POOL_SIZE)]
     }
 
-    private fun getRacesPage(page: Int): List<Race> {
-        val start = RACES_PAGE_SIZE * (page)
-        return if (start + RACES_PAGE_SIZE < racesPool.size) {
-            racesPool.subList(start, start + RACES_PAGE_SIZE)
+    private fun getRacesPage(skip: Int, count: Int): List<RaceModel> {
+        return if (skip + count < racesPool.size) {
+            racesPool.subList(skip, skip + count)
         } else {
             ArrayList()
         }
     }
 
-    private fun getRaces(): List<Race> {
+    private fun getRaces(): List<RaceModel> {
         return racesPool
     }
 
-    private fun getOrganization(): Organization {
+    private fun getOrganization(): OrganizationModel {
         return organizationsPool[debugRandom.nextInt(ORGANIZATIONS_POOL_SIZE)]
     }
 
-    private fun getRace(): Race {
+
+
+    private fun getRace(): RaceModel {
         return racesPool[debugRandom.nextInt(RACES_POOL_SIZE)]
     }
 
 
-    private fun newRace(): Race {
+    private fun newRace(): RaceModel {
         val id = racesPool.size
         val title = String.format(RACE_TITLE, id)
         val organizer = getOrganization()
         val date = DateTime.now()
                 .plusDays(debugRandom.nextInt(31))
-        return Race(id.toLong(), title, organizer, date)
+        return RaceModel(id.toLong(), title, date, organizer, newParticipation(id.toLong()))
     }
 
-    private fun newOrganization(): Organization {
+    private fun newOrganization(): OrganizationModel {
         val id = organizationsPool.size
-        return Organization(id.toLong(), String.format(ORGANIZATION_TITLE, id))
+        return OrganizationModel(id.toLong(), String.format(ORGANIZATION_TITLE, id))
     }
 
-    private fun newHorse(): Horse {
+    private fun newHorse(): HorseModel {
         val id = horsesPool.size
-        return Horse(id.toLong(), "horse$id")
+        return HorseModel(id.toLong(), "horse$id")
     }
 
-    private fun newParticipation(): Set<Horse> {
-        return HashSet<Horse>().apply {
-            (0..debugRandom.nextInt(RACE_PARTICIPATIONS_MAX))
-                    .map { getHorse() }
-                    .forEach { add(it) }
-        }
+    private fun newParticipation(raceId: Long): List<ParticipantModel> {
+        return HashSet<HorseModel>()
+                .apply {
+                    (0..debugRandom.nextInt(RACE_PARTICIPATIONS_MAX))
+                            .map { getHorse() }
+                            .forEach { add(it) }
+                }
+                .mapIndexed { index, horseModel -> ParticipantModel((participationPool.size + index).toLong(), raceId,
+                        horseModel, newRating(), null) }
     }
+
+
+    private fun newRating() = (debugRandom.nextFloat() + 0.01f) * (debugRandom.nextInt(3) + 1)
+
 }
 

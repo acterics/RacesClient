@@ -1,11 +1,14 @@
 package com.acterics.racesclient.ui.race
 
-import com.acterics.racesclient.RacesApplication
-import com.acterics.racesclient.ui.item.ParticipantItem
+import com.acterics.racesclient.BaseApplication
+import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.data.model.RaceModel
 import com.acterics.racesclient.data.rest.ApiService
+import com.acterics.racesclient.data.usecase.GetRaceDetails
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
-import com.acterics.racesclient.utils.checkStatus
+import com.acterics.racesclient.ui.item.ParticipantItem
 import com.arellomobile.mvp.InjectViewState
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 /**
@@ -16,10 +19,10 @@ import javax.inject.Inject
 @InjectViewState
 class RaceDetailPresenter(): BaseNavigationPresenter<RaceDetailView>() {
 
-    @Inject lateinit var apiService: ApiService
+    @Inject lateinit var getRaceDetails: GetRaceDetails
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
     override fun onFirstViewAttach() {
@@ -34,18 +37,20 @@ class RaceDetailPresenter(): BaseNavigationPresenter<RaceDetailView>() {
 
     fun loadDetails(id: Long) {
         viewState.startParticipantsLoading()
-        apiService.getRace(id)
-                .checkStatus()
-                .subscribeBy(
-                        onNext = { onDetailsLoaded(it) },
+        getRaceDetails
+                .execute(
+                        params = GetRaceDetails.Params(id),
+                        onSuccess = { onDetailsLoaded(it) },
                         onError = { onDetailsLoadError(it) }
                 )
+
     }
 
 
-    private fun onDetailsLoaded(details: RaceDetailResponse) {
+    private fun onDetailsLoaded(details: Race) {
         viewState.stopParticipantsLoading()
-        viewState.showParticipants(details.participants.map { ParticipantItem(it) })
+        viewState.showRace(details)
+        viewState.showParticipants( details.participants!!.map { ParticipantItem(it) } )
     }
 
     private fun onDetailsLoadError(throwable: Throwable) {

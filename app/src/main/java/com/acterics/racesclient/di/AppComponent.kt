@@ -1,6 +1,6 @@
 package com.acterics.racesclient.di
 
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.di.modules.*
 import com.acterics.racesclient.ui.auth.AuthenticatePresenter
 import com.acterics.racesclient.ui.auth.signin.SignInPresenter
@@ -27,7 +27,7 @@ import javax.inject.Singleton
         NetworkModule::class
 ))
 interface AppComponent {
-    fun inject(application: RacesApplication)
+    fun inject(application: BaseApplication)
     fun inject(splashScreen: SplashScreenPresenter)
     fun inject(authScreen: AuthenticatePresenter)
     fun inject(signInScreen: SignInPresenter)

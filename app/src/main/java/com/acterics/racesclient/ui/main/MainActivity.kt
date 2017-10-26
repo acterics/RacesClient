@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBarDrawerToggle
 import com.acterics.racesclient.R
+import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.ui.auth.AuthenticateActivity
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.ui.base.SharedElementHolder
@@ -52,7 +53,7 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
             Screens.PROFILE_SCREEN -> ProfileFragment()
             Screens.RACES_SCREEN -> ScheduleFragment()
             Screens.SETTINGS_SCREEN -> SettingsFragment()
-            Screens.RACE_DETAIL_SCREEN -> RaceDetailFragment().apply { scheduleItem = data as ScheduleItem }
+            Screens.RACE_DETAIL_SCREEN -> RaceDetailFragment().apply { scheduleRaceTranslation = data as ScheduleRaceTranslation }
             else -> return null
         }
         if (drawerFragment is MainDrawerFragment) {

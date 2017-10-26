@@ -1,7 +1,7 @@
 package com.acterics.racesclient.ui.auth.signup
 
 import android.content.Context
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.arellomobile.mvp.InjectViewState
@@ -17,7 +17,7 @@ class SignUpPresenter: BaseNavigationPresenter<SignUpView>() {
     @Inject lateinit var apiService: ApiService
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
 

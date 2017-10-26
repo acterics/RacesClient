@@ -2,12 +2,13 @@ package com.acterics.racesclient.ui.auth.signin
 
 import android.content.Context
 import com.acterics.racesclient.R
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
+import com.acterics.racesclient.data.entity.User
 import com.acterics.racesclient.data.model.request.SignInRequest
 import com.acterics.racesclient.data.rest.ApiService
+import com.acterics.racesclient.data.usecase.Authenticate
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
-import com.acterics.racesclient.utils.checkStatus
 import com.acterics.racesclient.utils.login
 import com.acterics.racesclient.utils.validators.EmailValidator
 import com.arellomobile.mvp.InjectViewState
@@ -22,10 +23,10 @@ class SignInPresenter: BaseNavigationPresenter<SignInView>() {
 
     @Inject lateinit var emailValidator: EmailValidator
     @Inject lateinit var context: Context
-    @Inject lateinit var apiService: ApiService
+    @Inject lateinit var authenticate: Authenticate
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
     fun onEmailInputChanged(email: CharSequence?) {
@@ -47,17 +48,20 @@ class SignInPresenter: BaseNavigationPresenter<SignInView>() {
 
     fun onSignInButtonClick(email: String, password: String) {
         //TODO add authorization logic
-        apiService.signIn(SignInRequest(email, password))
-                .checkStatus()
-                .subscribeBy(
-                        onNext = {
-                            user -> context.login(user)
-                            router.newRootScreen(Screens.MAIN_SCREEN)
-                        },
+        authenticate
+                .execute(params = SignInRequest(email, password),
+                        onSuccess = { onSuccessLogin(it)},
                         onError = { viewState.showError(it.message) }
                 )
-
     }
+
+
+    private fun onSuccessLogin(user: User) {
+        context.login(user)
+        router.newRootScreen(Screens.MAIN_SCREEN)
+    }
+
+
 
 
 

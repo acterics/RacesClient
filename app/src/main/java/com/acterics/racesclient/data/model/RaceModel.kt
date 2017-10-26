@@ -1,6 +1,7 @@
 package com.acterics.racesclient.data.model
 
 import com.acterics.racesclient.data.entity.Organization
+import com.acterics.racesclient.data.entity.Race
 import org.joda.time.DateTime
 
 /**
@@ -9,5 +10,11 @@ import org.joda.time.DateTime
 data class RaceModel(val id: Long,
                      val title: String,
                      val dateTime: DateTime,
-                     val organizer: Organization,
-                     val participants: List<ParticipantModel>)
+                     val organizer: OrganizationModel,
+                     val participants: List<ParticipantModel>): EntityWrapper<Race> {
+    override fun map(): Race = Race(id, title, dateTime.millis, organizer.id,
+            organizer = organizer.map(),
+            dateTime = dateTime,
+            participants = participants.map { it.map() })
+
+}

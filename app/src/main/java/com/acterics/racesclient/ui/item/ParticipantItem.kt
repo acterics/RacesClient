@@ -25,7 +25,7 @@ class ParticipantItem(private val participant: Participant): AbstractItem<Partic
 
     override fun bindView(holder: ParticipantHolder, payloads: MutableList<Any>?) {
         super.bindView(holder, payloads)
-        holder.tvHorseName.text = participant.horse.name
+        holder.tvHorseName.text = participant.horseId.toString()
         holder.tvHorseRating.text = participant.rating.toString()
     }
 

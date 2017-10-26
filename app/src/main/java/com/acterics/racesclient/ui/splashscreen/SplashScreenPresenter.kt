@@ -2,7 +2,7 @@ package com.acterics.racesclient.ui.splashscreen
 
 import android.content.Context
 import android.os.Handler
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.isAuthenticate
@@ -26,7 +26,7 @@ class SplashScreenPresenter: ActivityBaseNavigationPresenter<SplashScreenView>()
     private val routingHandler = Handler()
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
 

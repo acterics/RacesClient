@@ -3,6 +3,7 @@ package com.acterics.racesclient.utils
 import com.acterics.racesclient.data.error.NetworkStatusException
 import com.acterics.racesclient.data.model.response.BaseResponse
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by root on 19.10.17.
@@ -10,7 +11,7 @@ import io.reactivex.Observable
 
 
 
-fun <D, T: BaseResponse<D>> Observable<T>.checkStatus(): Observable<D> {
+fun <D, T: BaseResponse<D>> Observable<T>.checkNetworkObservable(): Observable<D> {
     return this.flatMap {
         val observable = if (it.status == BaseResponse.STATUS_SUCCESS) {
             Observable.just(it.data)
@@ -20,3 +21,15 @@ fun <D, T: BaseResponse<D>> Observable<T>.checkStatus(): Observable<D> {
         observable
     }
 }
+
+fun <D, T: BaseResponse<D>> Single<T>.checkNetworkSingle(): Single<D> {
+    return this.flatMap {
+        val observable = if (it.status == BaseResponse.STATUS_SUCCESS) {
+            Single.just(it.data)
+        } else {
+            Single.error(NetworkStatusException(it.message))
+        }
+        observable
+    }
+}
+

@@ -6,7 +6,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.content.res.ResourcesCompat
 import android.view.MenuItem
 import com.acterics.racesclient.R
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.acterics.racesclient.utils.logout
@@ -30,7 +30,7 @@ class MainActivityPresenter: ActivityBaseNavigationPresenter<MainActivityView>()
     }
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

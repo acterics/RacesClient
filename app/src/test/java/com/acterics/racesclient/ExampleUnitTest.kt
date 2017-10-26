@@ -13,8 +13,8 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun formatTest() {
-        val dateTime = DateTime.now().withDayOfMonth(12)
-
-        println(dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT))
+//        val dateTime = DateTime.now().withDayOfMonth(12)
+//
+//        println(dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT))
     }
 }

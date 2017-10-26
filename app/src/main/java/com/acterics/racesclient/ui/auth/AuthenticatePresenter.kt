@@ -1,6 +1,6 @@
 package com.acterics.racesclient.ui.auth
 
-import com.acterics.racesclient.RacesApplication
+import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.arellomobile.mvp.InjectViewState
@@ -17,7 +17,7 @@ class AuthenticatePresenter: ActivityBaseNavigationPresenter<AuthenticateView>()
     }
 
     override fun injectComponents() {
-        RacesApplication.applicationComponent.inject(this)
+        BaseApplication.applicationComponent.inject(this)
     }
 
 
