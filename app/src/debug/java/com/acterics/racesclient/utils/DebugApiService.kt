@@ -12,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.joda.money.Money
 import org.joda.time.DateTime
+import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -64,26 +65,32 @@ class DebugApiService : ApiService {
     }
 
     override fun signIn(signInRequest: SignInRequest): Single<BaseResponse<UserModel>> {
+        Timber.i("signIn: request: $signInRequest")
         return getNetworkSingle(user)
     }
 
     override fun signUp(signUpRequest: SignUpRequest): Single<BaseResponse<UserModel>> {
+        Timber.i("signUp: request: $signUpRequest")
         return getNetworkSingle(user)
 
     }
 
     override fun getSchedule(skip: Int, count: Int): Single<BaseResponse<ScheduleResponse>> {
+        Timber.i("getSchedule: skip: $skip, count: $count")
         return getNetworkSingle(ScheduleResponse(getRacesPage(skip, count)))
 
     }
 
     override fun getRace(raceId: Long): Single<BaseResponse<RaceModel>> {
+        Timber.i("getRace: raceId: $raceId")
         return getNetworkSingle(racesPool[raceId.toInt()])
     }
 
     private fun <T> getNetworkSingle(data: T): Single<BaseResponse<T>> {
         return Single.timer(NETWORK_DELAY_MILLS, TimeUnit.MILLISECONDS)
                 .map { getSuccessResponse(data) }
+                .doOnSuccess { Timber.i("success: $it") }
+                .doOnError { Timber.e("error: ${it.message}") }
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
     }

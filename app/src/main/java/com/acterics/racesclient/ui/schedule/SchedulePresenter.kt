@@ -4,15 +4,10 @@ import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.data.model.RaceModel
-import com.acterics.racesclient.ui.item.ScheduleItem
-import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.data.usecase.GetRaces
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.acterics.racesclient.utils.Screens
 import com.arellomobile.mvp.InjectViewState
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 /**
@@ -79,16 +74,16 @@ class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
 
     private fun onSchedulePageLoaded(races: List<Race>, currentPage: Int) {
         page = currentPage
-        loading = false
         viewState.stopScheduleLoading()
         viewState.showRaces(races
                 .map { race -> ScheduleItem(race) })
+        loading = false
     }
 
     private fun onSchedulePageLoadError(throwable: Throwable) {
-        loading = false
         viewState.stopScheduleLoading()
         viewState.showError(throwable.message)
+        loading = false
     }
 
 

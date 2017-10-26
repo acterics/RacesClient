@@ -8,12 +8,16 @@ import android.os.Parcelable
  */
 data class ScheduleRaceTranslation(
         var raceId: Long,
+        var raceTitle: String,
+        var organizationTitle: String,
         var holderTranslationName: String,
         var titleTranslationName: String,
         var organizerTranslationName: String
 ) : Parcelable {
     constructor(source: Parcel) : this(
             source.readLong(),
+            source.readString(),
+            source.readString(),
             source.readString(),
             source.readString(),
             source.readString()
@@ -23,6 +27,8 @@ data class ScheduleRaceTranslation(
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeLong(raceId)
+        writeString(raceTitle)
+        writeString(organizationTitle)
         writeString(holderTranslationName)
         writeString(titleTranslationName)
         writeString(organizerTranslationName)

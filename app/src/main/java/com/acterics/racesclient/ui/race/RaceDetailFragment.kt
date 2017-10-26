@@ -12,8 +12,6 @@ import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.Race
 import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.ui.item.ParticipantItem
-import com.acterics.racesclient.ui.item.ScheduleItem
 import com.acterics.racesclient.ui.schedule.PageProgressItem
 import com.acterics.racesclient.utils.getSupportDrawable
 import com.acterics.racesclient.utils.setSupportTranslationName
@@ -66,7 +64,8 @@ class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
         tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
         tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
 
-
+        tvRaceOrganizer.text = scheduleRaceTranslation.organizationTitle
+        tvRaceTitle.text = scheduleRaceTranslation.raceTitle
 
 
         raceDetailsToolbar.navigationIcon = context.getSupportDrawable(R.drawable.ic_arrow_back_white)
@@ -77,11 +76,6 @@ class RaceDetailFragment: MvpAppCompatFragment(), RaceDetailView {
         rvParticipants.adapter = progressAdapter.wrap(participantsAdapter)
         rvParticipants.itemAnimator = DefaultItemAnimator()
 
-    }
-
-    override fun showRace(race: Race) {
-        tvRaceOrganizer.text = race.organizer?.name
-        tvRaceTitle.text = race.title
     }
 
     override fun onViewAttached() {

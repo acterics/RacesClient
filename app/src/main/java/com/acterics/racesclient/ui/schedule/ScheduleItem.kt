@@ -1,13 +1,9 @@
-package com.acterics.racesclient.ui.item
+package com.acterics.racesclient.ui.schedule
 
-import android.annotation.SuppressLint
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.Race
 import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.ui.schedule.ScheduleItemHolder
 import com.acterics.racesclient.utils.Formats
 import com.acterics.racesclient.utils.formattedDate
 import com.acterics.racesclient.utils.setSupportTranslationName
@@ -19,7 +15,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
  */
 class ScheduleItem(var race: Race) : AbstractItem<ScheduleItem, ScheduleItemHolder>() {
     var scheduleRaceTranslation = ScheduleRaceTranslation(
-            race.id,
+            race.id, race.title, race.organizer!!.name,
             "${race.title} holder",
             "${race.title} title",
             "${race.title} organizer"

@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
 import com.acterics.racesclient.R
-import com.acterics.racesclient.ui.item.ScheduleItem
 import com.acterics.racesclient.ui.base.SharedElementsHolder
 import com.acterics.racesclient.ui.main.MainDrawerFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -63,7 +62,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
 
         endlessScrollListener = object: EndlessRecyclerOnScrollListener(layoutManager, 5, progressAdapter) {
             override fun onLoadMore(currentPage: Int) {
-                presenter.onLoadMore(currentPage)
+                rvSchedule.post { presenter.onLoadMore(currentPage) }
             }
         }
 

@@ -1,9 +1,8 @@
-package com.acterics.racesclient.ui.item
+package com.acterics.racesclient.ui.race
 
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.Participant
-import com.acterics.racesclient.ui.race.ParticipantHolder
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

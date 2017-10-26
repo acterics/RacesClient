@@ -2,13 +2,9 @@ package com.acterics.racesclient.ui.race
 
 import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.data.model.RaceModel
-import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.data.usecase.GetRaceDetails
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
-import com.acterics.racesclient.ui.item.ParticipantItem
 import com.arellomobile.mvp.InjectViewState
-import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 /**
@@ -17,7 +13,7 @@ import javax.inject.Inject
 
 
 @InjectViewState
-class RaceDetailPresenter(): BaseNavigationPresenter<RaceDetailView>() {
+class RaceDetailPresenter: BaseNavigationPresenter<RaceDetailView>() {
 
     @Inject lateinit var getRaceDetails: GetRaceDetails
 
@@ -49,7 +45,6 @@ class RaceDetailPresenter(): BaseNavigationPresenter<RaceDetailView>() {
 
     private fun onDetailsLoaded(details: Race) {
         viewState.stopParticipantsLoading()
-        viewState.showRace(details)
         viewState.showParticipants( details.participants!!.map { ParticipantItem(it) } )
     }
 
