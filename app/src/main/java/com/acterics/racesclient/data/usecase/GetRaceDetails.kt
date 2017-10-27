@@ -24,26 +24,17 @@ class GetRaceDetails
 
     override fun build(params: Params?): Single<Race> {
         return databaseRequest(params)
-                .onErrorResumeNext(networkRequest(params))
-
     }
 
 
     private fun databaseRequest(params: Params?): Single<Race> =
-            Single.fromCallable {  appDatabase.beginTransaction() }
-                    .compose { appDatabase.horseDao().getRaceHorses(params!!.raceId) }
-                    .zipWith(appDatabase.participantDao()
-                            .getRaceParticipants(params!!.raceId)
+            appDatabase.horseDao().getRaceHorses(params!!.raceId)
+                    .zipWith(appDatabase.participantDao().getRaceParticipants(params.raceId)
                             .compose(scheduler.highPrioritySingle()),
                             { horses, participants -> zipParticipantsWithHorses(horses, participants) })
-                    .zipWith(appDatabase.raceDao()
-                            .getRace(params.raceId)
+                    .zipWith(appDatabase.raceDao().getRace(params.raceId)
                             .compose(scheduler.highPrioritySingle()),
                             { participants, race -> race.apply { this.participants = participants } })
-                    .doOnSuccess {
-                        appDatabase.setTransactionSuccessful()
-                        appDatabase.endTransaction()
-                    }
                     .compose(scheduler.highPrioritySingle())
 
 

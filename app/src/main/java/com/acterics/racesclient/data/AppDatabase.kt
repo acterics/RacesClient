@@ -17,7 +17,7 @@ import com.acterics.racesclient.data.entity.*
         Participant::class,
         Organization::class
         ),
-        version = 7, exportSchema = false) abstract class AppDatabase : RoomDatabase() {
+        version = 8 , exportSchema = false) abstract class AppDatabase : RoomDatabase() {
 
     abstract fun raceDao(): RaceDao
     abstract fun horseDao(): HorseDao

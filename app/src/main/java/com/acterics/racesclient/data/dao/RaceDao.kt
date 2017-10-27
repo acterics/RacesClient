@@ -20,6 +20,6 @@ interface RaceDao {
     @Query("SELECT * FROM race WHERE id = :arg0")
     fun getRace(arg0: Long): Single<Race>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insertAll(races: List<Race>)
 }

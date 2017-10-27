@@ -2,6 +2,7 @@ package com.acterics.racesclient.di.modules
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import android.arch.persistence.room.migration.Migration
 import android.content.Context
 import com.acterics.racesclient.data.AppDatabase
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
@@ -30,7 +31,8 @@ class AppModule(val app: Application) {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "races_database").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "races_database")
+                .build()
     }
 
 

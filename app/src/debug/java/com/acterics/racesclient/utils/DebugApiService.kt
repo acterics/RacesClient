@@ -91,8 +91,6 @@ class DebugApiService : ApiService {
                 .map { getSuccessResponse(data) }
                 .doOnSuccess { Timber.i("success: $it") }
                 .doOnError { Timber.e("error: ${it.message}") }
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun <T>getSuccessResponse(data: T): BaseResponse<T> {
@@ -151,12 +149,13 @@ class DebugApiService : ApiService {
     private fun newParticipation(raceId: Long): List<ParticipantModel> {
         return HashSet<HorseModel>()
                 .apply {
-                    (0..debugRandom.nextInt(RACE_PARTICIPATIONS_MAX))
+                    (0..4)
                             .map { getHorse() }
                             .forEach { add(it) }
                 }
                 .mapIndexed { index, horseModel -> ParticipantModel((participationPool.size + index).toLong(), raceId,
                         horseModel, newRating(), null) }
+                .also { participationPool.addAll(it) }
     }
 
 

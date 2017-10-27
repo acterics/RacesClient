@@ -16,8 +16,8 @@ import android.arch.persistence.room.*
                     entity = Horse::class,
                     parentColumns = arrayOf("id"),
                     childColumns = arrayOf("horse_id"),
-                    onDelete = ForeignKey.CASCADE
-            )),
+                    onDelete = ForeignKey.CASCADE)
+),
         tableName = "participant")
 data class Participant (
         @PrimaryKey

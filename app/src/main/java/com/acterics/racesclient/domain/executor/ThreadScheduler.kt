@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @Singleton class ThreadScheduler
 @Inject constructor(): ExecutionScheduler {
     companion object {
-        internal const val HIGH_PRIORITY_THREADS = 6
+        internal const val HIGH_PRIORITY_THREADS = 10
         internal const val LOW_PRIORITY_THREADS = 2
 
         internal val highPriorityScheduler: Scheduler

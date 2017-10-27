@@ -14,12 +14,15 @@ import io.reactivex.Single
 interface HorseDao {
 
     @Query("SELECT * FROM horse WHERE id IN " +
-            "(SELECT horse_id FROM participant WHERE race_id = :arg0)")
+            "(SELECT horse_id FROM participant WHERE race_id = :arg0) ORDER BY id")
     fun getRaceHorses(arg0: Long): Single<List<Horse>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(horse: Horse)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insertAll(horses: List<Horse>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAllWithConflictIgnore(horses: List<Horse>)
 }

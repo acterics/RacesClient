@@ -30,6 +30,11 @@ class RaceDetailPresenter: BaseNavigationPresenter<RaceDetailView>() {
         router.exit()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        getRaceDetails.dispose()
+    }
+
 
     fun loadDetails(id: Long) {
         viewState.startParticipantsLoading()
@@ -49,6 +54,7 @@ class RaceDetailPresenter: BaseNavigationPresenter<RaceDetailView>() {
     }
 
     private fun onDetailsLoadError(throwable: Throwable) {
+        throwable.printStackTrace()
         viewState.stopParticipantsLoading()
         viewState.showError(throwable.message)
     }
