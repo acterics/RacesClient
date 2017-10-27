@@ -21,6 +21,7 @@ abstract class UseCase<out Type, in Params> where Type: Any {
     abstract class AsSingle<T, in P>: UseCase<Single<T>, P>() {
         fun execute(onSuccess: (T) -> Unit, onError: (Throwable) -> Unit, params: P? = null) {
             disposables.add(build(params).subscribe(onSuccess, onError))
+
         }
     }
 

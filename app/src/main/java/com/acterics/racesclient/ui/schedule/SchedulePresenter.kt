@@ -81,6 +81,7 @@ class SchedulePresenter: BaseNavigationPresenter<ScheduleView>() {
     }
 
     private fun onSchedulePageLoadError(throwable: Throwable) {
+        throwable.printStackTrace()
         viewState.stopScheduleLoading()
         viewState.showError(throwable.message)
         loading = false

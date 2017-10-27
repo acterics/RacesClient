@@ -1,12 +1,15 @@
 package com.acterics.racesclient.data.usecase
 
 import com.acterics.racesclient.data.AppDatabase
+import com.acterics.racesclient.data.entity.Horse
+import com.acterics.racesclient.data.entity.Participant
 import com.acterics.racesclient.data.entity.Race
 import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.domain.UseCase
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.utils.checkNetworkSingle
 import io.reactivex.Single
+import io.reactivex.rxkotlin.zipWith
 import javax.inject.Inject
 
 /**
@@ -19,11 +22,43 @@ class GetRaceDetails
 
 
 
-    override fun build(params: Params?): Single<Race> =
+    override fun build(params: Params?): Single<Race> {
+        return databaseRequest(params)
+                .onErrorResumeNext(networkRequest(params))
+
+    }
+
+
+    private fun databaseRequest(params: Params?): Single<Race> =
+            Single.fromCallable {  appDatabase.beginTransaction() }
+                    .compose { appDatabase.horseDao().getRaceHorses(params!!.raceId) }
+                    .zipWith(appDatabase.participantDao()
+                            .getRaceParticipants(params!!.raceId)
+                            .compose(scheduler.highPrioritySingle()),
+                            { horses, participants -> zipParticipantsWithHorses(horses, participants) })
+                    .zipWith(appDatabase.raceDao()
+                            .getRace(params.raceId)
+                            .compose(scheduler.highPrioritySingle()),
+                            { participants, race -> race.apply { this.participants = participants } })
+                    .doOnSuccess {
+                        appDatabase.setTransactionSuccessful()
+                        appDatabase.endTransaction()
+                    }
+                    .compose(scheduler.highPrioritySingle())
+
+
+
+    private fun networkRequest(params: Params?): Single<Race> =
             apiService.getRace(params!!.raceId)
                     .checkNetworkSingle()
                     .map { it.map() }
                     .compose(scheduler.highPrioritySingle())
+
+    private fun zipParticipantsWithHorses(horses: List<Horse>, participants: List<Participant>) =
+            participants.zip(horses, {
+                participant, horse -> participant.apply { this.horse = horse }
+            })
+
 
     data class Params(val raceId: Long)
 }

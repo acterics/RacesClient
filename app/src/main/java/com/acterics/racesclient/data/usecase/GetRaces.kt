@@ -24,10 +24,27 @@ class GetRaces
         apiService.getSchedule(params!!.skip, params.count)
                 .checkNetworkSingle()
                 .map { it.races.map { it.map() } }
+                .flatMap { cacheResponse(it) }
                 .doOnSuccess { loaded = true }
                 .compose(scheduler.highPrioritySingle())
 
 
+    private fun cacheResponse(races: List<Race>): Single<List<Race>> {
+        return Single.fromCallable {
+            appDatabase.apply {
+                beginTransaction()
+                races
+                        .also { organizationDao().insertAll(it.map { it.organizer ?: throw IllegalStateException() }) }
+                        .also { raceDao().insertAll(it) }
+                        .flatMap { it.participants ?: throw IllegalStateException() }
+                        .also { horseDao().insertAll(it.map { it.horse ?: throw IllegalStateException() }) }
+                        .also { participantDao().insertAll(it) }
+                setTransactionSuccessful()
+            }.let { races }
+        }
+                .doOnEvent { _, _ -> appDatabase.endTransaction() }
+                .compose(scheduler.highPrioritySingle())
+    }
 
     data class Params(val skip: Int,
                       val count: Int)
