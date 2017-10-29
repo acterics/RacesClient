@@ -1,0 +1,62 @@
+package com.acterics.racesclient.presentation.signin.presenter
+
+import android.content.Context
+import com.acterics.racesclient.R
+import com.acterics.racesclient.data.entity.User
+import com.acterics.racesclient.data.model.request.SignInRequest
+import com.acterics.racesclient.domain.interactor.Authenticate
+import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.extentions.login
+import com.acterics.racesclient.presentation.signin.view.SignInView
+import com.acterics.racesclient.utils.validators.EmailValidator
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
+import ru.terrakok.cicerone.Router
+
+/**
+ * Created by root on 29.09.17.
+ */
+@InjectViewState
+class SignInPresenter(private val emailValidator: EmailValidator,
+                      private val context: Context,
+                      private val authenticate: Authenticate,
+                      private val router: Router): MvpPresenter<SignInView>() {
+
+
+    fun onEmailInputChanged(email: CharSequence?) {
+        if (email?.isEmpty() != true && !emailValidator.validate(email)) {
+            viewState.showEmailInputError(R.string.error_invalid_email)
+        } else {
+            viewState.hideEmailInputError()
+        }
+    }
+
+
+    fun onPasswordInputChanged(password: CharSequence?) {
+
+    }
+
+    fun onSignUpButtonClick() {
+        router.navigateTo(Screens.SIGN_UP_SCREEN)
+    }
+
+    fun onSignInButtonClick(email: String, password: String) {
+        //TODO add authorization logic
+        authenticate
+                .execute(params = SignInRequest(email, password),
+                        onSuccess = { onSuccessLogin(it)},
+                        onError = { viewState.showError(it.message) }
+                )
+    }
+
+
+    private fun onSuccessLogin(user: User) {
+        context.login(user) //TODO replace to interactor
+        router.newRootScreen(Screens.MAIN_SCREEN)
+    }
+
+
+
+
+
+}

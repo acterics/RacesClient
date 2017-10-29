@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import com.acterics.racesclient.R
-import com.acterics.racesclient.ui.auth.AuthenticateActivity
+import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
-import com.acterics.racesclient.ui.main.MainActivity
-import com.acterics.racesclient.utils.Screens
-import com.acterics.racesclient.utils.getStatusBarSize
+import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
+import com.acterics.racesclient.presentation.main.view.MainActivity
+import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.extentions.getStatusBarSize
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_splash.*
 import ru.terrakok.cicerone.Navigator

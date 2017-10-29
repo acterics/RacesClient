@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.auth.AuthenticateActivity"
+        <activity android:name=".presentation.authentication.AuthenticateActivity"
             android:theme="@style/NoActionBarTheme"/>
 
-        <activity android:name=".ui.main.MainActivity"
+        <activity android:name="com.acterics.racesclient.presentation.main.view.MainActivity"
             android:theme="@style/AppTheme"/>
 
         <activity android:name=".ui.profile.edit.EditProfileActivity"

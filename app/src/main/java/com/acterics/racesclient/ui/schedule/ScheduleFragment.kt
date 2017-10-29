@@ -8,8 +8,8 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
 import com.acterics.racesclient.R
-import com.acterics.racesclient.ui.base.SharedElementsHolder
-import com.acterics.racesclient.ui.main.MainDrawerFragment
+import com.acterics.racesclient.common.ui.SharedElementsHolder
+import com.acterics.racesclient.presentation.main.MainDrawerFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.PresenterType
 import com.mikepenz.fastadapter.adapters.FooterAdapter

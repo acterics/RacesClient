@@ -10,11 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
-import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
+import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.ui.schedule.PageProgressItem
-import com.acterics.racesclient.utils.getSupportDrawable
-import com.acterics.racesclient.utils.setSupportTranslationName
+import com.acterics.racesclient.common.extentions.getSupportDrawable
+import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mikepenz.fastadapter.adapters.FooterAdapter

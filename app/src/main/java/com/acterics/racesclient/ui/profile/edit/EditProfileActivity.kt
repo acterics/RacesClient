@@ -3,7 +3,7 @@ package com.acterics.racesclient.ui.profile.edit
 import android.content.Intent
 import android.support.v4.app.Fragment
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.ui.base.common.CommonMvpNavigationActivity
+import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 
 /**

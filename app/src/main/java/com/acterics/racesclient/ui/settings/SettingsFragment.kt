@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
-import com.acterics.racesclient.ui.main.MainDrawerFragment
+import com.acterics.racesclient.presentation.main.MainDrawerFragment
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**

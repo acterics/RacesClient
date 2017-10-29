@@ -3,11 +3,11 @@ package com.acterics.racesclient.ui.schedule
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.data.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.utils.Formats
-import com.acterics.racesclient.utils.formattedDate
-import com.acterics.racesclient.utils.setSupportTranslationName
-import com.acterics.racesclient.utils.suffixedFormattedDate
+import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
+import com.acterics.racesclient.common.extentions.Formats
+import com.acterics.racesclient.common.extentions.formattedDate
+import com.acterics.racesclient.common.extentions.setSupportTranslationName
+import com.acterics.racesclient.common.extentions.suffixedFormattedDate
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

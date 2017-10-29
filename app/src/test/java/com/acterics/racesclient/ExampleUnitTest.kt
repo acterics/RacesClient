@@ -1,8 +1,5 @@
 package com.acterics.racesclient
 
-import com.acterics.racesclient.utils.Formats
-import com.acterics.racesclient.utils.suffixedFormattedDate
-import org.joda.time.DateTime
 import org.junit.Test
 
 /**

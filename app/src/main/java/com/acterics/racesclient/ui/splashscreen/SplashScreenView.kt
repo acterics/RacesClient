@@ -1,6 +1,6 @@
 package com.acterics.racesclient.ui.splashscreen
 
-import com.acterics.racesclient.ui.base.BaseMvpNavigationView
+import com.acterics.racesclient.common.ui.navigation.BaseMvpNavigationView
 
 /**
  * Created by root on 28.09.17.

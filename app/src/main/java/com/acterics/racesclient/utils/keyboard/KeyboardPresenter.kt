@@ -16,7 +16,7 @@ import timber.log.Timber
 class KeyboardPresenter: MvpPresenter<KeyboardMvpView>(), ViewTreeObserver.OnGlobalLayoutListener {
 
     private var keyboardVisible = false
-    var root: View? = null
+    private var root: View? = null
 
 
     override fun attachView(view: KeyboardMvpView?) {
@@ -38,6 +38,16 @@ class KeyboardPresenter: MvpPresenter<KeyboardMvpView>(), ViewTreeObserver.OnGlo
             keyboardVisible = b
             viewState.onKeyboardVisibleChanged(keyboardVisible)
         }
+    }
+
+    fun registrateView(view: View) {
+        root = view
+        registerKeyboardListener()
+    }
+
+    fun unregistrateView() {
+        root = null
+        unregisterKeyboardListener()
     }
 
 

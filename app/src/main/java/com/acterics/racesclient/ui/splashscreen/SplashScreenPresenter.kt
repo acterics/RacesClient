@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Handler
 import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.ui.base.ActivityBaseNavigationPresenter
-import com.acterics.racesclient.utils.Screens
-import com.acterics.racesclient.utils.isAuthenticate
+import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.extentions.isAuthenticate
 import com.arellomobile.mvp.InjectViewState
 import javax.inject.Inject
 

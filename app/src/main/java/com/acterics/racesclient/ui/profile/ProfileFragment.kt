@@ -12,11 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.entity.User
-import com.acterics.racesclient.ui.main.MainDrawerFragment
+import com.acterics.racesclient.presentation.main.MainDrawerFragment
 import com.acterics.racesclient.ui.profile.general.ProfileGeneralFragment
 import com.acterics.racesclient.ui.profile.history.ProfileHistoryFragment
-import com.acterics.racesclient.utils.getGlobalVisibleRect
-import com.acterics.racesclient.utils.getNavigationIconView
+import com.acterics.racesclient.common.extentions.getGlobalVisibleRect
+import com.acterics.racesclient.common.extentions.getNavigationIconView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable

@@ -2,7 +2,7 @@ package com.acterics.racesclient.ui.race
 
 import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.data.usecase.GetRaceDetails
+import com.acterics.racesclient.domain.interactor.GetRaceDetails
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
 import com.arellomobile.mvp.InjectViewState
 import javax.inject.Inject

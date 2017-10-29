@@ -4,9 +4,9 @@ import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.BaseApplication
 import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.data.usecase.GetRaces
+import com.acterics.racesclient.domain.interactor.GetRaces
 import com.acterics.racesclient.ui.base.BaseNavigationPresenter
-import com.acterics.racesclient.utils.Screens
+import com.acterics.racesclient.common.extentions.Screens
 import com.arellomobile.mvp.InjectViewState
 import javax.inject.Inject
 
