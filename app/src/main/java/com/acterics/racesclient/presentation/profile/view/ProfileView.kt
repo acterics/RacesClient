@@ -1,6 +1,6 @@
 package com.acterics.racesclient.presentation.profile.view
 
-import com.acterics.racesclient.data.entity.User
+import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.presentation.profile.ProfileViewModel
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy

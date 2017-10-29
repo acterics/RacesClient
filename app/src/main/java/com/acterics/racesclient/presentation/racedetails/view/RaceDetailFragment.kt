@@ -16,7 +16,7 @@ import com.acterics.racesclient.common.ui.MatchParentProgressItem
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.GetRaceDetails
+import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -42,7 +42,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
 
 
     @Inject
-    lateinit var getRaceDetails: GetRaceDetails
+    lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
 
     @Inject
     lateinit var router: Router
@@ -50,7 +50,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
     @InjectPresenter lateinit var presenter: RaceDetailPresenter
 
     @ProvidePresenter
-    fun provideRaceDetailsPresenter(): RaceDetailPresenter = RaceDetailPresenter(router, getRaceDetails)
+    fun provideRaceDetailsPresenter(): RaceDetailPresenter = RaceDetailPresenter(router, getRaceDetailsUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,7 +1,7 @@
 package com.acterics.racesclient.common.extentions
 
 import com.acterics.racesclient.data.error.NetworkStatusException
-import com.acterics.racesclient.data.model.response.BaseResponse
+import com.acterics.racesclient.data.network.model.response.BaseResponse
 import io.reactivex.Observable
 import io.reactivex.Single
 

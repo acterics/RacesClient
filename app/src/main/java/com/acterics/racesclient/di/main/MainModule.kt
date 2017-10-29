@@ -1,10 +1,12 @@
 package com.acterics.racesclient.di.main
 
-import com.acterics.racesclient.data.AppDatabase
-import com.acterics.racesclient.data.rest.ApiService
+import com.acterics.racesclient.data.database.AppDatabase
+import com.acterics.racesclient.data.network.ApiService
+import com.acterics.racesclient.data.repository.RaceRepositoryImpl
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.domain.interactor.GetRaceDetails
-import com.acterics.racesclient.domain.interactor.GetRaces
+import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
+import com.acterics.racesclient.domain.interactor.GetRacesUseCase
+import com.acterics.racesclient.domain.repository.RaceRepository
 import dagger.Module
 import dagger.Provides
 
@@ -16,11 +18,12 @@ class MainModule {
 
     @MainScope
     @Provides
-    fun provideGetRaceDetailsUseCase(apiService: ApiService, appDatabase: AppDatabase, scheduler: ExecutionScheduler) =
-            GetRaceDetails(apiService, appDatabase, scheduler)
+    fun provideGetRaceDetailsUseCase(raceRepository: RaceRepository, scheduler: ExecutionScheduler) =
+            GetRaceDetailsUseCase(raceRepository, scheduler)
 
     @MainScope
     @Provides
-    fun provideGetRacesUseCase(apiService: ApiService, appDatabase: AppDatabase, scheduler: ExecutionScheduler) =
-            GetRaces(apiService, appDatabase, scheduler)
+    fun provideGetRacesUseCase(raceRepository: RaceRepository, scheduler: ExecutionScheduler) =
+            GetRacesUseCase(raceRepository, scheduler)
+
 }

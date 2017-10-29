@@ -1,6 +1,6 @@
 package com.acterics.racesclient.di.app
 
-import com.acterics.racesclient.data.rest.ApiService
+import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.utils.DebugApiService
 import dagger.Module
 import dagger.Provides

@@ -2,7 +2,7 @@ package com.acterics.racesclient.presentation.racedetails
 
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.data.entity.Participant
+import com.acterics.racesclient.data.database.entity.Participant
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

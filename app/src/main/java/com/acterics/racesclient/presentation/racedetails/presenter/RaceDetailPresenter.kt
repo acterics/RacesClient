@@ -1,7 +1,7 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
-import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.domain.interactor.GetRaceDetails
+import com.acterics.racesclient.data.database.entity.Race
+import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
 import com.arellomobile.mvp.InjectViewState
@@ -15,7 +15,7 @@ import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class RaceDetailPresenter(private val router: Router,
-                          private val getRaceDetails: GetRaceDetails): MvpPresenter<RaceDetailView>() {
+                          private val getRaceDetailsUseCase: GetRaceDetailsUseCase): MvpPresenter<RaceDetailView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -28,15 +28,15 @@ class RaceDetailPresenter(private val router: Router,
 
     override fun onDestroy() {
         super.onDestroy()
-        getRaceDetails.dispose()
+//        getRaceDetailsUseCase.dispose()
     }
 
 
     fun loadDetails(id: Long) {
         viewState.startParticipantsLoading()
-        getRaceDetails
+        getRaceDetailsUseCase
                 .execute(
-                        params = GetRaceDetails.Params(id),
+                        params = GetRaceDetailsUseCase.Params(id),
                         onSuccess = { onDetailsLoaded(it) },
                         onError = { onDetailsLoadError(it) }
                 )

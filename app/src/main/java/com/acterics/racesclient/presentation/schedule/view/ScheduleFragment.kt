@@ -12,7 +12,7 @@ import com.acterics.racesclient.common.ui.MatchParentProgressItem
 import com.acterics.racesclient.common.ui.SharedElementsHolder
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.GetRaces
+import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.presenter.SchedulePresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -36,13 +36,13 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     lateinit var router: Router
 
     @Inject
-    lateinit var getRaces: GetRaces
+    lateinit var getRacesUseCase: GetRacesUseCase
 
     @InjectPresenter
     lateinit var presenter: SchedulePresenter
 
     @ProvidePresenter
-    fun provideSchedulePresenter(): SchedulePresenter = SchedulePresenter(router, getRaces)
+    fun provideSchedulePresenter(): SchedulePresenter = SchedulePresenter(router, getRacesUseCase)
 
     private val scheduleAdapter = FastItemAdapter<ScheduleItem>()
     private val progressAdapter = FooterAdapter<ProgressItem>()

@@ -4,9 +4,9 @@ import android.content.Context
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Screens
 import com.acterics.racesclient.common.extentions.login
-import com.acterics.racesclient.data.entity.User
-import com.acterics.racesclient.data.model.request.SignInRequest
-import com.acterics.racesclient.domain.interactor.Authenticate
+import com.acterics.racesclient.data.database.entity.User
+import com.acterics.racesclient.data.network.model.request.SignInRequest
+import com.acterics.racesclient.domain.interactor.SignInUseCase
 import com.acterics.racesclient.presentation.authentication.signin.view.SignInView
 import com.acterics.racesclient.utils.validators.EmailValidator
 import com.arellomobile.mvp.InjectViewState
@@ -19,7 +19,7 @@ import ru.terrakok.cicerone.Router
 @InjectViewState
 class SignInPresenter(private val emailValidator: EmailValidator,
                       private val context: Context,
-                      private val authenticate: Authenticate,
+                      private val signInUseCase: SignInUseCase,
                       private val router: Router): MvpPresenter<SignInView>() {
 
 
@@ -42,7 +42,7 @@ class SignInPresenter(private val emailValidator: EmailValidator,
 
     fun onSignInButtonClick(email: String, password: String) {
         //TODO add authorization logic
-        authenticate
+        signInUseCase
                 .execute(params = SignInRequest(email, password),
                         onSuccess = { onSuccessLogin(it)},
                         onError = { viewState.showError(it.message) }

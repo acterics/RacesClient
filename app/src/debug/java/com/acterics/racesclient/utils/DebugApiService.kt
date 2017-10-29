@@ -1,15 +1,12 @@
 package com.acterics.racesclient.utils
 
-import com.acterics.racesclient.data.model.*
-import com.acterics.racesclient.data.model.request.SignInRequest
-import com.acterics.racesclient.data.model.request.SignUpRequest
-import com.acterics.racesclient.data.model.response.BaseResponse
-import com.acterics.racesclient.data.model.response.ScheduleResponse
-import com.acterics.racesclient.data.rest.ApiService
-import io.reactivex.Observable
+import com.acterics.racesclient.data.network.model.*
+import com.acterics.racesclient.data.network.model.request.SignInRequest
+import com.acterics.racesclient.data.network.model.request.SignUpRequest
+import com.acterics.racesclient.data.network.model.response.BaseResponse
+import com.acterics.racesclient.data.network.model.response.ScheduleResponse
+import com.acterics.racesclient.data.network.ApiService
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.joda.money.Money
 import org.joda.time.DateTime
 import timber.log.Timber

@@ -1,8 +1,8 @@
 package com.acterics.racesclient.di.auth
 
-import com.acterics.racesclient.data.rest.ApiService
+import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.domain.interactor.Authenticate
+import com.acterics.racesclient.domain.interactor.SignInUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -15,7 +15,7 @@ class AuthenticationModule {
 
     @AuthenticationScope
     @Provides
-    fun provideAuthenticateUseCase(apiService: ApiService, scheduler: ExecutionScheduler): Authenticate =
-            Authenticate(apiService, scheduler)
+    fun provideAuthenticateUseCase(apiService: ApiService, scheduler: ExecutionScheduler): SignInUseCase =
+            SignInUseCase(apiService, scheduler)
 
 }

@@ -15,7 +15,7 @@ import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.getGlobalVisibleRect
 import com.acterics.racesclient.common.extentions.getNavigationIconView
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
-import com.acterics.racesclient.data.entity.User
+import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.presentation.profile.ProfileViewModel
 import com.acterics.racesclient.presentation.profile.general.ProfileGeneralFragment

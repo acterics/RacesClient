@@ -15,6 +15,8 @@ import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
+import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
+import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
 import com.acterics.racesclient.presentation.editprofile.view.EditProfileActivity
 import com.acterics.racesclient.presentation.main.presenter.MainActivityPresenter
@@ -45,11 +47,18 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     @Inject
     lateinit var navigationHolder: NavigatorHolder
 
+    @Inject
+    lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
+
+    @Inject
+    lateinit var getRacesUseCase: GetRacesUseCase
+
     @InjectPresenter
     lateinit var presenter: MainActivityPresenter
 
     @ProvidePresenter
-    fun provideMainPresenter(): MainActivityPresenter = MainActivityPresenter(router, appContext)
+    fun provideMainPresenter(): MainActivityPresenter =
+            MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

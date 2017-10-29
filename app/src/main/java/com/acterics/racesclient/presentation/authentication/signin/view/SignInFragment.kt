@@ -11,7 +11,7 @@ import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.Authenticate
+import com.acterics.racesclient.domain.interactor.SignInUseCase
 import com.acterics.racesclient.presentation.authentication.signin.presenter.SignInPresenter
 import com.acterics.racesclient.utils.validators.EmailValidator
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -38,11 +38,11 @@ class SignInFragment: BaseScopedFragment(), SignInView {
     @Inject
     lateinit var appContext: Context
 
-    @Inject lateinit var authenticate: Authenticate
+    @Inject lateinit var signInUseCase: SignInUseCase
 
     @ProvidePresenter
     fun provideSignInPresenter() =
-            SignInPresenter(emailValidator, appContext, authenticate, router)
+            SignInPresenter(emailValidator, appContext, signInUseCase, router)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

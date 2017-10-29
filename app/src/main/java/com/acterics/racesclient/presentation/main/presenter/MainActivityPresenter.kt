@@ -8,6 +8,8 @@ import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Screens
 import com.acterics.racesclient.common.extentions.logout
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
+import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
+import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.main.view.MainActivityView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -18,7 +20,9 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class MainActivityPresenter(private val router: Router,
-                            private val context: Context): MvpPresenter<MainActivityView>()
+                            private val context: Context,
+                            private val getRacesUseCase: GetRacesUseCase,
+                            private val getRaceDetailsUseCase: GetRaceDetailsUseCase): MvpPresenter<MainActivityView>()
 {
 
     val onNavigationItemSelectedListener = { menuItem: MenuItem ->  onNavigationItemSelected(menuItem) }
@@ -52,6 +56,11 @@ class MainActivityPresenter(private val router: Router,
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        getRaceDetailsUseCase.dispose()
+        getRacesUseCase.dispose()
+    }
 
     private fun onLogout() {
         context.logout()

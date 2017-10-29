@@ -2,7 +2,7 @@ package com.acterics.racesclient.common.extentions
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.acterics.racesclient.data.entity.User
+import com.acterics.racesclient.data.database.entity.User
 
 /**
 * Created by root on 27.09.17.

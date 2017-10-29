@@ -7,7 +7,7 @@ import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.extentions.suffixedFormattedDate
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.data.entity.Race
+import com.acterics.racesclient.data.database.entity.Race
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

@@ -3,8 +3,8 @@ package com.acterics.racesclient.presentation.schedule.presenter
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Screens
-import com.acterics.racesclient.data.entity.Race
-import com.acterics.racesclient.domain.interactor.GetRaces
+import com.acterics.racesclient.data.database.entity.Race
+import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.view.ScheduleView
 import com.arellomobile.mvp.InjectViewState
@@ -16,7 +16,7 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class SchedulePresenter(private val router: Router,
-                        private val getRaces: GetRaces): MvpPresenter<ScheduleView>() {
+                        private val getRacesUseCase: GetRacesUseCase): MvpPresenter<ScheduleView>() {
 
     private var page = -1
     private val pageSize = 10
@@ -41,15 +41,15 @@ class SchedulePresenter(private val router: Router,
 
     override fun onDestroy() {
         super.onDestroy()
-        getRaces.dispose()
+        getRacesUseCase.dispose()
     }
     //TODO fix page duplicating issue
     fun onLoadMore(currentPage: Int) {
         if (currentPage > page || page == -1 && !loading) {
             loading = true
             viewState.startScheduleLoading(currentPage == 0)
-            getRaces.execute(
-                    params = GetRaces.Params(currentPage * pageSize, pageSize),
+            getRacesUseCase.execute(
+                    params = GetRacesUseCase.Params(currentPage * pageSize, pageSize),
                     onSuccess = { races -> onSchedulePageLoaded(races, currentPage) },
                     onError = { throwable -> onSchedulePageLoadError(throwable) }
             )
