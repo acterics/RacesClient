@@ -15,14 +15,13 @@ import javax.inject.Inject
  */
 
 @InjectViewState
-class SplashScreenPresenter(private val router: Router): MvpPresenter<SplashScreenView>() {
+class SplashScreenPresenter(private val router: Router,
+                            private val context: Context): MvpPresenter<SplashScreenView>() {
 
     companion object {
         const val DELAY_TIME = 600L
     }
 
-    @Inject
-    lateinit var context: Context
 
     private val routingHandler = Handler()
 

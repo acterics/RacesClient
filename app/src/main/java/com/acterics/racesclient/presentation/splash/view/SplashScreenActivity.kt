@@ -1,5 +1,6 @@
 package com.acterics.racesclient.presentation.splash.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
@@ -34,11 +35,14 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     @Inject
     lateinit var router: Router
 
+    @Inject
+    lateinit var appContext: Context
+
     @InjectPresenter
     lateinit var presenter: SplashScreenPresenter
 
     @ProvidePresenter
-    fun provideSplashScreenPresenter(): SplashScreenPresenter = SplashScreenPresenter(router)
+    fun provideSplashScreenPresenter(): SplashScreenPresenter = SplashScreenPresenter(router, appContext)
 
     override fun getNavigator(): Navigator {
         return Navigator { command -> when (command) {
