@@ -1,12 +1,12 @@
 package com.acterics.racesclient.domain.interactor
 
+import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.data.AppDatabase
 import com.acterics.racesclient.data.entity.Horse
 import com.acterics.racesclient.data.entity.Participant
 import com.acterics.racesclient.data.entity.Race
 import com.acterics.racesclient.data.rest.ApiService
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import io.reactivex.Single
 import io.reactivex.rxkotlin.zipWith
 import javax.inject.Inject

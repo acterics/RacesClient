@@ -2,14 +2,13 @@ package com.acterics.racesclient.presentation.main.presenter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.design.widget.NavigationView
 import android.support.v4.content.res.ResourcesCompat
 import android.view.MenuItem
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Screens
 import com.acterics.racesclient.common.extentions.logout
+import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
 import com.acterics.racesclient.presentation.main.view.MainActivityView
-import com.acterics.racesclient.presentation.main.MainDrawerFragment
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
@@ -19,9 +18,10 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class MainActivityPresenter(private val router: Router,
-                            private val context: Context): MvpPresenter<MainActivityView>(),
-        NavigationView.OnNavigationItemSelectedListener
+                            private val context: Context): MvpPresenter<MainActivityView>()
 {
+
+    val onNavigationItemSelectedListener = { menuItem: MenuItem ->  onNavigationItemSelected(menuItem) }
 
 
     override fun onFirstViewAttach() {
@@ -29,7 +29,7 @@ class MainActivityPresenter(private val router: Router,
         router.replaceScreen(Screens.PROFILE_SCREEN)
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    private fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.drawer_profile -> router.replaceScreen(Screens.PROFILE_SCREEN)
             R.id.drawer_schedule -> router.replaceScreen(Screens.RACES_SCREEN)

@@ -1,6 +1,5 @@
 package com.acterics.racesclient.data.model
 
-import com.acterics.racesclient.data.entity.Organization
 import com.acterics.racesclient.data.entity.Race
 import org.joda.time.DateTime
 

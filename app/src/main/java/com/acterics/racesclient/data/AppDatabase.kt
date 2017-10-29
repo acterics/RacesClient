@@ -6,7 +6,10 @@ import com.acterics.racesclient.data.dao.HorseDao
 import com.acterics.racesclient.data.dao.OrganizationDao
 import com.acterics.racesclient.data.dao.ParticipantDao
 import com.acterics.racesclient.data.dao.RaceDao
-import com.acterics.racesclient.data.entity.*
+import com.acterics.racesclient.data.entity.Horse
+import com.acterics.racesclient.data.entity.Organization
+import com.acterics.racesclient.data.entity.Participant
+import com.acterics.racesclient.data.entity.Race
 
 /**
  * Created by root on 24.10.17.

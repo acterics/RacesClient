@@ -7,21 +7,21 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBarDrawerToggle
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.ui.ToolbarHolder
-import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
+import com.acterics.racesclient.common.extentions.Screens
 import com.acterics.racesclient.common.ui.SharedElementHolder
 import com.acterics.racesclient.common.ui.SharedElementsHolder
+import com.acterics.racesclient.common.ui.ToolbarHolder
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
-import com.acterics.racesclient.ui.profile.ProfileFragment
-import com.acterics.racesclient.ui.profile.edit.EditProfileActivity
-import com.acterics.racesclient.ui.race.RaceDetailFragment
-import com.acterics.racesclient.ui.schedule.ScheduleFragment
-import com.acterics.racesclient.ui.settings.SettingsFragment
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
+import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.presentation.main.MainDrawerFragment
+import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
+import com.acterics.racesclient.presentation.editprofile.view.EditProfileActivity
 import com.acterics.racesclient.presentation.main.presenter.MainActivityPresenter
+import com.acterics.racesclient.presentation.profile.view.ProfileFragment
+import com.acterics.racesclient.presentation.racedetails.view.RaceDetailFragment
+import com.acterics.racesclient.presentation.schedule.view.ScheduleFragment
+import com.acterics.racesclient.presentation.settings.SettingsFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -54,7 +54,7 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        vNavigationDrawer.setNavigationItemSelectedListener(presenter)
+        vNavigationDrawer.setNavigationItemSelectedListener(presenter.onNavigationItemSelectedListener)
 
     }
 
@@ -129,7 +129,7 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     }
 
     override fun rejectComponent() {
-        ComponentsManager.clearAuthenticationComponent()
+        ComponentsManager.clearMainComponent()
     }
 
     override fun getInjectedNavigationHolder(): NavigatorHolder = navigationHolder

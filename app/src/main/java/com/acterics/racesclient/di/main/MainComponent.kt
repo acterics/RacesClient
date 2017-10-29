@@ -1,9 +1,10 @@
 package com.acterics.racesclient.di.main
 
 import com.acterics.racesclient.presentation.main.view.MainActivity
-import com.acterics.racesclient.ui.profile.ProfilePresenter
-import com.acterics.racesclient.ui.race.RaceDetailPresenter
-import com.acterics.racesclient.ui.schedule.SchedulePresenter
+import com.acterics.racesclient.presentation.profile.view.ProfileFragment
+import com.acterics.racesclient.presentation.racedetails.view.RaceDetailFragment
+import com.acterics.racesclient.presentation.schedule.view.ScheduleFragment
+import com.acterics.racesclient.presentation.settings.SettingsFragment
 import dagger.Subcomponent
 
 /**
@@ -19,7 +20,8 @@ interface MainComponent {
     }
 
     fun inject(mainActivity: MainActivity)
-    fun inject(profileScreen: ProfilePresenter)
-    fun inject(scheduleScreen: SchedulePresenter)
-    fun inject(raceDetailScreen: RaceDetailPresenter)
+    fun inject(profileFragment: ProfileFragment)
+    fun inject(scheduleFragment: ScheduleFragment)
+    fun inject(raceDetailFragment: RaceDetailFragment)
+    fun inject(settingsFragment: SettingsFragment)
 }

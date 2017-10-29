@@ -2,11 +2,6 @@ package com.acterics.racesclient
 
 import android.app.Application
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.di.app.AppComponent
-import com.acterics.racesclient.di.DaggerAppComponent
-import com.acterics.racesclient.di.app.AppModule
-//import com.acterics.racesclient.di.DaggerAppComponent
-import com.acterics.racesclient.di.modules.*
 import javax.inject.Inject
 
 /**

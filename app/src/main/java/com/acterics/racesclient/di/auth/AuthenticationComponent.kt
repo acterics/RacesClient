@@ -1,9 +1,8 @@
 package com.acterics.racesclient.di.auth
 
 import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
-import com.acterics.racesclient.presentation.signin.view.SignInFragment
-import com.acterics.racesclient.presentation.signup.presenter.SignUpPresenter
-import com.acterics.racesclient.presentation.signup.view.SignUpFragment
+import com.acterics.racesclient.presentation.authentication.signin.view.SignInFragment
+import com.acterics.racesclient.presentation.authentication.signup.view.SignUpFragment
 import dagger.Subcomponent
 
 /**

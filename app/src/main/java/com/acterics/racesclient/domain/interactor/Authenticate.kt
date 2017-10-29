@@ -1,11 +1,10 @@
 package com.acterics.racesclient.domain.interactor
 
+import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.data.entity.User
 import com.acterics.racesclient.data.model.request.SignInRequest
 import com.acterics.racesclient.data.rest.ApiService
-import com.acterics.racesclient.domain.interactor.UseCase
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import io.reactivex.Single
 import javax.inject.Inject
 

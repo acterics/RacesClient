@@ -6,7 +6,6 @@ import com.acterics.racesclient.data.model.request.SignInRequest
 import com.acterics.racesclient.data.model.request.SignUpRequest
 import com.acterics.racesclient.data.model.response.BaseResponse
 import com.acterics.racesclient.data.model.response.ScheduleResponse
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
 

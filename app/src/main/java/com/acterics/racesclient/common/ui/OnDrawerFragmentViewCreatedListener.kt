@@ -1,6 +1,5 @@
 package com.acterics.racesclient.common.ui
 
-import com.acterics.racesclient.common.ui.ToolbarHolder
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 

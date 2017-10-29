@@ -1,8 +1,8 @@
 package com.acterics.racesclient.di.auth
 
 import com.acterics.racesclient.data.rest.ApiService
-import com.acterics.racesclient.domain.interactor.Authenticate
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
+import com.acterics.racesclient.domain.interactor.Authenticate
 import dagger.Module
 import dagger.Provides
 

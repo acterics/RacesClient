@@ -1,7 +1,5 @@
 package com.acterics.racesclient.data.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.acterics.racesclient.data.entity.User
 
 /**

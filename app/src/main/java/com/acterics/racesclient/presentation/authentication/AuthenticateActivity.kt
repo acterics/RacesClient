@@ -10,13 +10,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.presentation.signin.view.SignInFragment
-import com.acterics.racesclient.presentation.signup.view.SignUpFragment
-import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
-import com.acterics.racesclient.presentation.main.view.MainActivity
 import com.acterics.racesclient.common.extentions.Screens
 import com.acterics.racesclient.common.extentions.getStatusBarSize
+import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.di.ComponentsManager
+import com.acterics.racesclient.presentation.authentication.signin.view.SignInFragment
+import com.acterics.racesclient.presentation.authentication.signup.view.SignUpFragment
+import com.acterics.racesclient.presentation.main.view.MainActivity
 import com.acterics.racesclient.utils.keyboard.KeyboardMvpView
 import com.acterics.racesclient.utils.keyboard.KeyboardPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter

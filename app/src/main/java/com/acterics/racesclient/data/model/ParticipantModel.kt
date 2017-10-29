@@ -1,8 +1,6 @@
 package com.acterics.racesclient.data.model
 
-import com.acterics.racesclient.data.entity.Horse
 import com.acterics.racesclient.data.entity.Participant
-import com.acterics.racesclient.data.entity.Race
 import org.joda.money.Money
 
 /**

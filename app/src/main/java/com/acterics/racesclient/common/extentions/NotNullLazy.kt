@@ -1,6 +1,5 @@
 package com.acterics.racesclient.common.extentions
 
-import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 /**

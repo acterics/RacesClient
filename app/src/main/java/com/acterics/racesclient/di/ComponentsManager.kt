@@ -2,11 +2,7 @@ package com.acterics.racesclient.di
 
 import android.app.Application
 import com.acterics.racesclient.common.extentions.notNullLazy
-import com.acterics.racesclient.di.app.AppComponent
-import com.acterics.racesclient.di.app.AppModule
-import com.acterics.racesclient.di.modules.ApiModule
-import com.acterics.racesclient.di.modules.BuildModule
-import com.acterics.racesclient.di.app.NavigationModule
+import com.acterics.racesclient.di.app.*
 
 /**
  * Created by root on 29.10.17.
