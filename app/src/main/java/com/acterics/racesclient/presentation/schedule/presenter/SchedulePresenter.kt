@@ -39,10 +39,7 @@ class SchedulePresenter(private val router: Router,
         sharedElements.clear()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        getRacesUseCase.dispose()
-    }
+
     //TODO fix page duplicating issue
     fun onLoadMore(currentPage: Int) {
         if (currentPage > page || page == -1 && !loading) {

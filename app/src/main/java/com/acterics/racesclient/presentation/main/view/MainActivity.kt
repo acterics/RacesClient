@@ -15,6 +15,7 @@ import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
+import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
@@ -53,12 +54,15 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     @Inject
     lateinit var getRacesUseCase: GetRacesUseCase
 
+    @Inject
+    lateinit var confirmBetUseCase: ConfirmBetUseCase
+
     @InjectPresenter
     lateinit var presenter: MainActivityPresenter
 
     @ProvidePresenter
     fun provideMainPresenter(): MainActivityPresenter =
-            MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase)
+            MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase, confirmBetUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

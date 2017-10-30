@@ -75,11 +75,12 @@ dependencies {
 
     //UI
     compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile('com.mikepenz:fastadapter:2.6.3@aar') {
+    compile('com.mikepenz:fastadapter:3.0.0@aar') {
         transitive = true
     }
-    compile 'com.mikepenz:fastadapter-commons:2.6.3@aar'
-    compile 'com.mikepenz:fastadapter-extensions:2.6.3@aar'
+    compile 'com.mikepenz:fastadapter-commons:3.0.0@aar'
+    compile 'com.mikepenz:fastadapter-extensions-expandable:3.0.0@aar'
+    compile 'com.mikepenz:fastadapter-extensions:3.0.0@aar'
 
     compile 'net.danlew:android.joda:2.9.9'
     compile group: 'org.joda', name: 'joda-money', version: '0.12'

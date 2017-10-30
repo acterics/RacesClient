@@ -4,9 +4,11 @@ import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.repository.RaceRepositoryImpl
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
+import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.domain.repository.RaceRepository
+import com.acterics.racesclient.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 
@@ -25,5 +27,10 @@ class MainModule {
     @Provides
     fun provideGetRacesUseCase(raceRepository: RaceRepository, scheduler: ExecutionScheduler) =
             GetRacesUseCase(raceRepository, scheduler)
+
+    @MainScope
+    @Provides
+    fun provideConfirmBetUseCase(userRepository: UserRepository, scheduler: ExecutionScheduler) =
+            ConfirmBetUseCase(userRepository, scheduler)
 
 }

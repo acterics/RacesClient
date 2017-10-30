@@ -10,4 +10,5 @@ interface RaceRepository {
 
     fun getSchedulePage(skip: Int, count: Int, caching: Boolean): Single<List<Race>>
     fun getRaceDetails(raceId: Long, fromCache: Boolean): Single<Race>
+
 }

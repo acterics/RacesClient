@@ -8,12 +8,14 @@ import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Screens
 import com.acterics.racesclient.common.extentions.logout
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
+import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.main.view.MainActivityView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 
 /**
  * Created by root on 09.10.17.
@@ -22,7 +24,8 @@ import ru.terrakok.cicerone.Router
 class MainActivityPresenter(private val router: Router,
                             private val context: Context,
                             private val getRacesUseCase: GetRacesUseCase,
-                            private val getRaceDetailsUseCase: GetRaceDetailsUseCase): MvpPresenter<MainActivityView>()
+                            private val getRaceDetailsUseCase: GetRaceDetailsUseCase,
+                            private val confirmBetUseCase: ConfirmBetUseCase): MvpPresenter<MainActivityView>()
 {
 
     val onNavigationItemSelectedListener = { menuItem: MenuItem ->  onNavigationItemSelected(menuItem) }
@@ -60,6 +63,7 @@ class MainActivityPresenter(private val router: Router,
         super.onDestroy()
         getRaceDetailsUseCase.dispose()
         getRacesUseCase.dispose()
+        confirmBetUseCase.dispose()
     }
 
     private fun onLogout() {

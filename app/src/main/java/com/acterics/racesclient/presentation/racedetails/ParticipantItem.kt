@@ -3,12 +3,15 @@ package com.acterics.racesclient.presentation.racedetails
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.data.database.entity.Participant
-import com.mikepenz.fastadapter.items.AbstractItem
+import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**
  * Created by root on 21.10.17.
  */
-class ParticipantItem(private val participant: Participant): AbstractItem<ParticipantItem, ParticipantHolder>() {
+class ParticipantItem(internal val participant: Participant):
+        AbstractExpandableItem<ParticipantItem, ParticipantHolder, ParticipantSubItem>() {
+
+    var isBetOn = false
 
     override fun getViewHolder(v: View): ParticipantHolder {
         return ParticipantHolder(v)
@@ -19,13 +22,22 @@ class ParticipantItem(private val participant: Participant): AbstractItem<Partic
     }
 
     override fun getLayoutRes(): Int {
-        return R.layout.item_race_participants
+        return R.layout.item_participant
     }
 
-    override fun bindView(holder: ParticipantHolder, payloads: MutableList<Any>?) {
+    override fun bindView(holder: ParticipantHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
         holder.tvHorseName.text = participant.horse?.name
         holder.tvHorseRating.text = participant.rating.toString()
+        val betDrawableRes = if (isBetOn) R.drawable.ic_bet_on else R.drawable.ic_bet_off
+
+
+        holder.btBet.setImageResource(betDrawableRes)
     }
+
+    fun betOn() {
+        isBetOn = true
+    }
+
 
 }

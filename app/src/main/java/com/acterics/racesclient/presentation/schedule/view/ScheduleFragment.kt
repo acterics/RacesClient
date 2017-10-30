@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
+import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.MatchParentProgressItem
 import com.acterics.racesclient.common.ui.SharedElementsHolder
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
@@ -17,8 +19,7 @@ import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.presenter.SchedulePresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.mikepenz.fastadapter.adapters.FooterAdapter
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter_extensions.items.ProgressItem
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 import kotlinx.android.synthetic.main.fragment_schedule.*
@@ -44,8 +45,8 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     @ProvidePresenter
     fun provideSchedulePresenter(): SchedulePresenter = SchedulePresenter(router, getRacesUseCase)
 
-    private val scheduleAdapter = FastItemAdapter<ScheduleItem>()
-    private val progressAdapter = FooterAdapter<ProgressItem>()
+    private val scheduleAdapter = DefaultFastItemAdapter()
+    private lateinit var progressAdapter: DefaultItemAdapter
 
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -69,11 +70,13 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressAdapter = items()
+        scheduleAdapter.addAdapter(1, progressAdapter)
 
         layoutManager = LinearLayoutManager(context)
-        scheduleAdapter.withOnClickListener { v, _, item, _ -> presenter.onScheduleItemClick(v, item) }
+        scheduleAdapter.withOnClickListener { v, _, item, _ -> presenter.onScheduleItemClick(v, item as ScheduleItem) }
         rvSchedule.layoutManager = layoutManager
-        rvSchedule.adapter = progressAdapter.wrap(scheduleAdapter)
+        rvSchedule.adapter = scheduleAdapter
         rvSchedule.itemAnimator = DefaultItemAnimator()
 
         endlessScrollListener = object: EndlessRecyclerOnScrollListener(layoutManager, 5, progressAdapter) {

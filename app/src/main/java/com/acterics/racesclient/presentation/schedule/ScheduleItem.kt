@@ -33,7 +33,7 @@ class ScheduleItem(var race: Race) : AbstractItem<ScheduleItem, ScheduleItemHold
         return R.id.itemRace
     }
 
-    override fun bindView(holder: ScheduleItemHolder, payloads: MutableList<Any>?) {
+    override fun bindView(holder: ScheduleItemHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
         holder.tvRaceTitle.text = race.title

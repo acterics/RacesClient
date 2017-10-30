@@ -12,17 +12,21 @@ import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.getSupportDrawable
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
+import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
+import com.acterics.racesclient.common.ui.DefaultItem
+import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.MatchParentProgressItem
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
+import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.mikepenz.fastadapter.adapters.FooterAdapter
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter.items
+import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import kotlinx.android.synthetic.main.fragment_race.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -37,12 +41,17 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
     }
     lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
 
-    private val participantsAdapter = FastItemAdapter<ParticipantItem>()
-    private val progressAdapter = FooterAdapter<MatchParentProgressItem>()
+
+    private val participantsAdapter = DefaultFastItemAdapter()
+    private val expandableExtension = ExpandableExtension<DefaultItem>()
+    private lateinit var progressAdapter: DefaultItemAdapter
 
 
     @Inject
     lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
+
+    @Inject
+    lateinit var confirmBetUseCase: ConfirmBetUseCase
 
     @Inject
     lateinit var router: Router
@@ -50,7 +59,8 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
     @InjectPresenter lateinit var presenter: RaceDetailPresenter
 
     @ProvidePresenter
-    fun provideRaceDetailsPresenter(): RaceDetailPresenter = RaceDetailPresenter(router, getRaceDetailsUseCase)
+    fun provideRaceDetailsPresenter(): RaceDetailPresenter =
+            RaceDetailPresenter(router, getRaceDetailsUseCase, confirmBetUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +98,13 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         raceDetailsToolbar.title = getString(R.string.race)
         raceDetailsToolbar.setNavigationOnClickListener { presenter.onBack() }
 
+        progressAdapter = items()
+
+        participantsAdapter.addAdapter(1, progressAdapter)
+        participantsAdapter.addExtension(expandableExtension)
+
         rvParticipants.layoutManager = LinearLayoutManager(context)
-        rvParticipants.adapter = progressAdapter.wrap(participantsAdapter)
+        rvParticipants.adapter = participantsAdapter
         rvParticipants.itemAnimator = DefaultItemAnimator()
 
     }
@@ -118,3 +133,4 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         ComponentsManager.mainComponent!!.inject(this)
     }
 }
+
