@@ -17,7 +17,7 @@ class SignInUseCase
     override fun build(params: SignInRequest?): Single<User> =
             apiService.signIn(params ?: throw IllegalArgumentException())
                     .checkNetworkSingle()
-                    .map { it.map() }
+                    .map { User(it.id, it.firstName, it.lastName, it.email, it.userInfo.avatar) }
                     .compose(scheduler.highPrioritySingle())
 
 }

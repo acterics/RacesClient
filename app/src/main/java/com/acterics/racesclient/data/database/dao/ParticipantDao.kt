@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import com.acterics.racesclient.data.database.entity.Participant
+import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import io.reactivex.Single
 
 /**
@@ -14,11 +14,11 @@ import io.reactivex.Single
 interface ParticipantDao {
 
     @Query("SELECT * FROM participant WHERE race_id = :arg0 ORDER BY horse_id")
-    fun getRaceParticipants(arg0: Long): Single<List<Participant>>
+    fun getRaceParticipants(arg0: Long): Single<List<ParticipantEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(participant: Participant)
+    fun insert(participant: ParticipantEntity)
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
-    fun insertAll(participants: List<Participant>)
+    fun insertAll(participants: List<ParticipantEntity>)
 }

@@ -17,7 +17,8 @@ import javax.inject.Singleton
         AppModule::class,
         ApiModule::class,
         BuildModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        DataModule::class
 ))
 interface AppComponent {
     fun authenticateComponentBuilder(): AuthenticationComponent.Builder

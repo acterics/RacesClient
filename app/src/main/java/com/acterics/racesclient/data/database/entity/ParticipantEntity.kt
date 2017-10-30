@@ -8,24 +8,22 @@ import android.arch.persistence.room.*
  */
 @Entity(foreignKeys = arrayOf(
             ForeignKey(
-                    entity = Race::class,
+                    entity = RaceEntity::class,
                     parentColumns = arrayOf("id"),
                     childColumns = arrayOf("race_id"),
                     onDelete = ForeignKey.CASCADE),
             ForeignKey(
-                    entity = Horse::class,
+                    entity = HorseEntity::class,
                     parentColumns = arrayOf("id"),
                     childColumns = arrayOf("horse_id"),
                     onDelete = ForeignKey.CASCADE)
 ),
         tableName = "participant")
-data class Participant (
+data class ParticipantEntity(
         @PrimaryKey
         @ColumnInfo(name = "participant_id") var id: Long = 0,
         @ColumnInfo(name = "rating") var rating: Float = 0.0f,
         @ColumnInfo(name = "horse_id") var horseId: Long = 0,
-        @ColumnInfo(name = "race_id") var raceId: Long = 0,
-        @Ignore var horse: Horse? = null,
-        @Ignore var race: Race? = null
+        @ColumnInfo(name = "race_id") var raceId: Long = 0
 )
 

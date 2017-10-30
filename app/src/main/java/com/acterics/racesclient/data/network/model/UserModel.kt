@@ -9,7 +9,4 @@ data class UserModel(val id: Long,
                      val firstName: String,
                      val lastName: String,
                      val email: String,
-                     val userInfo: UserInfoModel): EntityWrapper<User> {
-
-    override fun map(): User = User(id, firstName, lastName, email, userInfo.avatar)
-}
+                     val userInfo: UserInfoModel)

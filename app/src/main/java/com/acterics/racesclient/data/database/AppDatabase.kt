@@ -6,19 +6,17 @@ import com.acterics.racesclient.data.database.dao.HorseDao
 import com.acterics.racesclient.data.database.dao.OrganizationDao
 import com.acterics.racesclient.data.database.dao.ParticipantDao
 import com.acterics.racesclient.data.database.dao.RaceDao
-import com.acterics.racesclient.data.database.entity.Horse
-import com.acterics.racesclient.data.database.entity.Organization
-import com.acterics.racesclient.data.database.entity.Participant
-import com.acterics.racesclient.data.database.entity.Race
+import com.acterics.racesclient.data.database.entity.*
 
 /**
  * Created by root on 24.10.17.
  */
 @Database(entities = arrayOf(
-        Race::class,
-        Horse::class,
-        Participant::class,
-        Organization::class
+        RaceEntity::class,
+        HorseEntity::class,
+        ParticipantEntity::class,
+        OrganizationEntity::class,
+        BetEntity::class
         ),
         version = 8 , exportSchema = false) abstract class AppDatabase : RoomDatabase() {
 

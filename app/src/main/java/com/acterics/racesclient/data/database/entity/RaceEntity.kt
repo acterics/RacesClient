@@ -1,6 +1,9 @@
 package com.acterics.racesclient.data.database.entity
 
 import android.arch.persistence.room.*
+import com.acterics.racesclient.domain.DomainModelMapper
+import com.acterics.racesclient.domain.model.Organization
+import com.acterics.racesclient.domain.model.Race
 import org.joda.time.DateTime
 
 /**
@@ -8,21 +11,17 @@ import org.joda.time.DateTime
  */
 @Entity(foreignKeys = arrayOf(
                 ForeignKey(
-                        entity = Organization::class,
+                        entity = OrganizationEntity::class,
                         parentColumns = arrayOf("id"),
                         childColumns = arrayOf("race_organizer"),
                         onDelete = ForeignKey.CASCADE)),
         tableName = "race")
 
-data class Race (
+data class RaceEntity(
         @PrimaryKey
         @ColumnInfo(name = "id") var id: Long = 0,
         @ColumnInfo(name = "race_title") var title: String = "",
         @ColumnInfo(name = "race_date") var date: Long = 0,
-        @ColumnInfo(name = "race_organizer") var organizerId: Long = 0,
-
-
-        @Ignore var organizer: Organization? = null,
-        @Ignore var dateTime: DateTime? = null,
-        @Ignore var participants: List<Participant>? = null
+        @ColumnInfo(name = "race_organizer") var organizerId: Long = 0
 )
+

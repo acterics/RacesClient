@@ -1,6 +1,6 @@
 package com.acterics.racesclient.data.network.model
 
-import com.acterics.racesclient.data.database.entity.Participant
+import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import org.joda.money.Money
 
 /**
@@ -10,7 +10,5 @@ data class ParticipantModel(val id: Long,
                             val raceId: Long,
                             val horse: HorseModel,
                             val rating: Float,
-                            val currentBet: Money?): EntityWrapper<Participant> {
-    override fun map(): Participant = Participant(id, rating, horse.id, raceId, horse = horse.map())
+                            val currentBet: Money?)
 
-}

@@ -1,15 +1,15 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
-import com.acterics.racesclient.data.database.entity.Race
+import com.acterics.racesclient.data.database.entity.RaceEntity
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
+import com.acterics.racesclient.domain.model.Race
 import com.acterics.racesclient.presentation.racedetails.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.ParticipantSubItem
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 
 /**
  * Created by root on 15.10.17.

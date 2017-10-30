@@ -1,6 +1,6 @@
 package com.acterics.racesclient.data.network.model
 
-import com.acterics.racesclient.data.database.entity.Race
+import com.acterics.racesclient.data.database.entity.RaceEntity
 import org.joda.time.DateTime
 
 /**
@@ -10,10 +10,4 @@ data class RaceModel(val id: Long,
                      val title: String,
                      val dateTime: DateTime,
                      val organizer: OrganizationModel,
-                     val participants: List<ParticipantModel>): EntityWrapper<Race> {
-    override fun map(): Race = Race(id, title, dateTime.millis, organizer.id,
-            organizer = organizer.map(),
-            dateTime = dateTime,
-            participants = participants.map { it.map() })
-
-}
+                     val participants: List<ParticipantModel>)

@@ -30,6 +30,7 @@ object ComponentsManager {
                 .navigationModule(NavigationModule())
                 .buildModule(BuildModule())
                 .apiModule(ApiModule())
+                .dataModule(DataModule())
                 .build()
     }
 

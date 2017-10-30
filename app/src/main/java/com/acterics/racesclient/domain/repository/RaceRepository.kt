@@ -1,6 +1,7 @@
 package com.acterics.racesclient.domain.repository
 
-import com.acterics.racesclient.data.database.entity.Race
+
+import com.acterics.racesclient.domain.model.Race
 import io.reactivex.Single
 
 /**

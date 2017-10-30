@@ -36,16 +36,7 @@ class AppModule(val app: Application) {
     fun provideDatabase(context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "races_database").build()
 
-    @Provides
-    @Singleton
-    fun provideRaceRepository(apiService: ApiService, appDatabase: AppDatabase): RaceRepository =
-            RaceRepositoryImpl(apiService, appDatabase)
 
-
-    @Provides
-    @Singleton
-    fun provideUserRepository(appDatabase: AppDatabase, apiService: ApiService, context: Context): UserRepository =
-            UserRepositoryImpl(appDatabase, apiService, context)
 
 
 }
