@@ -1,7 +1,9 @@
 package com.acterics.racesclient.data.network
 
+import com.acterics.racesclient.data.network.model.BetModel
 import com.acterics.racesclient.data.network.model.RaceModel
 import com.acterics.racesclient.data.network.model.UserModel
+import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
@@ -24,6 +26,9 @@ interface ApiService {
 
     @GET("/race/{id}")
     fun getRace(@Path("id") raceId: Long): Single<BaseResponse<RaceModel>>
+
+    @POST("/bet")
+    fun addBet(@Body betRequest: BetRequest): Single<BaseResponse<BetModel>>
 
 
 }

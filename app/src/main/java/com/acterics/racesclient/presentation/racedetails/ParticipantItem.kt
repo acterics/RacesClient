@@ -2,6 +2,7 @@ package com.acterics.racesclient.presentation.racedetails
 
 import android.view.View
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.ui.DefaultExpandableItem
 import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import com.acterics.racesclient.domain.model.Participant
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
@@ -10,7 +11,13 @@ import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
  * Created by root on 21.10.17.
  */
 class ParticipantItem(internal val participant: Participant):
-        AbstractExpandableItem<ParticipantItem, ParticipantHolder, ParticipantSubItem>() {
+        AbstractExpandableItem<ParticipantItem, ParticipantHolder, DefaultExpandableItem>() {
+
+    init {
+        withSubItems(ArrayList<DefaultExpandableItem>().apply {
+            addAll(participant.bets.map { BetItem(it) })
+        })
+    }
 
     var isBetOn = false
 

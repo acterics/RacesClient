@@ -2,10 +2,7 @@ package com.acterics.racesclient.di.app
 
 import android.content.Context
 import com.acterics.racesclient.data.database.AppDatabase
-import com.acterics.racesclient.data.mapper.HorseMapper
-import com.acterics.racesclient.data.mapper.OrganizationMapper
-import com.acterics.racesclient.data.mapper.ParticipantMapper
-import com.acterics.racesclient.data.mapper.RaceMapper
+import com.acterics.racesclient.data.mapper.*
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.repository.RaceRepositoryImpl
 import com.acterics.racesclient.data.repository.UserRepositoryImpl
@@ -29,8 +26,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(appDatabase: AppDatabase, apiService: ApiService, context: Context): UserRepository =
-            UserRepositoryImpl(appDatabase, apiService, context)
+    fun provideUserRepository(appDatabase: AppDatabase, apiService: ApiService, context: Context, betMapper: BetMapper): UserRepository =
+            UserRepositoryImpl(appDatabase, apiService, context, betMapper)
 
     @Provides
     @Singleton
@@ -42,8 +39,12 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideParticipationMapper(horseMapper: HorseMapper): ParticipantMapper =
-            ParticipantMapper(horseMapper)
+    fun provideBetMapper(): BetMapper = BetMapper()
+
+    @Provides
+    @Singleton
+    fun provideParticipationMapper(horseMapper: HorseMapper, betMapper: BetMapper): ParticipantMapper =
+            ParticipantMapper(horseMapper, betMapper)
 
     @Provides
     @Singleton

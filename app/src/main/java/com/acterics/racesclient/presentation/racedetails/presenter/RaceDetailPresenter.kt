@@ -1,9 +1,9 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
-import com.acterics.racesclient.data.database.entity.RaceEntity
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.model.Race
+import com.acterics.racesclient.presentation.racedetails.BetItem
 import com.acterics.racesclient.presentation.racedetails.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.ParticipantSubItem
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
@@ -48,10 +48,10 @@ class RaceDetailPresenter(private val router: Router,
         viewState.stopParticipantsLoading()
         viewState.showParticipants( details.participants!!
                 .map { ParticipantItem(it).apply {
-                    withSubItems(listOf(ParticipantSubItem().also {
+                    subItems.add(ParticipantSubItem().also {
                         it.withParent(this)
                         it.onConfirmBetListener = {bet, rating, participationId -> onConfirmBet(bet, rating, participationId, this) }
-                    }))
+                    })
                 }
                 } )
     }
@@ -66,7 +66,13 @@ class RaceDetailPresenter(private val router: Router,
     private fun onConfirmBet(bet: Float, rating: Float, participantId: Long, participantItem: ParticipantItem) {
         confirmBetUseCase.execute(
                 params = ConfirmBetUseCase.Params(bet, rating, participantId),
-                onSuccess = { participantItem.betOn() },
+                onSuccess = {
+                    participantItem.apply {
+                        betOn()
+                        subItems.add(0, BetItem(it))
+                        viewState.addNewBet(identifier, subItems.size - 1)
+                    }
+                },
                 onError = {viewState.showError(it.message)}
         )
     }

@@ -5,4 +5,5 @@ package com.acterics.racesclient.domain.model
  */
 data class Participant(var id: Long,
                        var horse: Horse?,
-                       var rating: Float)
+                       var rating: Float,
+                       var bets: List<Bet>)

@@ -23,7 +23,7 @@ class ParticipantSubItem: AbstractExpandableItem<ParticipantItem, ParticipationE
 
     override fun bindView(holder: ParticipationExpandedHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
-
+        clearAndSelect(holder)
         holder.etAward.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 awardChanged = false
@@ -69,9 +69,23 @@ class ParticipantSubItem: AbstractExpandableItem<ParticipantItem, ParticipationE
         })
         holder.btClear.setOnClickListener { holder.etBet.setText("0") }
         holder.btConfirm.setOnClickListener {
-            onConfirmBetListener?.invoke(holder.etBet.text.toString().toFloatOrNull() ?: 0.0f,
-                    parent.participant.rating,
-                    parent.participant.id)
+            if (holder.etBet.text.toString() != "0") {
+                onConfirmBetListener?.invoke(holder.etBet.text.toString().toFloatOrNull() ?: 0.0f,
+                        parent.participant.rating,
+                        parent.participant.id)
+            }
+        }
+    }
+
+
+    private fun clearAndSelect(holder: ParticipationExpandedHolder) {
+        holder.etBet.apply {
+            requestFocus()
+            setText("0")
+            setSelection(0, text.length)
+        }
+        holder.etAward.apply {
+            setText("0")
         }
     }
 }

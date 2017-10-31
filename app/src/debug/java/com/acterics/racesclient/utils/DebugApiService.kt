@@ -6,6 +6,7 @@ import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
 import com.acterics.racesclient.data.network.model.response.ScheduleResponse
 import com.acterics.racesclient.data.network.ApiService
+import com.acterics.racesclient.data.network.model.request.BetRequest
 import io.reactivex.Single
 import org.joda.money.Money
 import org.joda.time.DateTime
@@ -94,8 +95,12 @@ class DebugApiService : ApiService {
         return BaseResponse(0, data)
     }
 
-
-
+    override fun addBet(betRequest: BetRequest): Single<BaseResponse<BetModel>> {
+        val participantBets = participationPool[betRequest.participantId.toInt()].bets
+        val betModel = BetModel(participantBets.size.toLong(), betRequest.bet, betRequest.rating, betRequest.participantId)
+        participationPool[betRequest.participantId.toInt()].bets.add(betModel)
+        return getNetworkSingle(betModel)
+    }
 
     private fun getHorse(): HorseModel {
         return horsesPool[debugRandom.nextInt(HORSE_POOL_SIZE)]
@@ -151,7 +156,7 @@ class DebugApiService : ApiService {
                             .forEach { add(it) }
                 }
                 .mapIndexed { index, horseModel -> ParticipantModel((participationPool.size + index).toLong(), raceId,
-                        horseModel, newRating(), null) }
+                        horseModel, newRating(), ArrayList()) }
                 .also { participationPool.addAll(it) }
     }
 

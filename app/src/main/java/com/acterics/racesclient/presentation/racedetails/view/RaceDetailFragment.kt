@@ -132,5 +132,9 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)
     }
+
+    override fun addNewBet(identifier: Long, previousSize:Int) {
+        expandableExtension.notifyAdapterSubItemsChanged(participantsAdapter.getPosition(identifier), previousSize)
+    }
 }
 
