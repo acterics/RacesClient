@@ -13,13 +13,16 @@ import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 class ParticipantItem(internal val participant: Participant):
         AbstractExpandableItem<ParticipantItem, ParticipantHolder, DefaultExpandableItem>() {
 
+    var isBetOn: Boolean
+
     init {
         withSubItems(ArrayList<DefaultExpandableItem>().apply {
             addAll(participant.bets.map { BetItem(it) })
         })
+        isBetOn = !participant.bets.isEmpty()
     }
 
-    var isBetOn = false
+
 
     override fun getViewHolder(v: View): ParticipantHolder {
         return ParticipantHolder(v)

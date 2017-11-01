@@ -30,12 +30,12 @@ class ParticipantSubItem: AbstractExpandableItem<ParticipantItem, ParticipationE
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!betChanged) {
-                    awardChanged = true
-                    val value = s?.toString()?.toIntOrNull() ?: 0
-                    val result = value / (1 + parent.participant.rating)
-                    holder.etBet.setText(result.toString())
-                }
+//                if (!betChanged) {
+//                    awardChanged = true
+//                    val value = s?.toString()?.toIntOrNull() ?: 0
+//                    val result = value / (1 + parent.participant.rating)
+//                    holder.etBet.setText(result.toString())
+//                }
                 if (s.isNullOrEmpty()) {
                     holder.etAward.apply {
                         setText("0")
@@ -53,12 +53,12 @@ class ParticipantSubItem: AbstractExpandableItem<ParticipantItem, ParticipationE
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!awardChanged) {
-                    betChanged = true
-                    val value = s?.toString()?.toIntOrNull() ?: 0
-                    val result = value * (1 + parent.participant.rating)
-                    holder.etAward.setText(result.toString())
-                }
+//                if (!awardChanged) {
+//                    betChanged = true
+//                    val value = s?.toString()?.toIntOrNull() ?: 0
+//                    val result = value * (1 + parent.participant.rating)
+//                    holder.etAward.setText(result.toString())
+//                }
                 if (s.isNullOrEmpty()) {
                     holder.etBet.apply {
                         setText("0")
@@ -67,7 +67,7 @@ class ParticipantSubItem: AbstractExpandableItem<ParticipantItem, ParticipationE
                 }
             }
         })
-        holder.btClear.setOnClickListener { holder.etBet.setText("0") }
+        holder.btClear.setOnClickListener { clearAndSelect(holder) }
         holder.btConfirm.setOnClickListener {
             if (holder.etBet.text.toString() != "0") {
                 onConfirmBetListener?.invoke(holder.etBet.text.toString().toFloatOrNull() ?: 0.0f,

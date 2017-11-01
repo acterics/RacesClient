@@ -133,8 +133,13 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         ComponentsManager.mainComponent!!.inject(this)
     }
 
-    override fun addNewBet(identifier: Long, previousSize:Int) {
+    override fun notifyNewBet(identifier: Long, previousSize:Int) {
         expandableExtension.notifyAdapterSubItemsChanged(participantsAdapter.getPosition(identifier), previousSize)
+        participantsAdapter.notifyAdapterDataSetChanged()
+    }
+
+    override fun notifyBetLoading(identifier: Long) {
+//        expandableExtension.notifyAdapterItemRangeChanged()
     }
 }
 

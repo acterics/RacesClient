@@ -1,5 +1,6 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
+import com.acterics.racesclient.common.ui.ExpandedCardProgressItem
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.model.Race
@@ -47,12 +48,8 @@ class RaceDetailPresenter(private val router: Router,
     private fun onDetailsLoaded(details: Race) {
         viewState.stopParticipantsLoading()
         viewState.showParticipants( details.participants!!
-                .map { ParticipantItem(it).apply {
-                    subItems.add(ParticipantSubItem().also {
-                        it.withParent(this)
-                        it.onConfirmBetListener = {bet, rating, participationId -> onConfirmBet(bet, rating, participationId, this) }
-                    })
-                }
+                .map { ParticipantItem(it)
+                        .apply { subItems.add(getParticipantSubItem(this)) }
                 } )
     }
 
@@ -64,17 +61,29 @@ class RaceDetailPresenter(private val router: Router,
 
 
     private fun onConfirmBet(bet: Float, rating: Float, participantId: Long, participantItem: ParticipantItem) {
+        participantItem.subItems.apply {
+            removeAt(lastIndex)
+            add(ExpandedCardProgressItem())
+            viewState.notifyNewBet(participantItem.identifier, size)
+        }
         confirmBetUseCase.execute(
                 params = ConfirmBetUseCase.Params(bet, rating, participantId),
                 onSuccess = {
-                    participantItem.apply {
-                        betOn()
-                        subItems.add(0, BetItem(it))
-                        viewState.addNewBet(identifier, subItems.size - 1)
+                    participantItem.subItems.apply {
+                        participantItem.betOn()
+                        removeAt(lastIndex)
+                        add(getParticipantSubItem(participantItem))
+                        add(0, BetItem(it))
+                        viewState.notifyNewBet(participantItem.identifier, size - 1)
                     }
                 },
                 onError = {viewState.showError(it.message)}
         )
     }
 
+    private fun getParticipantSubItem(participantItem: ParticipantItem): ParticipantSubItem =
+        ParticipantSubItem().also {
+            it.withParent(participantItem)
+            it.onConfirmBetListener = {bet, rating, participationId -> onConfirmBet(bet, rating, participationId, participantItem) }
+        }
 }

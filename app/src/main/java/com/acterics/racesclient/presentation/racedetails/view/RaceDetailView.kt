@@ -14,5 +14,6 @@ interface RaceDetailView: MvpView {
     fun startParticipantsLoading()
     fun stopParticipantsLoading()
     fun showError(message: String?)
-    fun addNewBet(identifier: Long, previousSize: Int)
+    fun notifyNewBet(identifier: Long, previousSize: Int)
+    fun notifyBetLoading(identifier: Long)
 }

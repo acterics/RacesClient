@@ -67,6 +67,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         super.onSaveInstanceState(scheduleAdapter.saveInstanceState(outState))
     }
 
+    //FIXME duplicate loading items
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
