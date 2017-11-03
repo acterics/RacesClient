@@ -19,7 +19,7 @@ import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.presentation.profile.ProfileViewModel
 import com.acterics.racesclient.presentation.profile.general.ProfileGeneralFragment
-import com.acterics.racesclient.presentation.profile.history.ProfileHistoryFragment
+import com.acterics.racesclient.presentation.profile.history.view.ProfileHistoryFragment
 import com.acterics.racesclient.presentation.profile.presenter.ProfilePresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -132,4 +132,9 @@ class ProfileFragment: MainDrawerFragment(), ProfileView {
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)
     }
+
+    override fun rejectComponent() {
+        ComponentsManager.clearProfileComponent()
+    }
+
 }

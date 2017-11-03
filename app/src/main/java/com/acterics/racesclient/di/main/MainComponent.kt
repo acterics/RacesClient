@@ -1,5 +1,6 @@
 package com.acterics.racesclient.di.main
 
+import com.acterics.racesclient.di.profile.ProfileComponent
 import com.acterics.racesclient.presentation.main.view.MainActivity
 import com.acterics.racesclient.presentation.profile.view.ProfileFragment
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailFragment
@@ -18,6 +19,8 @@ interface MainComponent {
     interface Builder {
         fun build(): MainComponent
     }
+
+    fun profileComponentBuilder(): ProfileComponent.Builder
 
     fun inject(mainActivity: MainActivity)
     fun inject(profileFragment: ProfileFragment)

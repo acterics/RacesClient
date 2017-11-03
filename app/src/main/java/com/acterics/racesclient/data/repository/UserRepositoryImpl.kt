@@ -3,6 +3,7 @@ package com.acterics.racesclient.data.repository
 import android.content.Context
 import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.common.extentions.getUser
+import com.acterics.racesclient.common.extentions.listMap
 import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.database.entity.User
@@ -11,6 +12,7 @@ import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.BetModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.domain.model.Bet
+import com.acterics.racesclient.domain.model.dto.HistoryBet
 import com.acterics.racesclient.domain.repository.UserRepository
 import io.reactivex.Single
 import io.reactivex.rxkotlin.toSingle
@@ -22,8 +24,11 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
                          private val apiService: ApiService,
                          private val context: Context,
                          private val betMapper: BetMapper): UserRepository {
+
+    private val user: User = context.getUser()
+
     override fun addBet(bet: Float, rating: Float, participationId: Long, caching: Boolean): Single<Bet> {
-        return apiService.addBet(BetRequest(context.getUser().id, participationId, bet, rating))
+        return apiService.addBet(user.id, BetRequest(participationId, bet, rating))
                 .checkNetworkSingle()
                 .flatMap {
                     if(caching) cacheBetRequest(it)
@@ -37,6 +42,13 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
 
     override fun saveUser(): Single<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getBetHistory(skip: Int, count: Int, caching: Boolean): Single<List<HistoryBet>> {
+        return apiService.getHistory(user.id, skip, count)
+                .checkNetworkSingle()
+                .listMap { betMapper.toDto(it) }
+
     }
 
     private fun cacheBetRequest(betModel: BetModel): Single<Bet> =

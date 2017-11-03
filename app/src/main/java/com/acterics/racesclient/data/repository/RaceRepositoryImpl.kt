@@ -1,6 +1,7 @@
 package com.acterics.racesclient.data.repository
 
 import com.acterics.racesclient.common.extentions.checkNetworkSingle
+import com.acterics.racesclient.common.extentions.listMap
 import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.database.entity.HorseEntity
 import com.acterics.racesclient.data.database.entity.ParticipantEntity
@@ -25,7 +26,7 @@ class RaceRepositoryImpl(private val apiService: ApiService,
                 .checkNetworkSingle()
                 .map { it.races }
                 .flatMap { if (caching) cacheSchedulePage(it) else Single.just(it) }
-                .map { it.map { raceMapper.toDomain(it) } }
+                .listMap { raceMapper.toDomain(it) }
 
 
     override fun getRaceDetails(raceId: Long, fromCache: Boolean): Single<Race> {

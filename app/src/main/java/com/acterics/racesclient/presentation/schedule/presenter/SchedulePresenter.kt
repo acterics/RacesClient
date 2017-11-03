@@ -3,7 +3,6 @@ package com.acterics.racesclient.presentation.schedule.presenter
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Screens
-import com.acterics.racesclient.data.database.entity.RaceEntity
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.domain.model.Race
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
@@ -45,7 +44,7 @@ class SchedulePresenter(private val router: Router,
     fun onLoadMore(currentPage: Int) {
         if (currentPage > page || page == -1 && !loading) {
             loading = true
-            viewState.startScheduleLoading(currentPage == 0)
+            viewState.startPageLoading(currentPage == 0)
             getRacesUseCase.execute(
                     params = GetRacesUseCase.Params(currentPage * pageSize, pageSize),
                     onSuccess = { races -> onSchedulePageLoaded(races, currentPage) },
@@ -68,7 +67,7 @@ class SchedulePresenter(private val router: Router,
 
     private fun onSchedulePageLoaded(races: List<Race>, currentPage: Int) {
         page = currentPage
-        viewState.stopScheduleLoading()
+        viewState.stopPageLoading()
         viewState.showRaces(races
                 .map { race -> ScheduleItem(race) })
         loading = false
@@ -76,7 +75,7 @@ class SchedulePresenter(private val router: Router,
 
     private fun onSchedulePageLoadError(throwable: Throwable) {
         throwable.printStackTrace()
-        viewState.stopScheduleLoading()
+        viewState.stopPageLoading()
         viewState.showError(throwable.message)
         loading = false
     }

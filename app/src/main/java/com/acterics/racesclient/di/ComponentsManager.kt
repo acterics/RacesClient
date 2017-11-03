@@ -23,6 +23,12 @@ object ComponentsManager {
                 .build()
     }
 
+    var profileComponent by notNullLazy {
+        mainComponent
+                ?.profileComponentBuilder()
+                ?.build()
+    }
+
 
     fun initAppComponent(app: Application) {
         appComponent = DaggerAppComponent.builder()
@@ -40,6 +46,11 @@ object ComponentsManager {
 
     fun clearMainComponent() {
         mainComponent = null
+        profileComponent = null
+    }
+
+    fun clearProfileComponent() {
+        profileComponent = null
     }
 
 

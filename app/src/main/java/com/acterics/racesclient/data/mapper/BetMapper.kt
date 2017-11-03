@@ -2,7 +2,10 @@ package com.acterics.racesclient.data.mapper
 
 import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.network.model.BetModel
+import com.acterics.racesclient.data.network.model.HistoryBetModel
 import com.acterics.racesclient.domain.model.Bet
+import com.acterics.racesclient.domain.model.dto.HistoryBet
+import org.joda.time.DateTime
 
 /**
  * Created by root on 30.10.17.
@@ -14,4 +17,7 @@ class BetMapper {
 
     fun toEntry(from: BetModel): BetEntity =
             BetEntity(from.id, from.bet, from.rating, from.participantId)
+
+    fun toDto(from: HistoryBetModel): HistoryBet =
+            HistoryBet(Bet(from.bet, from.rating), DateTime(from.raceDate), from.win)
 }

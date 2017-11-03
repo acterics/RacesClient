@@ -7,7 +7,6 @@ import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.extentions.suffixedFormattedDate
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.data.database.entity.RaceEntity
 import com.acterics.racesclient.domain.model.Race
 import com.mikepenz.fastadapter.items.AbstractItem
 
@@ -39,8 +38,8 @@ class ScheduleItem(var race: Race) : AbstractItem<ScheduleItem, ScheduleItemHold
 
         holder.tvRaceTitle.text = race.title
         holder.tvRaceOrganizer.text = race.organizer?.name
-        holder.tvRaceDate.text = race.dateTime?.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT)
-        holder.tvRaceTime.text = race.dateTime?.formattedDate(Formats.SCHEDULE_TIME_FORMAT)
+        holder.tvRaceDate.text = race.dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT)
+        holder.tvRaceTime.text = race.dateTime.formattedDate(Formats.SCHEDULE_TIME_FORMAT)
 
         holder.itemView.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
         holder.tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)

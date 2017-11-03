@@ -33,3 +33,8 @@ fun <D, T: BaseResponse<D>> Single<T>.checkNetworkSingle(): Single<D> {
     }
 }
 
+fun <I, IL, O> Single<IL>.listMap(transform: (input: I) -> O): Single<List<O>>
+        where IL: List<I> {
+    return this.map { it.map(transform) }
+}
+

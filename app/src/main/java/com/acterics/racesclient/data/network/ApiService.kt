@@ -1,6 +1,7 @@
 package com.acterics.racesclient.data.network
 
 import com.acterics.racesclient.data.network.model.BetModel
+import com.acterics.racesclient.data.network.model.HistoryBetModel
 import com.acterics.racesclient.data.network.model.RaceModel
 import com.acterics.racesclient.data.network.model.UserModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
@@ -9,7 +10,11 @@ import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
 import com.acterics.racesclient.data.network.model.response.ScheduleResponse
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
+import retrofit2.http.Path
 
 /**
  * Created by root on 28.09.17.
@@ -27,8 +32,15 @@ interface ApiService {
     @GET("/race/{id}")
     fun getRace(@Path("id") raceId: Long): Single<BaseResponse<RaceModel>>
 
-    @POST("/bet")
-    fun addBet(@Body betRequest: BetRequest): Single<BaseResponse<BetModel>>
+    @POST("user/{userId}/bet")
+    fun addBet(@Path("userId") userId: Long, @Body betRequest: BetRequest):
+            Single<BaseResponse<BetModel>>
+
+
+    @GET("/user/{userId}/history")
+    fun getHistory(@Path("userId") userId: Long,
+                   @Query("skip") skip: Int,
+                   @Query("count") count: Int): Single<BaseResponse<List<HistoryBetModel>>>
 
 
 }

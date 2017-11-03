@@ -95,11 +95,20 @@ class DebugApiService : ApiService {
         return BaseResponse(0, data)
     }
 
-    override fun addBet(betRequest: BetRequest): Single<BaseResponse<BetModel>> {
+    override fun addBet(userId: Long, betRequest: BetRequest): Single<BaseResponse<BetModel>> {
         val participantBets = participationPool[betRequest.participantId.toInt()].bets
         val betModel = BetModel(participantBets.size.toLong(), betRequest.bet, betRequest.rating, betRequest.participantId)
         participationPool[betRequest.participantId.toInt()].bets.add(betModel)
         return getNetworkSingle(betModel)
+    }
+
+    override fun getHistory(userId: Long, skip: Int, count: Int): Single<BaseResponse<List<HistoryBetModel>>> {
+        return getNetworkSingle(participationPool.flatMap { participant ->
+            participant.bets.map { bet ->
+                HistoryBetModel(bet.id, bet.bet, bet.rating, participant.id,
+                        racesPool[participant.raceId.toInt()].dateTime.millis, false)
+            }
+        })
     }
 
     private fun getHorse(): HorseModel {
