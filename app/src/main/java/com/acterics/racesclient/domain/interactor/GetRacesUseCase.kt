@@ -1,6 +1,5 @@
 package com.acterics.racesclient.domain.interactor
 
-import com.acterics.racesclient.data.database.entity.RaceEntity
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.model.Race
 import com.acterics.racesclient.domain.repository.RaceRepository

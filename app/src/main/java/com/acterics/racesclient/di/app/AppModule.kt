@@ -4,13 +4,8 @@ import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.acterics.racesclient.data.database.AppDatabase
-import com.acterics.racesclient.data.network.ApiService
-import com.acterics.racesclient.data.repository.RaceRepositoryImpl
-import com.acterics.racesclient.data.repository.UserRepositoryImpl
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.executor.ThreadScheduler
-import com.acterics.racesclient.domain.repository.RaceRepository
-import com.acterics.racesclient.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -15,7 +15,6 @@ import com.acterics.racesclient.presentation.main.view.MainActivityView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 
 /**
  * Created by root on 09.10.17.

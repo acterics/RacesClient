@@ -4,7 +4,6 @@ import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.domain.model.Bet
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
-import kotlinx.android.synthetic.main.item_bet.view.*
 
 /**
  * Created by root on 31.10.17.

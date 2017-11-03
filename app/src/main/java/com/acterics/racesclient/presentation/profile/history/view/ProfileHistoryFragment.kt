@@ -13,14 +13,13 @@ import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
-import com.acterics.racesclient.domain.model.dto.HistoryBet
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.presenter.ProfileHistoryPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
-import kotlinx.android.synthetic.main.fragment_profile_history.rvProfileHistory
+import kotlinx.android.synthetic.main.fragment_profile_history.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 

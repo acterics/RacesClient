@@ -3,7 +3,6 @@ package com.acterics.racesclient.presentation.racedetails
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.DefaultExpandableItem
-import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import com.acterics.racesclient.domain.model.Participant
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 

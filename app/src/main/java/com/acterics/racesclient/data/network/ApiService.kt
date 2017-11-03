@@ -10,11 +10,7 @@ import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
 import com.acterics.racesclient.data.network.model.response.ScheduleResponse
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * Created by root on 28.09.17.

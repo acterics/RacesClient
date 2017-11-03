@@ -1,13 +1,13 @@
 package com.acterics.racesclient.utils
 
 import com.acterics.racesclient.common.extentions.getPage
+import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.*
+import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
 import com.acterics.racesclient.data.network.model.response.ScheduleResponse
-import com.acterics.racesclient.data.network.ApiService
-import com.acterics.racesclient.data.network.model.request.BetRequest
 import io.reactivex.Single
 import org.joda.money.Money
 import org.joda.time.DateTime

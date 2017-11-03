@@ -1,12 +1,9 @@
 package com.acterics.racesclient.presentation.profile.history.presenter
 
 import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
-import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.domain.model.dto.HistoryBet
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.view.ProfileHistoryView
-import com.acterics.racesclient.presentation.schedule.ScheduleItem
-import com.acterics.racesclient.presentation.schedule.view.ScheduleView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router

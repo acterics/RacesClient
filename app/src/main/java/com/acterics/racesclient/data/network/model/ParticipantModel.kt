@@ -1,8 +1,5 @@
 package com.acterics.racesclient.data.network.model
 
-import com.acterics.racesclient.data.database.entity.ParticipantEntity
-import org.joda.money.Money
-
 /**
  * Created by root on 21.10.17.
  */

@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
 import com.acterics.racesclient.R
-import com.mikepenz.fastadapter.commons.utils.FastAdapterUIUtils
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**

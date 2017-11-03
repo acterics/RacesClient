@@ -5,8 +5,6 @@ import android.arch.persistence.room.Relation
 import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.database.entity.HorseEntity
 import com.acterics.racesclient.data.database.entity.ParticipantEntity
-import com.acterics.racesclient.data.database.entity.RaceEntity
-import com.acterics.racesclient.domain.model.Participant
 
 /**
  * Created by root on 30.10.17.

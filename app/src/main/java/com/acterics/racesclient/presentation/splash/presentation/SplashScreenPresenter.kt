@@ -8,7 +8,6 @@ import com.acterics.racesclient.presentation.splash.view.SplashScreenView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
-import javax.inject.Inject
 
 /**
  * Created by root on 28.09.17.

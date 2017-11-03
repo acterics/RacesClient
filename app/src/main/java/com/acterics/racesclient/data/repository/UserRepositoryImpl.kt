@@ -5,7 +5,6 @@ import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.common.extentions.getUser
 import com.acterics.racesclient.common.extentions.listMap
 import com.acterics.racesclient.data.database.AppDatabase
-import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.data.mapper.BetMapper
 import com.acterics.racesclient.data.network.ApiService

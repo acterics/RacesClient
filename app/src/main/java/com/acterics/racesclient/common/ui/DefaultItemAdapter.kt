@@ -1,8 +1,6 @@
 package com.acterics.racesclient.common.ui
 
-import android.support.v7.widget.RecyclerView
 import com.mikepenz.fastadapter.IItem
-import com.mikepenz.fastadapter.ISubItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem

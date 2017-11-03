@@ -1,6 +1,5 @@
 package com.acterics.racesclient.presentation.racedetails.view
 
-import android.service.carrier.CarrierIdentifier
 import com.acterics.racesclient.presentation.racedetails.ParticipantItem
 import com.arellomobile.mvp.MvpView
 

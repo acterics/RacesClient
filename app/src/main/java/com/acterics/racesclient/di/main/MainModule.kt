@@ -1,9 +1,6 @@
 package com.acterics.racesclient.di.main
 
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
-import com.acterics.racesclient.data.database.AppDatabase
-import com.acterics.racesclient.data.network.ApiService
-import com.acterics.racesclient.data.repository.RaceRepositoryImpl
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase

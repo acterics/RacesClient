@@ -6,7 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.ui.*
+import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
+import com.acterics.racesclient.common.ui.DefaultItemAdapter
+import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
+import com.acterics.racesclient.common.ui.SharedElementsHolder
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase

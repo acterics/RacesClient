@@ -1,14 +1,12 @@
 package com.acterics.racesclient.presentation.profile.history
 
 import android.support.annotation.DrawableRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.Formats
 import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.domain.model.dto.HistoryBet
 import com.mikepenz.fastadapter.items.AbstractItem
-import kotlinx.android.synthetic.main.item_profile_history.view.*
 
 /**
  * Created by root on 03.11.17.
