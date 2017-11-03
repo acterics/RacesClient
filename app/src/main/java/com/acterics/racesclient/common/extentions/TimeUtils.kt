@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormat
 object Formats {
     const val SCHEDULE_DATE_FORMAT = "d'%s' MMM ''yy"
     const val SCHEDULE_TIME_FORMAT = "HH:mm"
+    const val PROFILE_HISTORY_DATE_FORMAT = "dd:MM:yy"
 }
 
 fun DateTime.suffixedFormattedDate(suffixedFormat: String): String {

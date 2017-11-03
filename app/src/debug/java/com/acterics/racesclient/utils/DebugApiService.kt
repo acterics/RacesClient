@@ -1,5 +1,6 @@
 package com.acterics.racesclient.utils
 
+import com.acterics.racesclient.common.extentions.getPage
 import com.acterics.racesclient.data.network.model.*
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.data.network.model.request.SignUpRequest
@@ -75,7 +76,7 @@ class DebugApiService : ApiService {
 
     override fun getSchedule(skip: Int, count: Int): Single<BaseResponse<ScheduleResponse>> {
         Timber.i("getSchedule: skip: $skip, count: $count")
-        return getNetworkSingle(ScheduleResponse(getRacesPage(skip, count)))
+        return getNetworkSingle(ScheduleResponse(racesPool.getPage(skip, count)))
 
     }
 
@@ -103,25 +104,24 @@ class DebugApiService : ApiService {
     }
 
     override fun getHistory(userId: Long, skip: Int, count: Int): Single<BaseResponse<List<HistoryBetModel>>> {
-        return getNetworkSingle(participationPool.flatMap { participant ->
-            participant.bets.map { bet ->
-                HistoryBetModel(bet.id, bet.bet, bet.rating, participant.id,
-                        racesPool[participant.raceId.toInt()].dateTime.millis, false)
-            }
-        })
+        return getNetworkSingle(getAllHistory().getPage(skip, count))
     }
+
+
+
+    private fun getAllHistory(): List<HistoryBetModel> =
+        participationPool.flatMap { participant ->
+            participant.bets.map { bet ->
+                HistoryBetModel(bet.id, bet.bet, bet.rating,
+                        participant.id, participant.horse.name,
+                        racesPool[participant.raceId.toInt()].dateTime.millis, debugRandom.nextBoolean())
+            }
+        }
 
     private fun getHorse(): HorseModel {
         return horsesPool[debugRandom.nextInt(HORSE_POOL_SIZE)]
     }
 
-    private fun getRacesPage(skip: Int, count: Int): List<RaceModel> {
-        return if (skip + count < racesPool.size) {
-            racesPool.subList(skip, skip + count)
-        } else {
-            ArrayList()
-        }
-    }
 
     private fun getRaces(): List<RaceModel> {
         return racesPool

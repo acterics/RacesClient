@@ -1,7 +1,6 @@
 package com.acterics.racesclient.data.database.entity
 
 import android.arch.persistence.room.*
-import com.acterics.racesclient.domain.DomainModelMapper
 import com.acterics.racesclient.domain.model.Organization
 import com.acterics.racesclient.domain.model.Race
 import org.joda.time.DateTime

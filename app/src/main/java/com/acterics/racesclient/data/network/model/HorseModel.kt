@@ -1,7 +1,6 @@
 package com.acterics.racesclient.data.network.model
 
 import com.acterics.racesclient.data.database.entity.HorseEntity
-import com.acterics.racesclient.domain.DomainModelMapper
 import com.acterics.racesclient.domain.model.Horse
 
 /**

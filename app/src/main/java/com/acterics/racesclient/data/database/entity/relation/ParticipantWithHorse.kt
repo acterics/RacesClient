@@ -6,7 +6,6 @@ import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.database.entity.HorseEntity
 import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import com.acterics.racesclient.data.database.entity.RaceEntity
-import com.acterics.racesclient.domain.DomainModelMapper
 import com.acterics.racesclient.domain.model.Participant
 
 /**

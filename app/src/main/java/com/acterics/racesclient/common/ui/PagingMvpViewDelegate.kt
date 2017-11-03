@@ -16,8 +16,7 @@ class PagingMvpViewDelegate {
             MatchParentProgressItem()
         } else {
             ProgressItem()
-        }
-                .withEnabled(true)
+        }.withEnabled(true)
         progressAdapter.add(progressItem)
     }
 

@@ -12,6 +12,7 @@ import android.support.v4.view.ViewCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageButton
+import com.acterics.racesclient.data.network.model.HistoryBetModel
 
 /**
  * Created by root on 27.09.17.
@@ -40,6 +41,18 @@ fun Toolbar.getNavigationIconView(): View {
             .filterIsInstance<ImageButton>()
             .forEach { return it }
     throw IllegalStateException()
+}
+
+fun <T> List<T>.getPage(skip: Int, count: Int): List<T> {
+    val page: List<T>
+    val actualCount: Int
+    if (skip >= size) {
+        page = listOf()
+    } else  {
+        actualCount = if (skip + count >= size) { size - skip } else { count }
+        page = subList(skip, skip + actualCount)
+    }
+    return page
 }
 
 fun View.getGlobalVisibleRect(): Rect {

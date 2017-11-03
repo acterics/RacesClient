@@ -8,4 +8,5 @@ import org.joda.time.DateTime
  */
 data class HistoryBet(var bet: Bet,
                       var date: DateTime,
-                      var success: Boolean)
+                      var success: Boolean,
+                      var horseName: String)

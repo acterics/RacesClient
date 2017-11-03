@@ -12,10 +12,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
  */
 interface ScheduleView: PagingMvpView {
 
-
     fun showRaces(races: List<ScheduleItem>)
-
-
-
 
 }

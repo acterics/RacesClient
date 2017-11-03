@@ -16,7 +16,8 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class SchedulePresenter(private val router: Router,
-                        private val getRacesUseCase: GetRacesUseCase): MvpPresenter<ScheduleView>() {
+                        private val getRacesUseCase: GetRacesUseCase):
+        MvpPresenter<ScheduleView>() {
 
     private var page = -1
     private val pageSize = 10
@@ -76,7 +77,7 @@ class SchedulePresenter(private val router: Router,
     private fun onSchedulePageLoadError(throwable: Throwable) {
         throwable.printStackTrace()
         viewState.stopPageLoading()
-        viewState.showError(throwable.message)
+        viewState.showPagingError(throwable.message, false)
         loading = false
     }
 

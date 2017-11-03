@@ -5,7 +5,6 @@ import android.arch.persistence.room.Relation
 import com.acterics.racesclient.data.database.entity.OrganizationEntity
 import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import com.acterics.racesclient.data.database.entity.RaceEntity
-import com.acterics.racesclient.domain.DomainModelMapper
 import com.acterics.racesclient.domain.model.Participant
 import com.acterics.racesclient.domain.model.Race
 import org.joda.time.DateTime

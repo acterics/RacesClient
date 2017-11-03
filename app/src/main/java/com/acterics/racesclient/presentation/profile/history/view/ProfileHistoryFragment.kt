@@ -60,6 +60,11 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
         return inflater.inflate(R.layout.fragment_profile_history, container, false)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        historyAdapter.clear()
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -83,7 +88,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     }
 
     override fun showHistory(history: List<HistoryBetItem>) {
-        historyAdapter.add(history)
+        historyAdapter.add(historyAdapter.adapterItemCount, history)
     }
 
     override fun startPageLoading(isFirstPage: Boolean) {

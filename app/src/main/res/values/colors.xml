@@ -10,4 +10,6 @@
     <color name="whitew">#181c18</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="green">#2E7D32</color>
+    <color name="red">#C62828</color>
 </resources>

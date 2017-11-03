@@ -10,13 +10,13 @@ import io.reactivex.Single
  */
 class GetBetHistoryUseCase(private val userRepository: UserRepository,
                            private val scheduler: ExecutionScheduler):
-        UseCase.AsSingle<List<HistoryBet>, GetBetHistoryUseCase.Param>() {
+        UseCase.AsSingle<List<HistoryBet>, GetBetHistoryUseCase.Params>() {
 
-    override fun build(params: Param?): Single<List<HistoryBet>> =
+    override fun build(params: Params?): Single<List<HistoryBet>> =
         userRepository.getBetHistory(params!!.skip, params.count, false)
                 .compose(scheduler.highPrioritySingle())
 
 
-    data class Param(val skip: Int,
-                     val count: Int)
+    data class Params(val skip: Int,
+                      val count: Int)
 }
