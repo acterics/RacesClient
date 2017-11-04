@@ -19,6 +19,7 @@ import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.presenter.ProfileHistoryPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.mikepenz.fastadapter.IItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
@@ -75,13 +76,14 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
         headerAdapter = ItemAdapter()
 
         historyAdapter.addAdapter(0, headerAdapter)
-        historyAdapter.addAdapter(1, progressAdapter)
+        historyAdapter.addAdapter(2, progressAdapter)
 
 
         headerAdapter.add(HistoryBetHeaderItem().apply {
             dateClickListener = { presenter.onSortByDate() }
             nameClickListener = { presenter.onSortByName() }
             betClickListener = { presenter.onSortByBet() }
+            resultClickListener = { presenter.onSortByResult() }
         })
 
 
@@ -121,47 +123,10 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
         pagingViewDelegate.resetPage(endlessScrollListener, page)
     }
 
-
-    override fun sortByName() { sortItems(HorseComparator()) }
-    override fun sortByBet() { sortItems(BetComparator()) }
-    override fun sortByDate() { sortItems(DateComparator()) }
-
-    private fun sortItems(comparator: Comparator<DefaultItem>) {
+    override fun sortBy(comparator: Comparator<IItem<*, *>>) {
         historyAdapter.apply {
             adapterItems.sortWith(comparator)
             notifyAdapterDataSetChanged()
         }
     }
-
-    class DateComparator: Comparator<DefaultItem> {
-        override fun compare(o1: DefaultItem?, o2: DefaultItem?): Int {
-            return if (o1 is HistoryBetItem && o2 is HistoryBetItem) {
-                o1.historyBet.date.compareTo(o2.historyBet.date)
-            } else {
-                -1
-            }
-        }
-    }
-
-    class BetComparator: Comparator<DefaultItem> {
-        override fun compare(o1: DefaultItem?, o2: DefaultItem?): Int {
-            return if (o1 is HistoryBetItem && o2 is HistoryBetItem) {
-                o1.historyBet.bet.bet.compareTo(o2.historyBet.bet.bet)
-            } else {
-                -1
-            }
-        }
-    }
-
-    class HorseComparator: Comparator<DefaultItem> {
-        override fun compare(o1: DefaultItem?, o2: DefaultItem?): Int {
-            return if (o1 is HistoryBetItem && o2 is HistoryBetItem) {
-                o1.historyBet.horseName.compareTo(o2.historyBet.horseName)
-            } else {
-                -1
-            }
-        }
-    }
-
-
 }

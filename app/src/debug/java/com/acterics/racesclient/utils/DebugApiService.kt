@@ -111,13 +111,19 @@ class DebugApiService : ApiService {
 
     private fun getAllHistory(): List<HistoryBetModel> =
         participationPool.flatMap { participant ->
-            participant.bets.map { bet ->
-                HistoryBetModel(bet.id, bet.bet, bet.rating,
-                        participant.id, participant.horse.name,
-                        racesPool[participant.raceId.toInt()].dateTime.millis, debugRandom.nextBoolean())
-            }
+            participant.bets.map { bet -> getNewHistoryBet(participant, bet) }
         }
 
+
+    private fun getNewHistoryBet(participant: ParticipantModel, bet: BetModel): HistoryBetModel {
+        val success = debugRandom.nextBoolean()
+        val resultValue = if (success) { bet.bet * bet.rating } else { -bet.bet }
+        return HistoryBetModel(bet.id, bet.bet, bet.rating,
+                participant.id, participant.horse.name,
+                racesPool[participant.raceId.toInt()].dateTime.millis,
+                success, resultValue)
+
+    }
     private fun getHorse(): HorseModel {
         return horsesPool[debugRandom.nextInt(HORSE_POOL_SIZE)]
     }

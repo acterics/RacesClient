@@ -25,16 +25,9 @@ class HistoryBetItem(val historyBet: HistoryBet):
         holder.tvDate.text = historyBet.date.formattedDate(Formats.PROFILE_HISTORY_DATE_FORMAT)
         holder.tvBet.text = historyBet.bet.bet.toString()
         holder.tvHorseName.text = historyBet.horseName
-        val result: Float
-        @DrawableRes val resultRes: Int
-        if (historyBet.success) {
-            result = historyBet.bet.bet * historyBet.bet.rating
-            resultRes = R.drawable.ic_arrow_up_green
-        } else {
-            result = -historyBet.bet.bet
-            resultRes = R.drawable.ic_arrow_down_red
-        }
-        holder.tvResult.text = result.toString()
+
+        val resultRes = if (historyBet.success) { R.drawable.ic_arrow_up_green } else { R.drawable.ic_arrow_down_red }
+        holder.tvResult.text = historyBet.result.toString()
         holder.imResult.setImageResource(resultRes)
     }
 }

@@ -9,4 +9,5 @@ data class HistoryBetModel(var id: Long,
                            var participantId: Long,
                            var horseName: String,
                            var raceDate: Long,
-                           var win: Boolean)
+                           var success: Boolean,
+                           var result: Float)

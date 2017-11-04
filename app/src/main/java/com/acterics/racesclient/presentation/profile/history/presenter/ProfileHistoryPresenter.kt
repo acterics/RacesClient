@@ -1,5 +1,6 @@
 package com.acterics.racesclient.presentation.profile.history.presenter
 
+import com.acterics.racesclient.common.ui.DefaultItem
 import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
 import com.acterics.racesclient.domain.model.dto.HistoryBet
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
@@ -46,9 +47,22 @@ class ProfileHistoryPresenter(private val router: Router,
         }
     }
 
-    fun onSortByDate() { viewState.sortByDate() }
-    fun onSortByName() { viewState.sortByName() }
-    fun onSortByBet() { viewState.sortByBet() }
+    fun onSortByDate() { viewState.sortBy(Comparator { object1, object2 ->
+        historyItemComparator(object1, object2,
+                { historyBet1, historyBet2 -> historyBet1.date.compareTo(historyBet2.date)})
+    })}
+    fun onSortByName() { viewState.sortBy(Comparator { object1, object2 ->
+        historyItemComparator(object1, object2,
+                { historyBet1, historyBet2 -> historyBet1.horseName.compareTo(historyBet2.horseName) })
+    })}
+    fun onSortByBet() { viewState.sortBy(Comparator { object1, object2 ->
+        historyItemComparator(object1, object2,
+                { historyBet1, historyBet2 -> historyBet1.bet.bet.compareTo(historyBet2.bet.bet) })
+    })}
+    fun onSortByResult() { viewState.sortBy(Comparator { object1, object2 ->
+        historyItemComparator(object1, object2,
+                { historyBet1, historyBet2 -> historyBet1.result.compareTo(historyBet2.result) })
+    })}
 
     private fun onHistoryPageLoaded(history: List<HistoryBet>, currentPage: Int) {
         page = currentPage
@@ -64,5 +78,15 @@ class ProfileHistoryPresenter(private val router: Router,
         loading = false
     }
 
+
+    private fun historyItemComparator(object1: DefaultItem,
+                                      object2: DefaultItem,
+                                      comparator: (historyBet1: HistoryBet, historyBet2: HistoryBet) -> Int): Int {
+        return if (object1 is HistoryBetItem && object2 is HistoryBetItem) {
+            comparator.invoke(object1.historyBet, object2.historyBet)
+        } else {
+            -1
+        }
+    }
 
 }
