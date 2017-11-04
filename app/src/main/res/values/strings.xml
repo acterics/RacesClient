@@ -34,5 +34,9 @@ Vis choro saepe no, dico facete mei cu. In iuvaret aliquam sit, sit postea nusqu
     <string name="translation_name_item_race">ItemRace</string>
     <string name="race">Race</string>
     <string name="participants">Participants</string>
+    <string name="history_race_date">Date</string>
+    <string name="history_bet">Bet</string>
+    <string name="history_horse_name">Horse name</string>
+    <string name="history_result">Result</string>
 
 </resources>

@@ -8,4 +8,7 @@ import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
  */
 interface ProfileHistoryView: PagingMvpView {
     fun showHistory(history: List<HistoryBetItem>)
+    fun sortByName()
+    fun sortByBet()
+    fun sortByDate()
 }

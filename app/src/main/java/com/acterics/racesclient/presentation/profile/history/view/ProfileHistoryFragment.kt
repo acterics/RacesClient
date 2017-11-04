@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
+import com.acterics.racesclient.common.ui.DefaultItem
 import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
+import com.acterics.racesclient.presentation.profile.history.HistoryBetHeaderItem
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.presenter.ProfileHistoryPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 import kotlinx.android.synthetic.main.fragment_profile_history.*
@@ -43,6 +46,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
 
     private val historyAdapter = DefaultFastItemAdapter()
     private lateinit var progressAdapter: DefaultItemAdapter
+    private lateinit var headerAdapter: DefaultItemAdapter
 
     private lateinit var endlessScrollListener : EndlessRecyclerOnScrollListener
 
@@ -67,8 +71,19 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressAdapter = items()
+        progressAdapter = ItemAdapter()
+        headerAdapter = ItemAdapter()
+
+        historyAdapter.addAdapter(0, headerAdapter)
         historyAdapter.addAdapter(1, progressAdapter)
+
+
+        headerAdapter.add(HistoryBetHeaderItem().apply {
+            dateClickListener = { presenter.onSortByDate() }
+            nameClickListener = { presenter.onSortByName() }
+            betClickListener = { presenter.onSortByBet() }
+        })
+
 
         val historyLayoutManager = LinearLayoutManager(context)
         endlessScrollListener = object:
@@ -87,7 +102,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     }
 
     override fun showHistory(history: List<HistoryBetItem>) {
-        historyAdapter.add(historyAdapter.adapterItemCount, history)
+        historyAdapter.add(history)
     }
 
     override fun startPageLoading(isFirstPage: Boolean) {
@@ -105,4 +120,48 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     override fun resetPage(page: Int) {
         pagingViewDelegate.resetPage(endlessScrollListener, page)
     }
+
+
+    override fun sortByName() { sortItems(HorseComparator()) }
+    override fun sortByBet() { sortItems(BetComparator()) }
+    override fun sortByDate() { sortItems(DateComparator()) }
+
+    private fun sortItems(comparator: Comparator<DefaultItem>) {
+        historyAdapter.apply {
+            adapterItems.sortWith(comparator)
+            notifyAdapterDataSetChanged()
+        }
+    }
+
+    class DateComparator: Comparator<DefaultItem> {
+        override fun compare(o1: DefaultItem?, o2: DefaultItem?): Int {
+            return if (o1 is HistoryBetItem && o2 is HistoryBetItem) {
+                o1.historyBet.date.compareTo(o2.historyBet.date)
+            } else {
+                -1
+            }
+        }
+    }
+
+    class BetComparator: Comparator<DefaultItem> {
+        override fun compare(o1: DefaultItem?, o2: DefaultItem?): Int {
+            return if (o1 is HistoryBetItem && o2 is HistoryBetItem) {
+                o1.historyBet.bet.bet.compareTo(o2.historyBet.bet.bet)
+            } else {
+                -1
+            }
+        }
+    }
+
+    class HorseComparator: Comparator<DefaultItem> {
+        override fun compare(o1: DefaultItem?, o2: DefaultItem?): Int {
+            return if (o1 is HistoryBetItem && o2 is HistoryBetItem) {
+                o1.historyBet.horseName.compareTo(o2.historyBet.horseName)
+            } else {
+                -1
+            }
+        }
+    }
+
+
 }

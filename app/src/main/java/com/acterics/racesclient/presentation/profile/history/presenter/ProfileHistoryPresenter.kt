@@ -22,6 +22,7 @@ class ProfileHistoryPresenter(private val router: Router,
     private var loading = false
 
 
+
     override fun attachView(view: ProfileHistoryView) {
         super.attachView(view)
         if (page == -1) {
@@ -44,6 +45,10 @@ class ProfileHistoryPresenter(private val router: Router,
             )
         }
     }
+
+    fun onSortByDate() { viewState.sortByDate() }
+    fun onSortByName() { viewState.sortByName() }
+    fun onSortByBet() { viewState.sortByBet() }
 
     private fun onHistoryPageLoaded(history: List<HistoryBet>, currentPage: Int) {
         page = currentPage

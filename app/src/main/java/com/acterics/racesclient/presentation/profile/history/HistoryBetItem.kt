@@ -11,7 +11,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
 /**
  * Created by root on 03.11.17.
  */
-class HistoryBetItem(private val historyBet: HistoryBet):
+class HistoryBetItem(val historyBet: HistoryBet):
         AbstractItem<HistoryBetItem, HistoryBetItemHolder>() {
 
 
