@@ -50,15 +50,29 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField "String", "ROOT", '"http://debug.com"'
-        }
-
         release {
-            buildConfigField "String", "ROOT", '"http://release.com"'
             minifyEnabled false
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "server"
+    productFlavors {
+        mock {
+            dimension = "server"
+            versionNameSuffix "-mock"
+            buildConfigField "String", "ROOT", '"http://debug.com"'
+        }
+        prod {
+            dimension = "server"
+            versionNameSuffix "-prod"
+            buildConfigField "String", "ROOT", '"https://races-app.herokuapp.com"'
+        }
+        dev {
+            dimension = "server"
+            versionNameSuffix "-dev"
+            buildConfigField "String", "ROOT", '"https://races-app.herokuapp.com"'
         }
     }
     sourceSets { main { java.srcDirs = ['src/main/java'] } }

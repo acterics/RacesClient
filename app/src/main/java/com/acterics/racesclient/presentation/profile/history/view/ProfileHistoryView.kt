@@ -1,6 +1,5 @@
 package com.acterics.racesclient.presentation.profile.history.view
 
-import com.acterics.racesclient.common.ui.DefaultItem
 import com.acterics.racesclient.common.ui.PagingMvpView
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.mikepenz.fastadapter.IItem

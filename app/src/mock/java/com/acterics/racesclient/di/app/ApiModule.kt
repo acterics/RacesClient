@@ -1,7 +1,7 @@
 package com.acterics.racesclient.di.app
 
 import com.acterics.racesclient.data.network.ApiService
-import com.acterics.racesclient.utils.DebugApiService
+import com.acterics.racesclient.data.network.DebugApiService
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

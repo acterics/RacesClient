@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
-import com.acterics.racesclient.common.ui.DefaultItem
 import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
@@ -21,7 +20,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.fastadapter.IItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 import kotlinx.android.synthetic.main.fragment_profile_history.*
 import ru.terrakok.cicerone.Router

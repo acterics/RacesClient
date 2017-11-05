@@ -14,6 +14,8 @@ interface UserRepository {
             Single<Bet>
     fun getBetHistory(skip: Int, count: Int, caching: Boolean):
             Single<List<HistoryBet>>
+
+
     fun getUser(): Single<User>
     fun saveUser(): Single<Boolean>
 }

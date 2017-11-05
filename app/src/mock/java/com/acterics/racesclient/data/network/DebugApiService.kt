@@ -1,7 +1,6 @@
-package com.acterics.racesclient.utils
+package com.acterics.racesclient.data.network
 
 import com.acterics.racesclient.common.extentions.getPage
-import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.*
 import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.data.network.model.request.SignInRequest
