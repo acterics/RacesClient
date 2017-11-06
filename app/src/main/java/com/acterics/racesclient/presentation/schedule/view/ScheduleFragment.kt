@@ -62,12 +62,12 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         return localInflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(scheduleAdapter.saveInstanceState(outState))
     }
 
     //FIXME duplicate loading items
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         progressAdapter = items()

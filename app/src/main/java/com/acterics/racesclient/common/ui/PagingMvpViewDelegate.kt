@@ -28,7 +28,7 @@ class PagingMvpViewDelegate {
         scrollListener.resetPageCount(page)
     }
 
-    fun showPageError(context: Context, message: String?, isFirstPage: Boolean) {
+    fun showPageError(context: Context?, message: String?, isFirstPage: Boolean) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

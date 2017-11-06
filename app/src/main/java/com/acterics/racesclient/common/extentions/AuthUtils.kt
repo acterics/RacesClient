@@ -16,6 +16,7 @@ private object AuthUtilsConstants {
     const val EXTRA_AVATAR = "com.acterics.racesclient.utils.EXTRA_AVATAR"
     const val EXTRA_EMAIL = "com.acterics.racesclient.utils.EXTRA_EMAIL"
     const val EXTRA_ID = "com.acterics.racesclient.utils.EXTRA_ID"
+    const val EXTRA_TOKEN = "com.acterics.racesclient.utils.EXTRA_TOKEN"
 }
 
 fun Context.getAuthPreferences(): SharedPreferences {
@@ -25,6 +26,18 @@ fun Context.getAuthPreferences(): SharedPreferences {
 fun Context.isAuthenticate(): Boolean {
     return getAuthPreferences().getBoolean(AuthUtilsConstants.EXTRA_IS_AUTH, false)
 }
+
+fun Context.getToken(): String {
+    return getAuthPreferences().getString(AuthUtilsConstants.EXTRA_TOKEN, "")
+}
+
+
+fun Context.saveToken(token: String) {
+    getAuthPreferences().edit()
+            .putString(AuthUtilsConstants.EXTRA_TOKEN, token)
+            .apply()
+}
+
 
 fun Context.getUser(): User {
     val prefs = getAuthPreferences()

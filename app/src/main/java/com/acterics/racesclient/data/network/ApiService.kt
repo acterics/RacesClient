@@ -9,6 +9,7 @@ import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
 import com.acterics.racesclient.data.network.model.response.ScheduleResponse
+import com.acterics.racesclient.data.network.model.response.TokenResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -16,19 +17,22 @@ import retrofit2.http.*
  * Created by root on 28.09.17.
  */
 interface ApiService {
-    @POST("/signin")
-    fun signIn(@Body signInRequest: SignInRequest): Single<BaseResponse<UserModel>>
+    @POST("auth/sign_in/")
+    fun signIn(@Body signInRequest: SignInRequest): Single<BaseResponse<TokenResponse>>
 
-    @POST("/signup")
-    fun signUp(@Body signUpRequest: SignUpRequest): Single<BaseResponse<UserModel>>
+    @POST("auth/sign_up/")
+    fun signUp(@Body signUpRequest: SignUpRequest): Single<BaseResponse<TokenResponse>>
 
-    @GET("/schedule")
+    @GET("user/")
+    fun getUser(): Single<BaseResponse<UserModel>>
+
+    @GET("schedule/")
     fun getSchedule(@Query("skip") skip: Int, @Query("count") count: Int): Single<BaseResponse<ScheduleResponse>>
 
     @GET("/race/{id}")
     fun getRace(@Path("id") raceId: Long): Single<BaseResponse<RaceModel>>
 
-    @POST("user/{userId}/bet")
+    @POST("/user/{userId}/bet")
     fun addBet(@Path("userId") userId: Long, @Body betRequest: BetRequest):
             Single<BaseResponse<BetModel>>
 

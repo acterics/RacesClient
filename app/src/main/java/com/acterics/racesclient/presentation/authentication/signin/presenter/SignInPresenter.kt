@@ -44,14 +44,13 @@ class SignInPresenter(private val emailValidator: EmailValidator,
         //TODO add authorization logic
         signInUseCase
                 .execute(params = SignInRequest(email, password),
-                        onSuccess = { onSuccessLogin(it)},
+                        onSuccess = { onSuccessLogin()},
                         onError = { viewState.showError(it.message) }
                 )
     }
 
 
-    private fun onSuccessLogin(user: User) {
-        context.login(user) //TODO replace to interactor
+    private fun onSuccessLogin() {
         router.newRootScreen(Screens.MAIN_SCREEN)
     }
 

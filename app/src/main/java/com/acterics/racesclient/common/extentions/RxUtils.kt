@@ -24,7 +24,7 @@ fun <D, T: BaseResponse<D>> Observable<T>.checkNetworkObservable(): Observable<D
 
 fun <D, T: BaseResponse<D>> Single<T>.checkNetworkSingle(): Single<D> {
     return this.flatMap {
-        val observable = if (it.status == BaseResponse.STATUS_SUCCESS) {
+        val observable = if (BaseResponse.isSuccessResponse(it.status)) {
             Single.just(it.data)
         } else {
             Single.error(NetworkStatusException(it.message))

@@ -14,7 +14,7 @@ abstract class BaseScopedFragment: MvpAppCompatFragment() {
     }
 
     override fun onDestroy() {
-        if (isRemoving || activity.isFinishing && !isStateSaved) {
+        if (isRemoving || activity!!.isFinishing && !isStateSaved) {
             rejectComponent()
         }
         super.onDestroy()

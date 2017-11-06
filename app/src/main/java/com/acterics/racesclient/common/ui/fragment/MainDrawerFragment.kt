@@ -15,7 +15,7 @@ abstract class MainDrawerFragment: BaseScopedFragment(), ToolbarHolder {
         return true
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as OnDrawerFragmentViewCreatedListener)
                 .onDrawerFragmentViewCreated(this, isLightTheme())

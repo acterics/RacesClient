@@ -5,5 +5,4 @@ import org.joda.money.Money
 /**
  * Created by root on 21.10.17.
  */
-data class UserInfoModel(val avatar: String,
-                         val moneyBalance: Money)
+data class UserInfoModel(val avatar: String?)

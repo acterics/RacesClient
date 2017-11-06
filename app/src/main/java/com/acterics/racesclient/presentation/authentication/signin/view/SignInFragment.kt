@@ -44,7 +44,7 @@ class SignInFragment: BaseScopedFragment(), SignInView {
     fun provideSignInPresenter() =
             SignInPresenter(emailValidator, appContext, signInUseCase, router)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         etSignInEmail.addTextChangedListener( object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}

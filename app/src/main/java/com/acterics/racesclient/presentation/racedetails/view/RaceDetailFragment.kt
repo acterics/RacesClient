@@ -70,9 +70,9 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putParcelable(EXTRA_TRANSLATION, scheduleRaceTranslation)
+        outState.putParcelable(EXTRA_TRANSLATION, scheduleRaceTranslation)
     }
 
 
@@ -83,7 +83,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         return localInflater.inflate(R.layout.fragment_race, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         holderRaceDetails.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
@@ -94,7 +94,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         tvRaceTitle.text = scheduleRaceTranslation.raceTitle
 
 
-        raceDetailsToolbar.navigationIcon = context.getSupportDrawable(R.drawable.ic_arrow_back_white)
+        raceDetailsToolbar.navigationIcon = context!!.getSupportDrawable(R.drawable.ic_arrow_back_white)
         raceDetailsToolbar.title = getString(R.string.race)
         raceDetailsToolbar.setNavigationOnClickListener { presenter.onBack() }
 

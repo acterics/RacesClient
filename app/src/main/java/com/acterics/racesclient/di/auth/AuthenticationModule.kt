@@ -1,5 +1,6 @@
 package com.acterics.racesclient.di.auth
 
+import android.content.Context
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.interactor.SignInUseCase
@@ -16,13 +17,16 @@ class AuthenticationModule {
 
     @AuthenticationScope
     @Provides
-    fun provideSignInUseCase(apiService: ApiService, scheduler: ExecutionScheduler): SignInUseCase =
-            SignInUseCase(apiService, scheduler)
+    fun provideSignInUseCase(apiService: ApiService,
+                             scheduler: ExecutionScheduler,
+                             context: Context): SignInUseCase =
+            SignInUseCase(apiService, scheduler, context)
 
     @AuthenticationScope
     @Provides
     fun provideSignUpUseCase(apiService: ApiService,
-                             scheduler: ExecutionScheduler): SignUpUseCase =
-            SignUpUseCase(apiService, scheduler)
+                             scheduler: ExecutionScheduler,
+                             context: Context): SignUpUseCase =
+            SignUpUseCase(apiService, scheduler, context)
 
 }
