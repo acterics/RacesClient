@@ -18,7 +18,7 @@ class RaceRepositoryImpl(private val apiService: ApiService,
                          private val appDatabase: AppDatabase,
                          private val raceMapper: RaceMapper): RaceRepository {
     override fun getSchedulePage(skip: Int, count: Int, caching: Boolean): Single<List<Race>> =
-        apiService.getSchedule(skip, count)
+        apiService.getRaces(skip, count)
                 .checkNetworkSingle()
                 .map { it.races }
                 .flatMap { if (caching) cacheSchedulePage(it) else Single.just(it) }

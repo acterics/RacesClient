@@ -7,5 +7,5 @@ data class ParticipantModel(val id: Long,
                             val raceId: Long,
                             val horse: HorseModel,
                             val rating: Float,
-                            val bets: MutableList<BetModel>)
+                            val bets: MutableList<BetModel>?)
 

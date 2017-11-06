@@ -23,8 +23,8 @@ class ParticipantMapper(private val horseMapper: HorseMapper,
     fun toDomain(from: ParticipantModel): Participant =
             Participant(from.id,
                     horseMapper.toDomain(from.horse), from.rating,
-                    from.bets.map { betMapper.toDomain(it) })
+                    from.bets?.map { betMapper.toDomain(it) })
 
-    fun toEntity(from: ParticipantModel): ParticipantEntity =
-            ParticipantEntity(from.id, from.rating, from.horse.id, from.raceId)
+//    fun toEntity(from: ParticipantModel): ParticipantEntity =
+//            ParticipantEntity(from.id, from.rating, from.horse.id, from.raceId)
 }

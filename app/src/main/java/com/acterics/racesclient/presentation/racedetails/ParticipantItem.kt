@@ -16,9 +16,11 @@ class ParticipantItem(internal val participant: Participant):
 
     init {
         withSubItems(ArrayList<DefaultExpandableItem>().apply {
-            addAll(participant.bets.map { BetItem(it) })
+            participant.bets?.let {
+                this.addAll(it.map { BetItem(it) })
+            }
         })
-        isBetOn = !participant.bets.isEmpty()
+        isBetOn = participant.bets?.isEmpty() != true
     }
 
 

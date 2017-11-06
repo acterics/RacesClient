@@ -26,11 +26,11 @@ class RaceMapper(private val participantMapper: ParticipantMapper,
                 it.participants = from.participants.map { participantMapper.toDomain(it) }
             }
     fun toDomain(from: RaceModel): Race =
-            Race(from.id, from.title, from.dateTime,
+            Race(from.id, from.title, DateTime(from.dateTime),
                     organizationMapper.toDomain(from.organizer),
                     from.participants.map { participantMapper.toDomain(it) })
 
     fun toEntity(from: RaceModel): RaceEntity =
-            RaceEntity(from.id, from.title, from.dateTime.millis, from.organizer.id)
+            RaceEntity(from.id, from.title, from.dateTime, from.organizer.id)
 
 }

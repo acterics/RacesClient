@@ -1,5 +1,6 @@
 package com.acterics.racesclient.data.network.model
 
+import com.google.gson.annotations.SerializedName
 import org.joda.time.DateTime
 
 /**
@@ -7,6 +8,8 @@ import org.joda.time.DateTime
  */
 data class RaceModel(val id: Long,
                      val title: String,
-                     val dateTime: DateTime,
+
+                     @SerializedName("date_time")
+                     val dateTime: Long,
                      val organizer: OrganizationModel,
                      val participants: List<ParticipantModel>)

@@ -24,10 +24,9 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
                          private val context: Context,
                          private val betMapper: BetMapper): UserRepository {
 
-    private val user: User = context.getUser()
 
     override fun addBet(bet: Float, rating: Float, participationId: Long, caching: Boolean): Single<Bet> {
-        return apiService.addBet(user.id, BetRequest(participationId, bet, rating))
+        return apiService.addBet(BetRequest(participationId, bet, rating))
                 .checkNetworkSingle()
                 .flatMap {
                     if(caching) cacheBetRequest(it)
@@ -44,8 +43,9 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
     }
 
     override fun getBetHistory(skip: Int, count: Int, caching: Boolean): Single<List<HistoryBet>> {
-        return apiService.getHistory(user.id, skip, count)
+        return apiService.getBets(skip, count)
                 .checkNetworkSingle()
+                .map { it.bets }
                 .listMap { betMapper.toDto(it) }
 
     }

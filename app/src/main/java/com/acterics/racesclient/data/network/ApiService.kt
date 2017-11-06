@@ -8,6 +8,7 @@ import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
+import com.acterics.racesclient.data.network.model.response.HistoryResponse
 import com.acterics.racesclient.data.network.model.response.ScheduleResponse
 import com.acterics.racesclient.data.network.model.response.TokenResponse
 import io.reactivex.Single
@@ -26,21 +27,19 @@ interface ApiService {
     @GET("user/")
     fun getUser(): Single<BaseResponse<UserModel>>
 
-    @GET("schedule/")
-    fun getSchedule(@Query("skip") skip: Int, @Query("count") count: Int): Single<BaseResponse<ScheduleResponse>>
+    @GET("races/")
+    fun getRaces(@Query("skip") skip: Int, @Query("count") count: Int): Single<BaseResponse<ScheduleResponse>>
 
-    @GET("/race/{id}")
+    @GET("races/{id}")
     fun getRace(@Path("id") raceId: Long): Single<BaseResponse<RaceModel>>
 
-    @POST("/user/{userId}/bet")
-    fun addBet(@Path("userId") userId: Long, @Body betRequest: BetRequest):
+    @POST("bet/")
+    fun addBet(@Body betRequest: BetRequest):
             Single<BaseResponse<BetModel>>
 
-
-    @GET("/user/{userId}/history")
-    fun getHistory(@Path("userId") userId: Long,
-                   @Query("skip") skip: Int,
-                   @Query("count") count: Int): Single<BaseResponse<List<HistoryBetModel>>>
+    @GET("bet/")
+    fun getBets(@Query("skip") skip: Int,
+                @Query("count") count: Int): Single<BaseResponse<HistoryResponse>>
 
 
 }
