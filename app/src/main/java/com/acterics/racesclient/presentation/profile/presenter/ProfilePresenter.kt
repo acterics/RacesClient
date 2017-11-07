@@ -7,7 +7,7 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.support.v4.content.res.ResourcesCompat
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.getUser
 import com.acterics.racesclient.common.extentions.isLight
 import com.acterics.racesclient.common.extentions.transform
@@ -68,7 +68,7 @@ class ProfilePresenter(private val router: Router,
 
 
     fun onEditProfileClicked() {
-        router.navigateTo(Screens.EDIT_PROFILE_SCREEN)
+        router.navigateTo(Screens.EDIT_PROFILE)
     }
 
 

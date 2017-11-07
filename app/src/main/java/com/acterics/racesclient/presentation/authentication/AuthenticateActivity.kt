@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.getStatusBarSize
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.di.ComponentsManager
@@ -50,8 +50,8 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
 
     override fun getFragment(screenKey: String?, data: Any?): Fragment {
         return when(screenKey) {
-            Screens.SIGN_IN_SCREEN -> SignInFragment()
-            Screens.SIGN_UP_SCREEN -> SignUpFragment()
+            Screens.SIGN_IN -> SignInFragment()
+            Screens.SIGN_UP -> SignUpFragment()
             else -> throw UnsupportedOperationException()
         }
 
@@ -61,7 +61,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
         when (command) {
             is Replace -> {
                 when(command.screenKey) {
-                    Screens.SIGN_IN_SCREEN -> fragmentTransaction?.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                    Screens.SIGN_IN -> fragmentTransaction?.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 }
             }
             is Forward -> fragmentTransaction?.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out, R.anim.slide_right_in, R.anim.slide_right_out)
@@ -71,7 +71,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
         return when(screenKey) {
-            Screens.MAIN_SCREEN -> Intent(this, MainActivity::class.java)
+            Screens.MAIN -> Intent(this, MainActivity::class.java)
             else -> null
         }
     }
@@ -82,7 +82,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authenticate)
         keyboardPresenter.registrateView(holderRoot)
-        router.replaceScreen(Screens.SIGN_IN_SCREEN)
+        router.replaceScreen(Screens.SIGN_IN)
         imLogo.setPadding(0, 0, 0, getStatusBarSize())
     }
 

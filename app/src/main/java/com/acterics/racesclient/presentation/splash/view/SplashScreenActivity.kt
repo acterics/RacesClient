@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.getStatusBarSize
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.di.ComponentsManager
@@ -48,7 +48,7 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
         return Navigator { command -> when (command) {
             is Replace -> {
                 val options: Bundle? = when(command.screenKey) {
-                    Screens.AUTHENTICATE_SCREEN -> {
+                    Screens.AUTHENTICATE -> {
                         ActivityOptionsCompat.makeSceneTransitionAnimation(this, imLogo, getString(R.string.translation_name_auth_logo)).toBundle()
                     }
                     else -> null
@@ -62,8 +62,8 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent {
         return when (screenKey) {
-            Screens.AUTHENTICATE_SCREEN -> Intent(this, AuthenticateActivity::class.java)
-            Screens.MAIN_SCREEN -> Intent(this, MainActivity::class.java)
+            Screens.AUTHENTICATE -> Intent(this, AuthenticateActivity::class.java)
+            Screens.MAIN -> Intent(this, MainActivity::class.java)
             else -> throw UnsupportedOperationException()
         }
     }

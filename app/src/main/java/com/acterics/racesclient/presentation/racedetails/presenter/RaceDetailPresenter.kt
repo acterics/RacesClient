@@ -1,9 +1,8 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
 import android.view.View
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
-import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.model.Race
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
@@ -12,7 +11,6 @@ import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantIt
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 
 /**
  * Created by root on 15.10.17.
@@ -77,7 +75,7 @@ class RaceDetailPresenter(private val router: Router,
             clear()
             put(addBetTranslation.addBetHolder, view)
         }
-        router.navigateTo(Screens.ADD_BET_SCREEN, addBetTranslation)
+        router.navigateTo(Screens.ADD_BET, addBetTranslation)
     }
 
 

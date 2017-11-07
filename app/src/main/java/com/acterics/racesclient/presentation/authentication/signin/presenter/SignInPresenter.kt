@@ -2,9 +2,7 @@ package com.acterics.racesclient.presentation.authentication.signin.presenter
 
 import android.content.Context
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Screens
-import com.acterics.racesclient.common.extentions.login
-import com.acterics.racesclient.data.database.entity.User
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.domain.interactor.SignInUseCase
 import com.acterics.racesclient.presentation.authentication.signin.view.SignInView
@@ -37,7 +35,7 @@ class SignInPresenter(private val emailValidator: EmailValidator,
     }
 
     fun onSignUpButtonClick() {
-        router.navigateTo(Screens.SIGN_UP_SCREEN)
+        router.navigateTo(Screens.SIGN_UP)
     }
 
     fun onSignInButtonClick(email: String, password: String) {
@@ -51,7 +49,7 @@ class SignInPresenter(private val emailValidator: EmailValidator,
 
 
     private fun onSuccessLogin() {
-        router.newRootScreen(Screens.MAIN_SCREEN)
+        router.newRootScreen(Screens.MAIN)
     }
 
 

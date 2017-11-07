@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBarDrawerToggle
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.ui.SharedElementHolder
 import com.acterics.racesclient.common.ui.SharedElementsHolder
 import com.acterics.racesclient.common.ui.ToolbarHolder
@@ -76,19 +76,19 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
         return when(screenKey) {
-            Screens.AUTHENTICATE_SCREEN -> Intent(this, AuthenticateActivity::class.java)
-            Screens.EDIT_PROFILE_SCREEN -> Intent(this, EditProfileActivity::class.java)
+            Screens.AUTHENTICATE -> Intent(this, AuthenticateActivity::class.java)
+            Screens.EDIT_PROFILE -> Intent(this, EditProfileActivity::class.java)
             else -> null
         }
     }
 
     override fun getFragment(screenKey: String?, data: Any?): Fragment? {
         val drawerFragment: Fragment? = when(screenKey) {
-            Screens.PROFILE_SCREEN -> ProfileFragment()
-            Screens.RACES_SCREEN -> ScheduleFragment()
-            Screens.SETTINGS_SCREEN -> SettingsFragment()
-            Screens.RACE_DETAIL_SCREEN -> RaceDetailFragment().apply { scheduleRaceTranslation = data as ScheduleRaceTranslation }
-            Screens.ADD_BET_SCREEN -> AddBetFragment().apply { addBetTranslation = data as AddBetTranslation }
+            Screens.PROFILE -> ProfileFragment()
+            Screens.RACES -> ScheduleFragment()
+            Screens.SETTINGS -> SettingsFragment()
+            Screens.RACE_DETAIL -> RaceDetailFragment().apply { scheduleRaceTranslation = data as ScheduleRaceTranslation }
+            Screens.ADD_BET -> AddBetFragment().apply { addBetTranslation = data as AddBetTranslation }
             else -> return null
         }
         if (drawerFragment is MainDrawerFragment) {

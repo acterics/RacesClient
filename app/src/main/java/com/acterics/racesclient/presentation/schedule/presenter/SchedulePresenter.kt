@@ -2,7 +2,7 @@ package com.acterics.racesclient.presentation.schedule.presenter
 
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.domain.model.Race
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
@@ -64,7 +64,7 @@ class SchedulePresenter(private val router: Router,
                 put(item.scheduleRaceTranslation.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
             }
         }
-        router.navigateTo(Screens.RACE_DETAIL_SCREEN, item?.scheduleRaceTranslation)
+        router.navigateTo(Screens.RACE_DETAIL, item?.scheduleRaceTranslation)
         return true
     }
 

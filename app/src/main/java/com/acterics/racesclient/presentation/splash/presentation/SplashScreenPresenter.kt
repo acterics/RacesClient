@@ -2,7 +2,7 @@ package com.acterics.racesclient.presentation.splash.presentation
 
 import android.content.Context
 import android.os.Handler
-import com.acterics.racesclient.common.extentions.Screens
+import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.isAuthenticate
 import com.acterics.racesclient.presentation.splash.view.SplashScreenView
 import com.arellomobile.mvp.InjectViewState
@@ -30,9 +30,9 @@ class SplashScreenPresenter(private val router: Router,
 
         routingHandler.postDelayed({
             if (context.isAuthenticate()) {
-                router.replaceScreen(Screens.MAIN_SCREEN)
+                router.replaceScreen(Screens.MAIN)
             } else {
-                router.replaceScreen(Screens.AUTHENTICATE_SCREEN)
+                router.replaceScreen(Screens.AUTHENTICATE)
             }
         }, DELAY_TIME)
 
