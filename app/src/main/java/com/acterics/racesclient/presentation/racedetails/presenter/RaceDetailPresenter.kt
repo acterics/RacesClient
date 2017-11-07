@@ -2,19 +2,17 @@ package com.acterics.racesclient.presentation.racedetails.presenter
 
 import android.view.View
 import com.acterics.racesclient.common.extentions.Screens
-import com.acterics.racesclient.common.ui.ExpandedCardProgressItem
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.model.Race
-import com.acterics.racesclient.presentation.racedetails.view.item.BetItem
-import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
-import com.acterics.racesclient.presentation.racedetails.ParticipantSubItem
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
 import com.acterics.racesclient.presentation.racedetails.view.item.AddBetItem
+import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 
 /**
  * Created by root on 15.10.17.
@@ -23,14 +21,15 @@ import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class RaceDetailPresenter(private val router: Router,
-                          private val getRaceDetailsUseCase: GetRaceDetailsUseCase,
-                          private val confirmBetUseCase: ConfirmBetUseCase): MvpPresenter<RaceDetailView>() {
+                          private val getRaceDetailsUseCase: GetRaceDetailsUseCase):
+        MvpPresenter<RaceDetailView>() {
 
     val sharedElements = HashMap<String, View?>()
+    var loaded = false
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-        viewState.onViewAttached()
+    override fun attachView(view: RaceDetailView?) {
+        super.attachView(view)
+        viewState.onPresenterAttached()
     }
 
     fun onBack() {
@@ -45,12 +44,14 @@ class RaceDetailPresenter(private val router: Router,
 
 
     fun loadDetails(id: Long) {
-        viewState.startParticipantsLoading()
-        getRaceDetailsUseCase.execute(
-                params = GetRaceDetailsUseCase.Params(id),
-                onSuccess = { onDetailsLoaded(it) },
-                onError = { onDetailsLoadError(it) }
-        )
+        if (!loaded) {
+            viewState.startParticipantsLoading()
+            getRaceDetailsUseCase.execute(
+                    params = GetRaceDetailsUseCase.Params(id),
+                    onSuccess = { onDetailsLoaded(it) },
+                    onError = { onDetailsLoadError(it) }
+            )
+        }
 
     }
 
@@ -59,8 +60,9 @@ class RaceDetailPresenter(private val router: Router,
         viewState.stopParticipantsLoading()
         viewState.showParticipants( details.participants
                 .map { ParticipantItem(it)
-                        .apply { subItems.add(getAddBetSubItem()) }
+                        .apply { subItems.add(getAddBetSubItem(this)) }
                 } )
+        loaded = true
     }
 
     private fun onDetailsLoadError(throwable: Throwable) {
@@ -102,8 +104,9 @@ class RaceDetailPresenter(private val router: Router,
 
 
 
-    private fun getAddBetSubItem(): AddBetItem =
+    private fun getAddBetSubItem(participantItem: ParticipantItem): AddBetItem =
         AddBetItem().also {
+            it.withParent(participantItem)
             it.addBetClickListener = {translation, view -> onAddBet(translation, view) }
         }
 }

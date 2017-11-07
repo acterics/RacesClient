@@ -2,6 +2,7 @@ package com.acterics.racesclient.presentation.racedetails.view.item
 
 import android.view.View
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.presentation.racedetails.ParticipantSubItem
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
@@ -24,8 +25,9 @@ class AddBetItem: AbstractExpandableItem<ParticipantItem, AddBetHolder, Particip
 
     override fun bindView(holder: AddBetHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
-        holder.btAddBet.setOnClickListener { view ->
-            addBetClickListener?.invoke(addBetTranslation, view)
+        holder.btAddBet.apply {
+            setOnClickListener { view -> addBetClickListener?.invoke(addBetTranslation, view) }
+            setSupportTranslationName(addBetTranslation.addBetHolder)
         }
     }
 

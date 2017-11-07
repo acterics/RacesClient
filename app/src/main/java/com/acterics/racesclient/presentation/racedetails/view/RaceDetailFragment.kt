@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.constants.Extra
 import com.acterics.racesclient.common.extentions.getSupportDrawable
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.*
@@ -26,6 +27,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import kotlinx.android.synthetic.main.fragment_race.*
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -33,9 +35,7 @@ import javax.inject.Inject
  */
 class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHolder {
 
-    companion object {
-        const val EXTRA_TRANSLATION = "com.acterics.racesclient.ui.race.EXTRA_TRANSLATION"
-    }
+
     lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
 
 
@@ -47,8 +47,6 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
     @Inject
     lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
 
-    @Inject
-    lateinit var confirmBetUseCase: ConfirmBetUseCase
 
     @Inject
     lateinit var router: Router
@@ -57,21 +55,20 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     @ProvidePresenter
     fun provideRaceDetailsPresenter(): RaceDetailPresenter =
-            RaceDetailPresenter(router, getRaceDetailsUseCase, confirmBetUseCase)
+            RaceDetailPresenter(router, getRaceDetailsUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState?.let {
-            scheduleRaceTranslation = it.getParcelable(EXTRA_TRANSLATION)
+            scheduleRaceTranslation = it.getParcelable(Extra.TRANSLATION)
         }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(EXTRA_TRANSLATION, scheduleRaceTranslation)
+        outState.putParcelable(Extra.TRANSLATION, scheduleRaceTranslation)
     }
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -106,11 +103,19 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     }
 
-    override fun onViewAttached() {
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.loaded = false
+    }
+
+    override fun onPresenterAttached() {
         presenter.loadDetails(scheduleRaceTranslation.raceId)
     }
 
+
     override fun showParticipants(participants: List<ParticipantItem>) {
+        Timber.e("showParticipants: ")
+
         participantsAdapter.add(participants)
     }
 

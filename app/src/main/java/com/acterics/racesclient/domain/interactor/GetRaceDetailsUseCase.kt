@@ -9,6 +9,7 @@ import javax.inject.Inject
 /**
  * Created by root on 26.10.17.
  */
+//TODO Add memory caching
 class GetRaceDetailsUseCase
 @Inject constructor(private val raceRepository: RaceRepository,
                     private val scheduler: ExecutionScheduler): UseCase.AsSingle<Race, GetRaceDetailsUseCase.Params>() {
