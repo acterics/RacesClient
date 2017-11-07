@@ -2,6 +2,7 @@ package com.acterics.racesclient.common.ui
 
 import android.content.Context
 import android.widget.Toast
+import com.acterics.racesclient.common.ui.other.MatchParentProgressItem
 import com.mikepenz.fastadapter_extensions.items.ProgressItem
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 

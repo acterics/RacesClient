@@ -1,9 +1,8 @@
 package com.acterics.racesclient.presentation.profile.history
 
-import android.support.annotation.DrawableRes
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Formats
+import com.acterics.racesclient.common.constants.Formats
 import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.domain.model.dto.HistoryBet
 import com.mikepenz.fastadapter.items.AbstractItem
@@ -22,7 +21,7 @@ class HistoryBetItem(val historyBet: HistoryBet):
     override fun bindView(holder: HistoryBetItemHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
-        holder.tvDate.text = historyBet.date.formattedDate(Formats.PROFILE_HISTORY_DATE_FORMAT)
+        holder.tvDate.text = historyBet.date.formattedDate(Formats.PROFILE_HISTORY_DATE)
         holder.tvBet.text = historyBet.bet.bet.toString()
         holder.tvHorseName.text = historyBet.horseName
 

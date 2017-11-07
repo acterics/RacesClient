@@ -15,9 +15,9 @@ import com.acterics.racesclient.common.extentions.getSupportDrawable
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.*
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
+import com.acterics.racesclient.common.ui.other.MatchParentProgressItem
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter

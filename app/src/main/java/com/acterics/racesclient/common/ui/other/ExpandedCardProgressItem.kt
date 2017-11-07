@@ -1,9 +1,10 @@
-package com.acterics.racesclient.common.ui
+package com.acterics.racesclient.common.ui.other
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.ui.DefaultExpandableItem
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**

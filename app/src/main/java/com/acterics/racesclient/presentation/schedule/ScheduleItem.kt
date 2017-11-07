@@ -2,7 +2,7 @@ package com.acterics.racesclient.presentation.schedule
 
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.Formats
+import com.acterics.racesclient.common.constants.Formats
 import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.extentions.suffixedFormattedDate
@@ -38,8 +38,8 @@ class ScheduleItem(var race: Race) : AbstractItem<ScheduleItem, ScheduleItemHold
 
         holder.tvRaceTitle.text = race.title
         holder.tvRaceOrganizer.text = race.organizer?.name
-        holder.tvRaceDate.text = race.dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE_FORMAT)
-        holder.tvRaceTime.text = race.dateTime.formattedDate(Formats.SCHEDULE_TIME_FORMAT)
+        holder.tvRaceDate.text = race.dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE)
+        holder.tvRaceTime.text = race.dateTime.formattedDate(Formats.SCHEDULE_TIME)
 
         holder.itemView.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
         holder.tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)

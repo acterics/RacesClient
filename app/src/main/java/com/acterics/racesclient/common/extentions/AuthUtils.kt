@@ -2,6 +2,7 @@ package com.acterics.racesclient.common.extentions
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.acterics.racesclient.common.constants.Extra
 import com.acterics.racesclient.data.database.entity.User
 
 /**
@@ -10,13 +11,7 @@ import com.acterics.racesclient.data.database.entity.User
 
 private object AuthUtilsConstants {
     const val PREFERENCES_NAME = "com.acterics.racesclient.utils.AUTH_PREFERENCES"
-    const val EXTRA_IS_AUTH = "com.acterics.racesclient.utils.EXTRA_IS_AUTH"
-    const val EXTRA_FIRST_NAME = "com.acterics.racesclient.utils.EXTRA_FIRST_NAME"
-    const val EXTRA_LAST_NAME = "com.acterics.racesclient.utils.EXTRA_LAST_NAME"
-    const val EXTRA_AVATAR = "com.acterics.racesclient.utils.EXTRA_AVATAR"
-    const val EXTRA_EMAIL = "com.acterics.racesclient.utils.EXTRA_EMAIL"
-    const val EXTRA_ID = "com.acterics.racesclient.utils.EXTRA_ID"
-    const val EXTRA_TOKEN = "com.acterics.racesclient.utils.EXTRA_TOKEN"
+
 }
 
 fun Context.getAuthPreferences(): SharedPreferences {
@@ -24,40 +19,40 @@ fun Context.getAuthPreferences(): SharedPreferences {
 }
 
 fun Context.isAuthenticate(): Boolean {
-    return getAuthPreferences().getBoolean(AuthUtilsConstants.EXTRA_IS_AUTH, false)
+    return getAuthPreferences().getBoolean(Extra.IS_AUTH, false)
 }
 
 fun Context.getToken(): String {
-    return getAuthPreferences().getString(AuthUtilsConstants.EXTRA_TOKEN, "")
+    return getAuthPreferences().getString(Extra.ACCESS_TOKEN, "")
 }
 
 
 fun Context.saveToken(token: String) {
     getAuthPreferences().edit()
-            .putString(AuthUtilsConstants.EXTRA_TOKEN, token)
+            .putString(Extra.ACCESS_TOKEN, token)
             .apply()
 }
 
 
 fun Context.getUser(): User {
     val prefs = getAuthPreferences()
-    val firstName = prefs.getString(AuthUtilsConstants.EXTRA_FIRST_NAME, "")
-    val lastName = prefs.getString(AuthUtilsConstants.EXTRA_LAST_NAME, "")
-    val email = prefs.getString(AuthUtilsConstants.EXTRA_EMAIL, "")
-    val avatar = prefs.getString(AuthUtilsConstants.EXTRA_AVATAR, "")
-    val id = prefs.getLong(AuthUtilsConstants.EXTRA_ID, -1)
+    val firstName = prefs.getString(Extra.FIRST_NAME, "")
+    val lastName = prefs.getString(Extra.LAST_NAME, "")
+    val email = prefs.getString(Extra.EMAIL, "")
+    val avatar = prefs.getString(Extra.AVATAR, "")
+    val id = prefs.getLong(Extra.USER_ID, -1)
     return User(id, firstName, lastName, email, avatar)
 }
 
 fun Context.login(user: User) {
     getAuthPreferences()
             .edit()
-            .putBoolean(AuthUtilsConstants.EXTRA_IS_AUTH, true)
-            .putString(AuthUtilsConstants.EXTRA_FIRST_NAME, user.firstName)
-            .putString(AuthUtilsConstants.EXTRA_LAST_NAME, user.lastName)
-            .putString(AuthUtilsConstants.EXTRA_EMAIL, user.email)
-            .putString(AuthUtilsConstants.EXTRA_AVATAR, user.avatar)
-            .putLong(AuthUtilsConstants.EXTRA_ID, user.id)
+            .putBoolean(Extra.IS_AUTH, true)
+            .putString(Extra.FIRST_NAME, user.firstName)
+            .putString(Extra.LAST_NAME, user.lastName)
+            .putString(Extra.EMAIL, user.email)
+            .putString(Extra.AVATAR, user.avatar)
+            .putLong(Extra.USER_ID, user.id)
             .apply()
 }
 

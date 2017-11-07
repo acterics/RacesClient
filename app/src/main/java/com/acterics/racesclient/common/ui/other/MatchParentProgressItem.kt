@@ -1,4 +1,4 @@
-package com.acterics.racesclient.common.ui
+package com.acterics.racesclient.common.ui.other
 
 import com.acterics.racesclient.R
 import com.mikepenz.fastadapter_extensions.items.ProgressItem
