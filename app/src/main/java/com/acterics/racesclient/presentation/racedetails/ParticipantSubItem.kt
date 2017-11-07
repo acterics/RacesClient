@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.acterics.racesclient.R
+import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**

@@ -1,4 +1,4 @@
-package com.acterics.racesclient.presentation.racedetails
+package com.acterics.racesclient.presentation.racedetails.view.item
 
 import android.view.View
 import com.acterics.racesclient.R

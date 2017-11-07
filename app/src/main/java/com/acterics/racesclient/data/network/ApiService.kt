@@ -7,10 +7,7 @@ import com.acterics.racesclient.data.network.model.UserModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.data.network.model.request.SignUpRequest
-import com.acterics.racesclient.data.network.model.response.BaseResponse
-import com.acterics.racesclient.data.network.model.response.HistoryResponse
-import com.acterics.racesclient.data.network.model.response.ScheduleResponse
-import com.acterics.racesclient.data.network.model.response.TokenResponse
+import com.acterics.racesclient.data.network.model.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -35,7 +32,7 @@ interface ApiService {
 
     @POST("bet/")
     fun addBet(@Body betRequest: BetRequest):
-            Single<BaseResponse<BetModel>>
+            Single<BaseResponse<BooleanResponse>>
 
     @GET("bet/")
     fun getBets(@Query("skip") skip: Int,

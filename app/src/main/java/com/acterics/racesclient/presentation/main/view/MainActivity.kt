@@ -13,11 +13,13 @@ import com.acterics.racesclient.common.ui.SharedElementsHolder
 import com.acterics.racesclient.common.ui.ToolbarHolder
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
+import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
+import com.acterics.racesclient.presentation.addbet.view.AddBetFragment
 import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
 import com.acterics.racesclient.presentation.editprofile.view.EditProfileActivity
 import com.acterics.racesclient.presentation.main.presenter.MainActivityPresenter
@@ -86,6 +88,7 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
             Screens.RACES_SCREEN -> ScheduleFragment()
             Screens.SETTINGS_SCREEN -> SettingsFragment()
             Screens.RACE_DETAIL_SCREEN -> RaceDetailFragment().apply { scheduleRaceTranslation = data as ScheduleRaceTranslation }
+            Screens.ADD_BET_SCREEN -> AddBetFragment().apply { addBetTranslation = data as AddBetTranslation }
             else -> return null
         }
         if (drawerFragment is MainDrawerFragment) {

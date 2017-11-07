@@ -56,11 +56,13 @@ class SchedulePresenter(private val router: Router,
 
 
     fun onScheduleItemClick(view: View?, item: ScheduleItem?) : Boolean {
-        sharedElements.clear()
-        item?.let {
-            sharedElements.put(item.scheduleRaceTranslation.holderTranslationName, view)
-            sharedElements.put(item.scheduleRaceTranslation.titleTranslationName, view?.findViewById(R.id.tvRaceTitle))
-            sharedElements.put(item.scheduleRaceTranslation.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
+        sharedElements.apply {
+            clear()
+            item?.let {
+                put(item.scheduleRaceTranslation.holderTranslationName, view)
+                put(item.scheduleRaceTranslation.titleTranslationName, view?.findViewById(R.id.tvRaceTitle))
+                put(item.scheduleRaceTranslation.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
+            }
         }
         router.navigateTo(Screens.RACE_DETAIL_SCREEN, item?.scheduleRaceTranslation)
         return true

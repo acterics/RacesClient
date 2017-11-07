@@ -1,6 +1,6 @@
 package com.acterics.racesclient.presentation.racedetails.view
 
-import com.acterics.racesclient.presentation.racedetails.ParticipantItem
+import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.arellomobile.mvp.MvpView
 
 /**
@@ -14,5 +14,4 @@ interface RaceDetailView: MvpView {
     fun stopParticipantsLoading()
     fun showError(message: String?)
     fun notifyNewBet(identifier: Long, previousSize: Int)
-    fun notifyBetLoading(identifier: Long)
 }

@@ -1,6 +1,7 @@
 package com.acterics.racesclient.di.main
 
 import com.acterics.racesclient.di.profile.ProfileComponent
+import com.acterics.racesclient.presentation.addbet.view.AddBetFragment
 import com.acterics.racesclient.presentation.main.view.MainActivity
 import com.acterics.racesclient.presentation.profile.view.ProfileFragment
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailFragment
@@ -27,4 +28,5 @@ interface MainComponent {
     fun inject(scheduleFragment: ScheduleFragment)
     fun inject(raceDetailFragment: RaceDetailFragment)
     fun inject(settingsFragment: SettingsFragment)
+    fun inject(addBetFragment: AddBetFragment)
 }

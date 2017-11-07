@@ -1,4 +1,4 @@
-package com.acterics.racesclient.presentation.racedetails
+package com.acterics.racesclient.presentation.racedetails.view.item
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

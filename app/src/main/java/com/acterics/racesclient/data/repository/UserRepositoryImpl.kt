@@ -26,12 +26,10 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
 
 
     override fun addBet(bet: Float, rating: Float, participationId: Long, caching: Boolean): Single<Bet> {
-        return apiService.addBet(BetRequest(participationId, bet, rating))
+        val request = BetRequest(participationId, bet, rating)
+        return apiService.addBet(request)
                 .checkNetworkSingle()
-                .flatMap {
-                    if(caching) cacheBetRequest(it)
-                    else Single.just(betMapper.toDomain(it))
-                }
+                .flatMap { Single.just(betMapper.toDomain(request)) }
     }
 
     override fun getUser(): Single<User> {

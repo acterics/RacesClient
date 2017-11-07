@@ -12,16 +12,13 @@ import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.getSupportDrawable
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
-import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
-import com.acterics.racesclient.common.ui.DefaultItem
-import com.acterics.racesclient.common.ui.DefaultItemAdapter
-import com.acterics.racesclient.common.ui.MatchParentProgressItem
+import com.acterics.racesclient.common.ui.*
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
-import com.acterics.racesclient.presentation.racedetails.ParticipantItem
+import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -34,7 +31,7 @@ import javax.inject.Inject
 /**
  * Created by root on 15.10.17.
  */
-class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
+class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHolder {
 
     companion object {
         const val EXTRA_TRANSLATION = "com.acterics.racesclient.ui.race.EXTRA_TRANSLATION"
@@ -138,8 +135,8 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView {
         participantsAdapter.notifyAdapterDataSetChanged()
     }
 
-    override fun notifyBetLoading(identifier: Long) {
-//        expandableExtension.notifyAdapterItemRangeChanged()
+    override fun getSharedElements(): Map<String, View?> {
+        return presenter.sharedElements
     }
 }
 

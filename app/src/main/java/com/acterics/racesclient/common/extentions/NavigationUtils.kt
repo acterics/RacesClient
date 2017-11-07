@@ -15,4 +15,5 @@ object Screens {
     const val AUTHENTICATE_SCREEN = "com.acterics.racesclient.utils.AUTHENTICATE_SCREEN"
     const val SIGN_IN_SCREEN = "com.acterics.racesclient.utils.SIGN_IN_SCREEN"
     const val SIGN_UP_SCREEN = "com.acterics.racesclient.utils.SIGN_UP_SCREEN"
+    const val ADD_BET_SCREEN = "com.acterics.racesclient.utils.ADD_BET_SCREEN"
 }
