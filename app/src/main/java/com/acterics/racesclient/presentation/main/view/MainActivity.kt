@@ -6,17 +6,19 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Gravity
+import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
+import com.acterics.racesclient.common.extentions.gone
+import com.acterics.racesclient.common.extentions.visible
 import com.acterics.racesclient.common.ui.SharedElementHolder
 import com.acterics.racesclient.common.ui.SharedElementsHolder
-import com.acterics.racesclient.common.ui.ToolbarHolder
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
-import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
+import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.addbet.view.AddBetFragment
@@ -39,6 +41,7 @@ import javax.inject.Inject
 /**
  * Created by root on 08.10.17.
  */
+
 class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
 
     @Inject
@@ -57,14 +60,14 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     lateinit var getRacesUseCase: GetRacesUseCase
 
     @Inject
-    lateinit var confirmBetUseCase: ConfirmBetUseCase
+    lateinit var addBetUseCase: AddBetUseCase
 
     @InjectPresenter
     lateinit var presenter: MainActivityPresenter
 
     @ProvidePresenter
     fun provideMainPresenter(): MainActivityPresenter =
-            MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase, confirmBetUseCase)
+            MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase, addBetUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,21 +94,9 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
             Screens.ADD_BET -> AddBetFragment().apply { addBetTranslation = data as AddBetTranslation }
             else -> return null
         }
-        if (drawerFragment is MainDrawerFragment) {
-            presenter.onDrawerFragmentChanged(drawerFragment)
-        }
+        presenter.onFragmentNavigation(drawerFragment)
         return drawerFragment
 
-
-    }
-
-    override fun onDrawerFragmentViewCreated(toolbarHolder: ToolbarHolder, lightTheme: Boolean) {
-        setSupportActionBar(toolbarHolder.getToolbar())
-        val toggle = ActionBarDrawerToggle(this, holderDrawer,
-                toolbarHolder.getToolbar(), R.string.app_name, R.string.app_name)
-        holderDrawer.addDrawerListener(toggle)
-        toggle.syncState()
-        toolbarHolder.getToolbar().navigationIcon = presenter.getNavigationIcon(lightTheme)
 
     }
 
@@ -119,8 +110,6 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
                     }
                 }
             }
-
-
         }
         if (currentFragment is SharedElementHolder && command is Forward) {
 
@@ -132,6 +121,10 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
         holderDrawer.closeDrawer(vNavigationDrawer)
     }
 
+    override fun openDrawer() {
+        holderDrawer.openDrawer(Gravity.START)
+    }
+
     override fun onBackPressed() {
         if (holderDrawer.isDrawerOpen(vNavigationDrawer)) {
             closeDrawer()
@@ -141,7 +134,10 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     }
 
     override fun injectComponent() {
-        ComponentsManager.mainComponent!!.inject(this)
+        ComponentsManager.also {
+            it.initMainComponent(this)
+            it.mainComponent!!.inject(this)
+        }
     }
 
     override fun rejectComponent() {
@@ -150,4 +146,11 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
 
     override fun getInjectedNavigationHolder(): NavigatorHolder = navigationHolder
 
+    override fun hideToolbar() { toolbar.gone() }
+    override fun showToolbar() {
+        toolbar.apply {
+            visible()
+            setNavigationOnClickListener({ openDrawer() })
+        }
+    }
 }

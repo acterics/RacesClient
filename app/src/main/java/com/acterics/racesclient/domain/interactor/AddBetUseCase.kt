@@ -8,8 +8,8 @@ import io.reactivex.Single
 /**
  * Created by root on 30.10.17.
  */
-class ConfirmBetUseCase(private val userRepository: UserRepository,
-                        private val scheduler: ExecutionScheduler): UseCase.AsSingle<Bet, ConfirmBetUseCase.Params>() {
+class AddBetUseCase(private val userRepository: UserRepository,
+                    private val scheduler: ExecutionScheduler): UseCase.AsSingle<Bet, AddBetUseCase.Params>() {
     override fun build(params: Params?): Single<Bet> =
         userRepository.addBet(params!!.bet, params.rating, params.participantId, false)
                 .compose(scheduler.highPrioritySingle())

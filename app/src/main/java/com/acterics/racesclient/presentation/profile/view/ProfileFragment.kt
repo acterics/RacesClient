@@ -2,11 +2,11 @@ package com.acterics.racesclient.presentation.profile.view
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.Toolbar
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,9 @@ import android.view.ViewGroup
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.getGlobalVisibleRect
 import com.acterics.racesclient.common.extentions.getNavigationIconView
-import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
+import com.acterics.racesclient.common.ui.ActionBarToggleBinder
+import com.acterics.racesclient.common.ui.CustomToolbarHolder
+import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.presentation.profile.ProfileViewModel
@@ -36,13 +38,16 @@ import javax.inject.Inject
 /**
  * Created by root on 09.10.17.
  */
-class ProfileFragment: MainDrawerFragment(), ProfileView {
+class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
 
 
     companion object {
         private val GENERAL_FRAGMENT_POSITION = 0
         private val HISTORY_FRAGMENT_POSITION = 1
     }
+
+    @Inject
+    lateinit var toggleBinder: ActionBarToggleBinder
 
     @Inject
     lateinit var router: Router
@@ -64,6 +69,15 @@ class ProfileFragment: MainDrawerFragment(), ProfileView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolbarProfile.apply {
+            setNavigationIcon(R.drawable.ic_menu_black)
+            title = ""
+        }
+
+        toggleBinder.apply {
+            this.toolbar = toolbarProfile
+        }.bind()
 
         vProfilePager.adapter = object: FragmentPagerAdapter(childFragmentManager) {
             override fun getItem(position: Int): Fragment {
@@ -94,29 +108,32 @@ class ProfileFragment: MainDrawerFragment(), ProfileView {
             }
         })
         btEdit.setOnClickListener { presenter.onEditProfileClicked() }
+
     }
 
-    override fun getToolbar(): Toolbar {
-        return profileToolbar
+    override fun onDestroyView() {
+        super.onDestroyView()
+        toggleBinder.unbind()
     }
+
 
     override fun showUser(user: User) {
         Glide.with(context)
                 .load(user.avatar)
                 .centerCrop()
-                .listener(object : RequestListener<String, GlideDrawable> {
-                    override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-                    override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-                        val vNavIcon = profileToolbar.getNavigationIconView()
-                        presenter.defineTheme((resource as GlideBitmapDrawable).bitmap,
-                                imProfileAvatar.getGlobalVisibleRect(),
-                                tvUsername.getGlobalVisibleRect(),
-                                vNavIcon.getGlobalVisibleRect())
-                        return false
-                    }
-                })
+//                .listener(object : RequestListener<String, GlideDrawable> {
+//                    override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
+//                        return false
+//                    }
+//                    override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+//                        val vNavIcon = toolbarProfile.getNavigationIconView()
+//                        presenter.defineTheme((resource as GlideBitmapDrawable).bitmap,
+//                                imProfileAvatar.getGlobalVisibleRect(),
+//                                tvUsername.getGlobalVisibleRect(),
+//                                vNavIcon.getGlobalVisibleRect())
+//                        return false
+//                    }
+//                })
                 .into(imProfileAvatar)
         tvUsername.text = getString(R.string.username_template,
                 user.firstName,
@@ -124,9 +141,9 @@ class ProfileFragment: MainDrawerFragment(), ProfileView {
     }
 
     override fun applyTheme(profileViewModel: ProfileViewModel) {
-        profileToolbar.navigationIcon = profileViewModel.navigationIcon
-        profileToolbar.title = ""
-        tvUsername.setTextColor(profileViewModel.textColor)
+//        toolbarProfile.navigationIcon = profileViewModel.navigationIcon
+//        toolbarProfile.title = ""
+//        tvUsername.setTextColor(profileViewModel.textColor)
     }
 
     override fun injectComponent() {
@@ -136,5 +153,7 @@ class ProfileFragment: MainDrawerFragment(), ProfileView {
     override fun rejectComponent() {
         ComponentsManager.clearProfileComponent()
     }
+
+
 
 }

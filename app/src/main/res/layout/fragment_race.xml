@@ -6,15 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/raceDetailsToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/black"
-        app:navigationIcon="@drawable/ic_arrow_back_white"
-        app:titleTextColor="@color/white"/>
-
     <android.support.v7.widget.CardView
         android:id="@+id/holderRaceDetails"
         xmlns:android="http://schemas.android.com/apk/res/android"

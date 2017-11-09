@@ -11,10 +11,15 @@ interface RaceDetailView: MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun onPresenterAttached()
+
     @StateStrategyType(SkipStrategy::class)
     fun showParticipants(participants: List<ParticipantItem>)
+
     fun startParticipantsLoading()
     fun stopParticipantsLoading()
     fun showError(message: String?)
     fun notifyNewBet(identifier: Long, previousSize: Int)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun startNavigationAnimation()
 }

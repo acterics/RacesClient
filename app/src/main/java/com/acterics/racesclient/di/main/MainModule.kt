@@ -1,20 +1,45 @@
 package com.acterics.racesclient.di.main
 
+import android.support.design.widget.NavigationView
+import android.support.v7.widget.Toolbar
+import com.acterics.racesclient.R
+import com.acterics.racesclient.common.ui.ActionBarToggleBinder
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.domain.interactor.ConfirmBetUseCase
+import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.domain.repository.RaceRepository
 import com.acterics.racesclient.domain.repository.UserRepository
+import com.acterics.racesclient.presentation.main.view.MainActivity
 import dagger.Module
 import dagger.Provides
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by root on 29.10.17.
  */
 @Module
-class MainModule {
+class MainModule(val mainActivity: MainActivity) {
+
+
+    @MainScope
+    @Provides
+    fun provideToolbar(): Toolbar =
+            mainActivity.findViewById(R.id.toolbar)
+
+    @MainScope
+    @Provides
+    fun provideNavigationView(): NavigationView =
+            mainActivity.findViewById(R.id.vNavigationDrawer)
+
+    @MainScope
+    @Provides
+    fun provideActionBarDrawerToggleBuilder(): ActionBarToggleBinder =
+            ActionBarToggleBinder().apply {
+                activity = mainActivity
+                drawerLayout = mainActivity.findViewById(R.id.holderDrawer)
+            }
 
     @MainScope
     @Provides
@@ -29,7 +54,7 @@ class MainModule {
     @MainScope
     @Provides
     fun provideConfirmBetUseCase(userRepository: UserRepository, scheduler: ExecutionScheduler) =
-            ConfirmBetUseCase(userRepository, scheduler)
+            AddBetUseCase(userRepository, scheduler)
 
     @MainScope
     @Provides

@@ -1,6 +1,7 @@
 package com.acterics.racesclient.presentation.editprofile.view
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.di.ComponentsManager
@@ -28,7 +29,7 @@ class EditProfileActivity: CommonMvpNavigationActivity(), EditProfileView {
         return null
     }
 
-    override fun injectComponent() {
+    override fun injectComponent(savedInstanceState: Bundle?) {
         ComponentsManager.appComponent.inject(this)
     }
 

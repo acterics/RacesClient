@@ -7,10 +7,25 @@
     android:id="@+id/holderDrawer"
     tools:openDrawer="start">
 
-    <FrameLayout
-        android:id="@+id/holderContent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/white"
+            android:background="@color/black"/>
+
+        <FrameLayout
+            android:id="@+id/holderContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/vNavigationDrawer"

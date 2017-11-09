@@ -105,7 +105,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
     }
 
 
-    override fun injectComponent() {
+    override fun injectComponent(savedInstanceState: Bundle?) {
         ComponentsManager.authenticationComponent!!.inject(this)
     }
 

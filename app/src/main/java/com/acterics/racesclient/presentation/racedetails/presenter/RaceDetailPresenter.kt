@@ -75,6 +75,7 @@ class RaceDetailPresenter(private val router: Router,
             clear()
             put(addBetTranslation.addBetHolder, view)
         }
+        viewState.startNavigationAnimation()
         router.navigateTo(Screens.ADD_BET, addBetTranslation)
     }
 
@@ -85,8 +86,8 @@ class RaceDetailPresenter(private val router: Router,
 //            add(ExpandedCardProgressItem())
 //            viewState.notifyNewBet(participantItem.identifier, size)
 //        }
-//        confirmBetUseCase.execute(
-//                params = ConfirmBetUseCase.Params(bet, rating, participantId),
+//        addBetUseCase.execute(
+//                params = AddBetUseCase.Params(bet, rating, participantId),
 //                onSuccess = {
 //                    participantItem.subItems.apply {
 //                        participantItem.betOn()

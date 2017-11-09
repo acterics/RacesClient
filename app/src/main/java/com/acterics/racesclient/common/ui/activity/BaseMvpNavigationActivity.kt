@@ -24,9 +24,7 @@ abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(),
     }
 
     override fun onDestroy() {
-        if (isFinishing) {
-            rejectComponent()
-        }
+        rejectComponent()
         super.onDestroy()
     }
 

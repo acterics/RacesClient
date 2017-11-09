@@ -80,7 +80,7 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     }
 
 
-    override fun injectComponent() {
+    override fun injectComponent(savedInstanceState: Bundle?) {
         ComponentsManager.appComponent.inject(this)
     }
 

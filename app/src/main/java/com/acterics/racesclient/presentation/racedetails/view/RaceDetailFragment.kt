@@ -1,8 +1,11 @@
 package com.acterics.racesclient.presentation.racedetails.view
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.transition.TransitionInflater
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
@@ -11,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
+import com.acterics.racesclient.common.extentions.getNavigationAvd
 import com.acterics.racesclient.common.extentions.getSupportDrawable
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.*
@@ -39,19 +43,25 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
     lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
 
 
+
     private val participantsAdapter = DefaultFastItemAdapter()
     private val expandableExtension = ExpandableExtension<DefaultItem>()
     private lateinit var progressAdapter: DefaultItemAdapter
 
-
     @Inject
     lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
-
 
     @Inject
     lateinit var router: Router
 
+    @Inject
+    lateinit var toolbar: Toolbar
+
     @InjectPresenter lateinit var presenter: RaceDetailPresenter
+
+    private val navigationAvd by lazy {
+            ResourcesCompat.getDrawable(resources, R.drawable.avd_back_to_close, null) as AnimatedVectorDrawable
+    }
 
     @ProvidePresenter
     fun provideRaceDetailsPresenter(): RaceDetailPresenter =
@@ -79,7 +89,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Timber.e("onViewCreated:RACE DETAIL ")
         holderRaceDetails.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
         tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
         tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
@@ -87,19 +97,25 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
         tvRaceOrganizer.text = scheduleRaceTranslation.organizationTitle
         tvRaceTitle.text = scheduleRaceTranslation.raceTitle
 
-
-        raceDetailsToolbar.navigationIcon = context!!.getSupportDrawable(R.drawable.ic_arrow_back_white)
-        raceDetailsToolbar.title = getString(R.string.race)
-        raceDetailsToolbar.setNavigationOnClickListener { presenter.onBack() }
+        navigationAvd.reset()
+        toolbar.apply {
+            title = getString(R.string.race)
+            navigationIcon = navigationAvd
+            setNavigationOnClickListener { presenter.onBack() }
+        }
 
         progressAdapter = items()
 
-        participantsAdapter.addAdapter(1, progressAdapter)
-        participantsAdapter.addExtension(expandableExtension)
+        participantsAdapter.apply {
+            addAdapter(1, progressAdapter)
+            addExtension(expandableExtension)
+        }
 
-        rvParticipants.layoutManager = LinearLayoutManager(context)
-        rvParticipants.adapter = participantsAdapter
-        rvParticipants.itemAnimator = DefaultItemAnimator()
+        rvParticipants.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = participantsAdapter
+            itemAnimator = DefaultItemAnimator()
+        }
 
     }
 
@@ -142,6 +158,10 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     override fun getSharedElements(): Map<String, View?> {
         return presenter.sharedElements
+    }
+
+    override fun startNavigationAnimation() {
+        toolbar.getNavigationAvd()?.start()
     }
 }
 

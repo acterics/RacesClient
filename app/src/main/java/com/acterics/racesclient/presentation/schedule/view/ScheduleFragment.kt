@@ -1,16 +1,15 @@
 package com.acterics.racesclient.presentation.schedule.view
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
-import com.acterics.racesclient.common.ui.DefaultItemAdapter
-import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
-import com.acterics.racesclient.common.ui.SharedElementsHolder
-import com.acterics.racesclient.common.ui.fragment.MainDrawerFragment
+import com.acterics.racesclient.common.extentions.getNavigationAvd
+import com.acterics.racesclient.common.ui.*
+import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
@@ -27,8 +26,13 @@ import javax.inject.Inject
 /**
  * Created by root on 09.10.17.
  */
-class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder {
+class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder {
 
+    @Inject
+    lateinit var toggleBinder: ActionBarToggleBinder
+
+    @Inject
+    lateinit var toolbar: Toolbar
 
     @Inject
     lateinit var router: Router
@@ -71,6 +75,16 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         super.onViewCreated(view, savedInstanceState)
 
         progressAdapter = items()
+        toolbar.apply {
+            setNavigationIcon(R.drawable.ic_menu_white)
+            title = getString(R.string.schedule)
+        }
+
+        toggleBinder
+                .apply { this.toolbar = toolbar }
+                .bind()
+
+
 
         scheduleAdapter.apply {
             addAdapter(1, progressAdapter)
@@ -96,15 +110,8 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
         }
 
 
-    }
 
 
-    override fun getToolbar(): Toolbar {
-        return scheduleToolbar
-    }
-
-    override fun isLightTheme(): Boolean {
-        return false
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -119,6 +126,7 @@ class ScheduleFragment: MainDrawerFragment(), ScheduleView, SharedElementsHolder
     override fun onDestroyView() {
         super.onDestroyView()
         scheduleAdapter.clear()
+        toggleBinder.unbind()
     }
 
     override fun resetPage(page: Int) {

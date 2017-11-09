@@ -3,6 +3,9 @@ package com.acterics.racesclient.di
 import android.app.Application
 import com.acterics.racesclient.common.extentions.notNullLazy
 import com.acterics.racesclient.di.app.*
+import com.acterics.racesclient.di.main.MainComponent
+import com.acterics.racesclient.di.main.MainModule
+import com.acterics.racesclient.presentation.main.view.MainActivity
 
 /**
  * Created by root on 29.10.17.
@@ -17,11 +20,7 @@ object ComponentsManager {
                 .build()
     }
 
-    var mainComponent by notNullLazy {
-        appComponent
-                .mainComponentBuilder()
-                .build()
-    }
+    var mainComponent: MainComponent? = null
 
     var profileComponent by notNullLazy {
         mainComponent
@@ -37,6 +36,13 @@ object ComponentsManager {
                 .buildModule(BuildModule())
                 .apiModule(ApiModule())
                 .dataModule(DataModule())
+                .build()
+    }
+
+    fun initMainComponent(mainActivity: MainActivity) {
+        mainComponent = appComponent
+                .mainComponentBuilder()
+                .requestMainModule(MainModule(mainActivity))
                 .build()
     }
 

@@ -18,6 +18,7 @@ interface MainComponent {
 
     @Subcomponent.Builder
     interface Builder {
+        fun requestMainModule(mainModule: MainModule): Builder
         fun build(): MainComponent
     }
 
