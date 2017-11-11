@@ -46,17 +46,10 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
         private val HISTORY_FRAGMENT_POSITION = 1
     }
 
-    @Inject
-    lateinit var toggleBinder: ActionBarToggleBinder
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var appContext: Context
-
-    @InjectPresenter
-    lateinit var presenter: ProfilePresenter
+    @Inject lateinit var toggleBinder: ActionBarToggleBinder
+    @Inject lateinit var router: Router
+    @Inject lateinit var appContext: Context
+    @InjectPresenter lateinit var presenter: ProfilePresenter
 
     @ProvidePresenter
     fun provideProfilePresenter(): ProfilePresenter = ProfilePresenter(router, appContext)

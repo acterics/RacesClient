@@ -25,11 +25,9 @@ class MainActivityPresenter(private val router: Router,
                             private val context: Context,
                             private val getRacesUseCase: GetRacesUseCase,
                             private val getRaceDetailsUseCase: GetRaceDetailsUseCase,
-                            private val addBetUseCase: AddBetUseCase): MvpPresenter<MainActivityView>()
-{
+                            private val addBetUseCase: AddBetUseCase): MvpPresenter<MainActivityView>() {
 
     val onNavigationItemSelectedListener = { menuItem: MenuItem ->  onNavigationItemSelected(menuItem) }
-
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

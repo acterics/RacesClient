@@ -11,6 +11,7 @@ import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantIt
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 
 /**
  * Created by root on 15.10.17.
@@ -24,6 +25,8 @@ class RaceDetailPresenter(private val router: Router,
 
     val sharedElements = HashMap<String, View?>()
     var loaded = false
+
+
 
     override fun attachView(view: RaceDetailView?) {
         super.attachView(view)

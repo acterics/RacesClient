@@ -26,18 +26,10 @@ import javax.inject.Inject
 class SignInFragment: BaseScopedFragment(), SignInView {
 
 
-    @InjectPresenter
-    lateinit var presenter: SignInPresenter
-
-    @Inject
-    lateinit var emailValidator: EmailValidator
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var appContext: Context
-
+    @InjectPresenter lateinit var presenter: SignInPresenter
+    @Inject lateinit var emailValidator: EmailValidator
+    @Inject lateinit var router: Router
+    @Inject lateinit var appContext: Context
     @Inject lateinit var signInUseCase: SignInUseCase
 
     @ProvidePresenter
@@ -46,6 +38,8 @@ class SignInFragment: BaseScopedFragment(), SignInView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         etSignInEmail.addTextChangedListener( object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -60,7 +54,6 @@ class SignInFragment: BaseScopedFragment(), SignInView {
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 presenter.onPasswordInputChanged(s)
             }
-
         })
 
         btToSignUp.setOnClickListener{ presenter.onSignUpButtonClick() }
@@ -72,14 +65,13 @@ class SignInFragment: BaseScopedFragment(), SignInView {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sign_in, container, false) ?: throw IllegalStateException()
-
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_sign_in, container, false) ?: throw IllegalStateException()
 
     override fun showEmailInputError(errorRes: Int) {
         holderEmail?.error = getString(errorRes)
     }
+
     override fun hideEmailInputError() {
         holderEmail?.isErrorEnabled = false
     }

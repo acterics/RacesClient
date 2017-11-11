@@ -39,25 +39,21 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
 
     private var isAnimate = false
 
-    @InjectPresenter
-    lateinit var keyboardPresenter: KeyboardPresenter
+    @InjectPresenter lateinit var keyboardPresenter: KeyboardPresenter
+    @Inject lateinit var navigationHolder: NavigatorHolder
+    @Inject lateinit var router: Router
 
-    @Inject
-    lateinit var navigationHolder: NavigatorHolder
-
-    @Inject
-    lateinit var router: Router
-
-    override fun getFragment(screenKey: String?, data: Any?): Fragment {
-        return when(screenKey) {
+    override fun getFragment(screenKey: String?, data: Any?): Fragment =
+        when(screenKey) {
             Screens.SIGN_IN -> SignInFragment()
             Screens.SIGN_UP -> SignUpFragment()
             else -> throw UnsupportedOperationException()
         }
 
-    }
-
-    override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
+    override fun setupFragmentTransactionAnimation(command: Command?,
+                                                   currentFragment: Fragment?,
+                                                   nextFragment: Fragment?,
+                                                   fragmentTransaction: FragmentTransaction?) {
         when (command) {
             is Replace -> {
                 when(command.screenKey) {
@@ -105,7 +101,7 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
     }
 
 
-    override fun injectComponent(savedInstanceState: Bundle?) {
+    override fun injectComponent() {
         ComponentsManager.authenticationComponent!!.inject(this)
     }
 
@@ -113,12 +109,10 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
         ComponentsManager.clearAuthenticationComponent()
     }
 
-    override fun getInjectedNavigationHolder(): NavigatorHolder {
-        return navigationHolder
-    }
+    override fun getInjectedNavigationHolder(): NavigatorHolder = navigationHolder
 
-    private fun showKeyboardAnimatorSet(): AnimatorSet {
-        return AnimatorSet().apply {
+    private fun showKeyboardAnimatorSet(): AnimatorSet =
+        AnimatorSet().apply {
             duration = KEYBOARD_SLIDE_ANIMATION_DURATION
             playTogether(
                     ObjectAnimator.ofFloat(imLogo, View.ALPHA, 1f, 0f),
@@ -126,10 +120,10 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
                     ObjectAnimator.ofFloat(holderContent, View.TRANSLATION_Y, 0f, -imLogo.height.toFloat()))
 
         }
-    }
 
-    private fun hideKeyboardAnimatorSet(): AnimatorSet {
-        return AnimatorSet().apply {
+
+    private fun hideKeyboardAnimatorSet(): AnimatorSet =
+        AnimatorSet().apply {
             duration = KEYBOARD_SLIDE_ANIMATION_DURATION
             playTogether(
                     ObjectAnimator.ofFloat(imLogo, View.ALPHA, 0f, 1f),
@@ -137,7 +131,6 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
                     ObjectAnimator.ofFloat(holderContent, View.TRANSLATION_Y, -imLogo.height.toFloat(), 0f)
             )
         }
-    }
 
 
 

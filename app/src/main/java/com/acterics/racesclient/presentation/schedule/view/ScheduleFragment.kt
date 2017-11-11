@@ -1,7 +1,9 @@
 package com.acterics.racesclient.presentation.schedule.view
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
@@ -28,32 +30,23 @@ import javax.inject.Inject
  */
 class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder {
 
-    @Inject
-    lateinit var toggleBinder: ActionBarToggleBinder
-
-    @Inject
-    lateinit var toolbar: Toolbar
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var getRacesUseCase: GetRacesUseCase
-
-    @Inject
-    lateinit var pagingViewDelegate: PagingMvpViewDelegate
-
-    @InjectPresenter
-    lateinit var presenter: SchedulePresenter
+    @Inject lateinit var toggleBinder: ActionBarToggleBinder
+    @Inject lateinit var toolbar: Toolbar
+    @Inject lateinit var router: Router
+    @Inject lateinit var getRacesUseCase: GetRacesUseCase
+    @Inject lateinit var pagingViewDelegate: PagingMvpViewDelegate
+    @InjectPresenter lateinit var presenter: SchedulePresenter
 
     @ProvidePresenter
     fun provideSchedulePresenter(): SchedulePresenter = SchedulePresenter(router, getRacesUseCase)
 
     private val scheduleAdapter = DefaultFastItemAdapter()
     private lateinit var progressAdapter: DefaultItemAdapter
-
-
     private lateinit var endlessScrollListener : EndlessRecyclerOnScrollListener
+
+    private val navigationAvd by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.avd_menu_to_back_white, null) as AnimatedVectorDrawable
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,21 +68,15 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
         super.onViewCreated(view, savedInstanceState)
 
         progressAdapter = items()
-        toolbar.apply {
-            setNavigationIcon(R.drawable.ic_menu_white)
-            title = getString(R.string.schedule)
-        }
+        toolbar.title = getString(R.string.schedule)
 
         toggleBinder
                 .apply { this.toolbar = toolbar }
                 .bind()
 
-
-
         scheduleAdapter.apply {
             addAdapter(1, progressAdapter)
-            withOnClickListener {
-                v, _, item, _ ->
+            withOnClickListener { v, _, item, _ ->
                 presenter.onScheduleItemClick(v, item as ScheduleItem)
             }
         }
@@ -108,10 +95,6 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
             itemAnimator = DefaultItemAnimator()
             addOnScrollListener(endlessScrollListener)
         }
-
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -149,8 +132,9 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
         return presenter.sharedElements
     }
 
-
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)
     }
+
+
 }

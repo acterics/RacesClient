@@ -15,11 +15,8 @@ import javax.inject.Inject
  */
 class EditProfileActivity: CommonMvpNavigationActivity(), EditProfileView {
 
-    @Inject
-    lateinit var navigationHolder: NavigatorHolder
-
-    @InjectPresenter
-    lateinit var presenter: EditProfilePresenter
+    @Inject lateinit var navigationHolder: NavigatorHolder
+    @InjectPresenter lateinit var presenter: EditProfilePresenter
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
         return null
@@ -29,7 +26,7 @@ class EditProfileActivity: CommonMvpNavigationActivity(), EditProfileView {
         return null
     }
 
-    override fun injectComponent(savedInstanceState: Bundle?) {
+    override fun injectComponent() {
         ComponentsManager.appComponent.inject(this)
     }
 

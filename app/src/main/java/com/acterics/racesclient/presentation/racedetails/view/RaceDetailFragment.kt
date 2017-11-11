@@ -39,28 +39,19 @@ import javax.inject.Inject
  */
 class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHolder {
 
-
     lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
-
-
 
     private val participantsAdapter = DefaultFastItemAdapter()
     private val expandableExtension = ExpandableExtension<DefaultItem>()
     private lateinit var progressAdapter: DefaultItemAdapter
 
-    @Inject
-    lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var toolbar: Toolbar
-
+    @Inject lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
+    @Inject lateinit var router: Router
+    @Inject lateinit var toolbar: Toolbar
     @InjectPresenter lateinit var presenter: RaceDetailPresenter
 
     private val navigationAvd by lazy {
-            ResourcesCompat.getDrawable(resources, R.drawable.avd_back_to_close, null) as AnimatedVectorDrawable
+            ResourcesCompat.getDrawable(resources, R.drawable.avd_back_to_close_white, null) as AnimatedVectorDrawable
     }
 
     @ProvidePresenter
@@ -69,17 +60,15 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        savedInstanceState?.let {
-            scheduleRaceTranslation = it.getParcelable(Extra.TRANSLATION)
-        }
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        savedInstanceState?.let { scheduleRaceTranslation = it.getParcelable(Extra.TRANSLATION) }
+        sharedElementEnterTransition =
+                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(Extra.TRANSLATION, scheduleRaceTranslation)
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contextWrapper = ContextThemeWrapper(context, R.style.BlackAccentTheme)
@@ -89,7 +78,6 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("onViewCreated:RACE DETAIL ")
         holderRaceDetails.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
         tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
         tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
@@ -97,10 +85,8 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
         tvRaceOrganizer.text = scheduleRaceTranslation.organizationTitle
         tvRaceTitle.text = scheduleRaceTranslation.raceTitle
 
-        navigationAvd.reset()
         toolbar.apply {
             title = getString(R.string.race)
-            navigationIcon = navigationAvd
             setNavigationOnClickListener { presenter.onBack() }
         }
 
@@ -128,10 +114,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
         presenter.loadDetails(scheduleRaceTranslation.raceId)
     }
 
-
     override fun showParticipants(participants: List<ParticipantItem>) {
-        Timber.e("showParticipants: ")
-
         participantsAdapter.add(participants)
     }
 
@@ -156,12 +139,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
         participantsAdapter.notifyAdapterDataSetChanged()
     }
 
-    override fun getSharedElements(): Map<String, View?> {
-        return presenter.sharedElements
-    }
+    override fun getSharedElements(): Map<String, View?> = presenter.sharedElements
 
-    override fun startNavigationAnimation() {
-        toolbar.getNavigationAvd()?.start()
-    }
 }
 

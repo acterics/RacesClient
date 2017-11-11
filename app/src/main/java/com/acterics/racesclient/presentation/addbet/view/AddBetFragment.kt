@@ -1,6 +1,8 @@
 package com.acterics.racesclient.presentation.addbet.view
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.Toolbar
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
+import com.acterics.racesclient.common.extentions.getNavigationAvd
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
@@ -29,17 +32,14 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
 
     lateinit var addBetTranslation: AddBetTranslation
 
-    @Inject
-    lateinit var router: Router
+    @Inject lateinit var router: Router
+    @Inject lateinit var addBetUseCase: AddBetUseCase
+    @Inject lateinit var toolbar: Toolbar
+    @InjectPresenter lateinit var presenter: AddBetPresenter
 
-    @Inject
-    lateinit var addBetUseCase: AddBetUseCase
-
-    @Inject
-    lateinit var toolbar: Toolbar
-
-    @InjectPresenter
-    lateinit var presenter: AddBetPresenter
+    private val navigationAvd by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.avd_close_to_back_white, null) as AnimatedVectorDrawable
+    }
 
     @ProvidePresenter
     fun provideAddBetPresenter(): AddBetPresenter =
@@ -48,10 +48,9 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        savedInstanceState?.let {
-            addBetTranslation = it.getParcelable(Extra.TRANSLATION)
-        }
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        savedInstanceState?.let { addBetTranslation = it.getParcelable(Extra.TRANSLATION) }
+        sharedElementEnterTransition =
+                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -59,9 +58,8 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
         outState.putParcelable(Extra.TRANSLATION, addBetTranslation)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_add_bet, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_add_bet, container, false)
 
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)
@@ -69,16 +67,10 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.apply {
-            setNavigationOnClickListener { presenter.onBack() }
-//            postDelayed({setNavigationIcon(R.drawable.ic_close_white)}, 500)
-        }
+        toolbar.apply { setNavigationOnClickListener { presenter.onBack() } }
         holderAddBet.setSupportTranslationName(addBetTranslation.addBetHolder)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        toolbar.removeCallbacks(null)
-    }
+
 
 }

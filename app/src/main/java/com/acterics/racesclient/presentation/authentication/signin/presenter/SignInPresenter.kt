@@ -39,14 +39,12 @@ class SignInPresenter(private val emailValidator: EmailValidator,
     }
 
     fun onSignInButtonClick(email: String, password: String) {
-        //TODO add authorization logic
         signInUseCase
                 .execute(params = SignInRequest(email, password),
                         onSuccess = { onSuccessLogin()},
                         onError = { viewState.showError(it.message) }
                 )
     }
-
 
     private fun onSuccessLogin() {
         router.newRootScreen(Screens.MAIN)

@@ -29,17 +29,10 @@ import javax.inject.Inject
 class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
 
 
-    @Inject
-    lateinit var navigationHolder: NavigatorHolder
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var appContext: Context
-
-    @InjectPresenter
-    lateinit var presenter: SplashScreenPresenter
+    @Inject lateinit var navigationHolder: NavigatorHolder
+    @Inject lateinit var router: Router
+    @Inject lateinit var appContext: Context
+    @InjectPresenter lateinit var presenter: SplashScreenPresenter
 
     @ProvidePresenter
     fun provideSplashScreenPresenter(): SplashScreenPresenter = SplashScreenPresenter(router, appContext)
@@ -80,7 +73,7 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
     }
 
 
-    override fun injectComponent(savedInstanceState: Bundle?) {
+    override fun injectComponent() {
         ComponentsManager.appComponent.inject(this)
     }
 

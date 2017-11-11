@@ -23,7 +23,6 @@ class ProfileHistoryPresenter(private val router: Router,
     private var loading = false
 
 
-
     override fun attachView(view: ProfileHistoryView) {
         super.attachView(view)
         if (page == -1) {

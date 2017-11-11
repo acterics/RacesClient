@@ -20,6 +20,4 @@ interface RaceDetailView: MvpView {
     fun showError(message: String?)
     fun notifyNewBet(identifier: Long, previousSize: Int)
 
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun startNavigationAnimation()
 }

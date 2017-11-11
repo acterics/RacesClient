@@ -4,13 +4,12 @@ import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
-import com.acterics.racesclient.presentation.racedetails.ParticipantSubItem
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**
  * Created by root on 07.11.17.
  */
-class AddBetItem: AbstractExpandableItem<ParticipantItem, AddBetHolder, ParticipantSubItem>() {
+class AddBetItem: AbstractExpandableItem<ParticipantItem, AddBetHolder, AddBetItem>() {
 
     private val addBetTranslation: AddBetTranslation by lazy {
         AddBetTranslation("${parent.participant.id} addBetHolder",

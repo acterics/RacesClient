@@ -44,26 +44,13 @@ import javax.inject.Inject
 
 class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
 
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var appContext: Context
-
-    @Inject
-    lateinit var navigationHolder: NavigatorHolder
-
-    @Inject
-    lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
-
-    @Inject
-    lateinit var getRacesUseCase: GetRacesUseCase
-
-    @Inject
-    lateinit var addBetUseCase: AddBetUseCase
-
-    @InjectPresenter
-    lateinit var presenter: MainActivityPresenter
+    @Inject lateinit var router: Router
+    @Inject lateinit var appContext: Context
+    @Inject lateinit var navigationHolder: NavigatorHolder
+    @Inject lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
+    @Inject lateinit var getRacesUseCase: GetRacesUseCase
+    @Inject lateinit var addBetUseCase: AddBetUseCase
+    @InjectPresenter lateinit var presenter: MainActivityPresenter
 
     @ProvidePresenter
     fun provideMainPresenter(): MainActivityPresenter =
@@ -77,28 +64,23 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     }
 
 
-    override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
-        return when(screenKey) {
+    override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? =
+        when(screenKey) {
             Screens.AUTHENTICATE -> Intent(this, AuthenticateActivity::class.java)
             Screens.EDIT_PROFILE -> Intent(this, EditProfileActivity::class.java)
             else -> null
         }
-    }
 
-    override fun getFragment(screenKey: String?, data: Any?): Fragment? {
-        val drawerFragment: Fragment? = when(screenKey) {
+    override fun getFragment(screenKey: String?, data: Any?): Fragment? =
+        when(screenKey) {
             Screens.PROFILE -> ProfileFragment()
             Screens.RACES -> ScheduleFragment()
             Screens.SETTINGS -> SettingsFragment()
             Screens.RACE_DETAIL -> RaceDetailFragment().apply { scheduleRaceTranslation = data as ScheduleRaceTranslation }
             Screens.ADD_BET -> AddBetFragment().apply { addBetTranslation = data as AddBetTranslation }
-            else -> return null
-        }
-        presenter.onFragmentNavigation(drawerFragment)
-        return drawerFragment
+            else -> null
+        }?.also { presenter.onFragmentNavigation(it) }
 
-
-    }
 
     override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
         when(command) {
@@ -110,9 +92,6 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
                     }
                 }
             }
-        }
-        if (currentFragment is SharedElementHolder && command is Forward) {
-
         }
     }
 
@@ -147,6 +126,7 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     override fun getInjectedNavigationHolder(): NavigatorHolder = navigationHolder
 
     override fun hideToolbar() { toolbar.gone() }
+
     override fun showToolbar() {
         toolbar.apply {
             visible()

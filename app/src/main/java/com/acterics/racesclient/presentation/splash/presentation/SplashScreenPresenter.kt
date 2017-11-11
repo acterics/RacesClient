@@ -21,9 +21,7 @@ class SplashScreenPresenter(private val router: Router,
         const val DELAY_TIME = 600L
     }
 
-
     private val routingHandler = Handler()
-
 
     override fun attachView(view: SplashScreenView) {
         super.attachView(view)

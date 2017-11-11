@@ -27,9 +27,6 @@ class KeyboardPresenter: MvpPresenter<KeyboardMvpView>(), ViewTreeObserver.OnGlo
     override fun detachView(view: KeyboardMvpView?) {
         unregisterKeyboardListener()
         super.detachView(view)
-
-
-
     }
 
     override fun onGlobalLayout() {

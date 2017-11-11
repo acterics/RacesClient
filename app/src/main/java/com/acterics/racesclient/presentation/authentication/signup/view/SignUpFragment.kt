@@ -21,23 +21,16 @@ import javax.inject.Inject
  */
 class SignUpFragment: BaseScopedFragment(), SignUpView {
 
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var signUpUseCase: SignUpUseCase
-
-    @InjectPresenter
-    lateinit var presenter: SignUpPresenter
+    @Inject lateinit var router: Router
+    @Inject lateinit var signUpUseCase: SignUpUseCase
+    @InjectPresenter lateinit var presenter: SignUpPresenter
 
     @ProvidePresenter
     fun provideSignUpPresenter(): SignUpPresenter =
             SignUpPresenter(router, signUpUseCase)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
-    }
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_sign_up, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

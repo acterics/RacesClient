@@ -17,11 +17,8 @@ import javax.inject.Inject
  */
 class SettingsFragment: BaseScopedFragment() {
 
-    @Inject
-    lateinit var toolbar: Toolbar
-
-    @Inject
-    lateinit var toggleBinder: ActionBarToggleBinder
+    @Inject lateinit var toolbar: Toolbar
+    @Inject lateinit var toggleBinder: ActionBarToggleBinder
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)

@@ -30,18 +30,10 @@ import javax.inject.Inject
  */
 class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
 
-    @Inject
-    lateinit var pagingViewDelegate: PagingMvpViewDelegate
-
-    @Inject
-    lateinit var getHistoryUseCase: GetBetHistoryUseCase
-
-    @Inject
-    lateinit var router: Router
-
-    @InjectPresenter
-    lateinit var presenter: ProfileHistoryPresenter
-
+    @Inject lateinit var pagingViewDelegate: PagingMvpViewDelegate
+    @Inject lateinit var getHistoryUseCase: GetBetHistoryUseCase
+    @Inject lateinit var router: Router
+    @InjectPresenter lateinit var presenter: ProfileHistoryPresenter
 
     private val historyAdapter = DefaultFastItemAdapter()
     private lateinit var progressAdapter: DefaultItemAdapter
@@ -58,9 +50,8 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
         ComponentsManager.profileComponent!!.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_profile_history, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_profile_history, container, false)
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -73,9 +64,10 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
         progressAdapter = ItemAdapter()
         headerAdapter = ItemAdapter()
 
-        historyAdapter.addAdapter(0, headerAdapter)
-        historyAdapter.addAdapter(2, progressAdapter)
-
+        historyAdapter.apply {
+            addAdapter(0, headerAdapter)
+            addAdapter(2, progressAdapter)
+        }
 
         headerAdapter.add(HistoryBetHeaderItem().apply {
             dateClickListener = { presenter.onSortByDate() }
