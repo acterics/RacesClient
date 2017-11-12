@@ -10,16 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
-import com.acterics.racesclient.common.extentions.getNavigationAvd
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.presentation.addbet.presenter.AddBetPresenter
+import com.acterics.racesclient.utils.navigation.ToolbarAnimationPresenter
+import com.acterics.racesclient.utils.navigation.ToolbarAnimationView
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_add_bet.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -27,7 +28,8 @@ import javax.inject.Inject
 /**
  * Created by root on 07.11.17.
  */
-class AddBetFragment: BaseScopedFragment(), AddBetView {
+class AddBetFragment: BaseScopedFragment(),
+        AddBetView, ToolbarAnimationView {
 
 
     lateinit var addBetTranslation: AddBetTranslation
@@ -36,6 +38,8 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
     @Inject lateinit var addBetUseCase: AddBetUseCase
     @Inject lateinit var toolbar: Toolbar
     @InjectPresenter lateinit var presenter: AddBetPresenter
+    @InjectPresenter(type = PresenterType.LOCAL)
+    lateinit var toolbarAnimationPresenter: ToolbarAnimationPresenter
 
     private val navigationAvd by lazy {
         ResourcesCompat.getDrawable(resources, R.drawable.avd_close_to_back_white, null) as AnimatedVectorDrawable
@@ -61,6 +65,7 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_add_bet, container, false)
 
+
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)
     }
@@ -72,5 +77,18 @@ class AddBetFragment: BaseScopedFragment(), AddBetView {
     }
 
 
+    //TODO Add compatibility
+    override fun bindNavigationIcon() {
+        navigationAvd.reset()
+        toolbar.navigationIcon = navigationAvd
+    }
 
+    override fun postBindNavigationIcon() {
+        toolbar.postDelayed({bindNavigationIcon()}, 500)
+    }
+
+    override fun startBackToolbarAnimation() {
+        navigationAvd.reset()
+        navigationAvd.start()
+    }
 }

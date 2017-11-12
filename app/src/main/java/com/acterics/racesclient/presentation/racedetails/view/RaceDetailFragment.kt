@@ -14,8 +14,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
-import com.acterics.racesclient.common.extentions.getNavigationAvd
-import com.acterics.racesclient.common.extentions.getSupportDrawable
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.*
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
@@ -25,19 +23,23 @@ import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter
+import com.acterics.racesclient.utils.navigation.ToolbarAnimationPresenter
+import com.acterics.racesclient.utils.navigation.ToolbarAnimationView
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import kotlinx.android.synthetic.main.fragment_race.*
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by root on 15.10.17.
  */
-class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHolder {
+class RaceDetailFragment: BaseScopedFragment(),
+        RaceDetailView, ToolbarAnimationView,
+        SharedElementsHolder {
 
     lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
 
@@ -49,9 +51,14 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
     @Inject lateinit var router: Router
     @Inject lateinit var toolbar: Toolbar
     @InjectPresenter lateinit var presenter: RaceDetailPresenter
+    @InjectPresenter(type = PresenterType.LOCAL)
+    lateinit var toolbarAnimationPresenter: ToolbarAnimationPresenter
 
     private val navigationAvd by lazy {
-            ResourcesCompat.getDrawable(resources, R.drawable.avd_back_to_close_white, null) as AnimatedVectorDrawable
+        ResourcesCompat.getDrawable(resources, R.drawable.avd_back_to_close_white, null) as AnimatedVectorDrawable
+    }
+    private val backNavigationAvd by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.avd_back_to_menu_white, null) as AnimatedVectorDrawable
     }
 
     @ProvidePresenter
@@ -75,6 +82,7 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
         val localInflater = inflater.cloneInContext(contextWrapper)
         return localInflater.inflate(R.layout.fragment_race, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -141,5 +149,26 @@ class RaceDetailFragment: BaseScopedFragment(), RaceDetailView, SharedElementsHo
 
     override fun getSharedElements(): Map<String, View?> = presenter.sharedElements
 
+
+    //TODO Add compatibility
+    override fun bindNavigationIcon() {
+        backNavigationAvd.reset()
+        toolbar.navigationIcon = backNavigationAvd
+    }
+
+    override fun postBindNavigationIcon() {
+        toolbar.postDelayed({ bindNavigationIcon() }, 500)
+    }
+
+    override fun startBackToolbarAnimation() {
+        backNavigationAvd.reset()
+        backNavigationAvd.start()
+    }
+
+    override fun startToolbarNavigation() {
+        navigationAvd.reset()
+        toolbar.navigationIcon = navigationAvd
+        navigationAvd.start()
+    }
 }
 

@@ -78,7 +78,7 @@ class RaceDetailPresenter(private val router: Router,
             clear()
             put(addBetTranslation.addBetHolder, view)
         }
-        viewState.startNavigationAnimation()
+        viewState.startToolbarNavigation()
         router.navigateTo(Screens.ADD_BET, addBetTranslation)
     }
 

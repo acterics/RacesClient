@@ -64,6 +64,7 @@ class SchedulePresenter(private val router: Router,
                 put(item.scheduleRaceTranslation.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
             }
         }
+        viewState.startToolbarAnimation()
         router.navigateTo(Screens.RACE_DETAIL, item?.scheduleRaceTranslation)
         return true
     }

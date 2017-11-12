@@ -13,5 +13,7 @@ interface ScheduleView: PagingMvpView {
 
     fun showRaces(races: List<ScheduleItem>)
 
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun startToolbarAnimation()
 
 }

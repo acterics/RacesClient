@@ -1,31 +1,14 @@
 <animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt">
-    <aapt:attr name="android:drawable">
-        <vector
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:width="24dp"
-            android:height="24dp"
-            android:viewportWidth="24"
-            android:viewportHeight="24">
-            <group
-                android:name="group"
-                android:pivotX="12"
-                android:pivotY="12">
-                <path
-                    android:name="path"
-                    android:pathData="M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z"
-                    android:fillColor="#ffffff"
-                    android:strokeWidth="1"/>
-            </group>
-        </vector>
-    </aapt:attr>
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/icv_close">
+
     <target android:name="path">
         <aapt:attr name="android:animation">
             <objectAnimator
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:propertyName="pathData"
-                android:duration="500"
+                android:duration="350"
                 android:valueFrom="M 17.59 19 L 19 17.59 L 13.41 12 L 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19"
                 android:valueTo="M 20 13 L 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 6.328 9.672 L 4 12 L 4 12 L 6.098 14.098 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13"
                 android:valueType="pathType"
@@ -37,9 +20,9 @@
             <objectAnimator
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:propertyName="rotation"
-                android:duration="500"
-                android:valueFrom="0"
-                android:valueTo="-360"
+                android:duration="350"
+                android:valueFrom="-180"
+                android:valueTo="0"
                 android:valueType="floatType"
                 android:interpolator="@android:interpolator/fast_out_slow_in"/>
         </aapt:attr>

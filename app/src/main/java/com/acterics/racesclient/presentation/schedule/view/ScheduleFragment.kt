@@ -1,7 +1,6 @@
 package com.acterics.racesclient.presentation.schedule.view
 
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.DefaultItemAnimator
@@ -9,14 +8,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.getNavigationAvd
 import com.acterics.racesclient.common.ui.*
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.presenter.SchedulePresenter
+import com.acterics.racesclient.utils.navigation.*
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
@@ -28,7 +28,10 @@ import javax.inject.Inject
 /**
  * Created by root on 09.10.17.
  */
-class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder {
+class ScheduleFragment: BaseScopedFragment(),
+        ScheduleView,
+        BaseToolbarAnimationView,
+        SharedElementsHolder {
 
     @Inject lateinit var toggleBinder: ActionBarToggleBinder
     @Inject lateinit var toolbar: Toolbar
@@ -36,6 +39,9 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
     @Inject lateinit var getRacesUseCase: GetRacesUseCase
     @Inject lateinit var pagingViewDelegate: PagingMvpViewDelegate
     @InjectPresenter lateinit var presenter: SchedulePresenter
+    @InjectPresenter(type = PresenterType.LOCAL)
+    lateinit var toolbarAnimationPresenter: BaseToolbarAnimationPresenter
+
 
     @ProvidePresenter
     fun provideSchedulePresenter(): SchedulePresenter = SchedulePresenter(router, getRacesUseCase)
@@ -44,13 +50,14 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
     private lateinit var progressAdapter: DefaultItemAdapter
     private lateinit var endlessScrollListener : EndlessRecyclerOnScrollListener
 
+
     private val navigationAvd by lazy {
         ResourcesCompat.getDrawable(resources, R.drawable.avd_menu_to_back_white, null) as AnimatedVectorDrawable
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -110,6 +117,7 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
         super.onDestroyView()
         scheduleAdapter.clear()
         toggleBinder.unbind()
+        toolbar.removeCallbacks(null)
     }
 
     override fun resetPage(page: Int) {
@@ -128,13 +136,25 @@ class ScheduleFragment: BaseScopedFragment(), ScheduleView, SharedElementsHolder
         pagingViewDelegate.showPageError(context, message, isFirstPage)
     }
 
-    override fun getSharedElements(): Map<String, View?> {
-        return presenter.sharedElements
-    }
+    override fun getSharedElements(): Map<String, View?> =
+        presenter.sharedElements
+
 
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)
     }
 
+    //TODO Add compatibility
+    override fun bindNavigationIcon() {
+        navigationAvd.reset()
+        toolbar.navigationIcon = navigationAvd
+    }
 
+    override fun postBindNavigationIcon() {
+        toolbar.postDelayed({ bindNavigationIcon() }, 500)
+    }
+
+    override fun startToolbarAnimation() {
+        navigationAvd.start()
+    }
 }
