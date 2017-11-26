@@ -4,12 +4,7 @@ buildscript {
     }
 
     dependencies {
-        // These docs use an open ended version so that our plugin
-        // can be updated quickly in response to Android tooling updates
-
-        // We recommend changing it to the latest version from our changelog:
-        // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        classpath 'io.fabric.tools:gradle:1.24.4'
+        classpath 'io.fabric.tools:gradle:1.24.5'
     }
 }
 
@@ -37,7 +32,7 @@ android {
         applicationId "com.acterics.racesclient"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 6
+        versionCode 7
         versionName "0.2-$versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -106,11 +101,11 @@ dependencies {
     compile 'net.danlew:android.joda:2.9.9'
     compile group: 'org.joda', name: 'joda-money', version: '0.12'
 
-    compile 'com.android.support:recyclerview-v7:27.0.0'
-    compile 'com.android.support:cardview-v7:27.0.0'
-    compile 'com.android.support:support-v4:27.0.0'
-    compile 'com.android.support:design:27.0.0'
-    implementation 'com.android.support:appcompat-v7:27.0.0'
+    compile 'com.android.support:recyclerview-v7:27.0.1'
+    compile 'com.android.support:cardview-v7:27.0.1'
+    compile 'com.android.support:support-v4:27.0.1'
+    compile 'com.android.support:design:27.0.1'
+    implementation 'com.android.support:appcompat-v7:27.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
 
@@ -130,7 +125,7 @@ dependencies {
 
     //DI
     compile "com.google.dagger:dagger:2.11"
-    compile "com.android.support:support-annotations:27.0.0"
+    compile "com.android.support:support-annotations:27.0.1"
     kapt "com.google.dagger:dagger-compiler:2.11"
     provided "javax.annotation:jsr250-api:1.0"
 
@@ -148,7 +143,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     //Log
-    debugCompile 'com.jakewharton.timber:timber:4.5.1'
+    debugCompile 'com.jakewharton.timber:timber:4.6.0'
     debugCompile 'com.facebook.stetho:stetho:1.5.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 

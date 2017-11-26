@@ -47,7 +47,7 @@ class MainActivityPresenter(private val router: Router,
 
     fun onFragmentNavigation(fragment: Fragment?) {
         when(fragment) {
-            is CustomToolbarHolder -> viewState.hideToolbar()
+            is CustomToolbarHolder -> { viewState.hideToolbar() }
             else -> viewState.showToolbar()
         }
         viewState.closeDrawer()

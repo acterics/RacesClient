@@ -1,6 +1,8 @@
 package com.acterics.racesclient.common.ui.activity
 
+import android.app.Fragment
 import android.os.Bundle
+import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.navigation.BaseMvpNavigationView
 import com.acterics.racesclient.common.ui.navigation.NavigatorProvider
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -21,7 +23,16 @@ abstract class BaseMvpNavigationActivity: MvpAppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         injectComponent()
         super.onCreate(savedInstanceState)
+
     }
+
+//    override fun onAttachFragment(fragment: Fragment?) {
+//        super.onAttachFragment(fragment)
+//        if (fragment is BaseScopedFragment) {
+//            Timber.e("onAttachFragment: inject")
+//            fragment.injectComponent()
+//        }
+//    }
 
     override fun onDestroy() {
         rejectComponent()

@@ -1,6 +1,7 @@
 package com.acterics.racesclient.di.main
 
 import android.support.design.widget.NavigationView
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.ActionBarToggleBinder
@@ -35,11 +36,17 @@ class MainModule(val mainActivity: MainActivity) {
 
     @MainScope
     @Provides
-    fun provideActionBarDrawerToggleBuilder(): ActionBarToggleBinder =
-            ActionBarToggleBinder().apply {
-                activity = mainActivity
-                drawerLayout = mainActivity.findViewById(R.id.holderDrawer)
-            }
+    fun provideDrawerHolder(): DrawerLayout =
+            mainActivity.findViewById(R.id.holderDrawer)
+
+
+//    @MainScope
+//    @Provides
+//    fun provideActionBarDrawerToggleBuilder(): ActionBarToggleBinder =
+//            ActionBarToggleBinder().apply {
+//                activity = mainActivity
+//                drawerLayout = mainActivity.findViewById(R.id.holderDrawer)
+//            }
 
     @MainScope
     @Provides

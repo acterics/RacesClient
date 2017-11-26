@@ -33,7 +33,6 @@ class ScheduleFragment: BaseScopedFragment(),
         BaseToolbarAnimationView,
         SharedElementsHolder {
 
-    @Inject lateinit var toggleBinder: ActionBarToggleBinder
     @Inject lateinit var toolbar: Toolbar
     @Inject lateinit var router: Router
     @Inject lateinit var getRacesUseCase: GetRacesUseCase
@@ -77,10 +76,6 @@ class ScheduleFragment: BaseScopedFragment(),
         progressAdapter = items()
         toolbar.title = getString(R.string.schedule)
 
-        toggleBinder
-                .apply { this.toolbar = toolbar }
-                .bind()
-
         scheduleAdapter.apply {
             addAdapter(1, progressAdapter)
             withOnClickListener { v, _, item, _ ->
@@ -116,7 +111,6 @@ class ScheduleFragment: BaseScopedFragment(),
     override fun onDestroyView() {
         super.onDestroyView()
         scheduleAdapter.clear()
-        toggleBinder.unbind()
         toolbar.removeCallbacks(null)
     }
 

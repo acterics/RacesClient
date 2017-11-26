@@ -4,6 +4,8 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,9 @@ import javax.inject.Inject
 class AddBetFragment: BaseScopedFragment(),
         AddBetView, ToolbarAnimationView {
 
+    companion object {
+        private const val VALUE_DIF = 5
+    }
 
     lateinit var addBetTranslation: AddBetTranslation
 
@@ -74,7 +79,49 @@ class AddBetFragment: BaseScopedFragment(),
         super.onViewCreated(view, savedInstanceState)
         toolbar.apply { setNavigationOnClickListener { presenter.onBack() } }
         holderAddBet.setSupportTranslationName(addBetTranslation.addBetHolder)
+
+        etBet.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(changed: CharSequence, p1: Int, p2: Int, p3: Int) {
+                changed.takeIf { etBet.hasFocus() }
+                        ?.let { if (it.isEmpty())  "0" else it }
+                        ?.also { if (it.isEmpty()) etBet.setText(it.toString()) }
+                        ?.let { it.toString()
+                                .toFloat()
+                                .also { if (it == 0.0f) etBet.apply { setSelection(0, text.length) } }
+                                .times(addBetTranslation.rating)
+                                .toString()
+                                .let { etResult.setText(it) }
+                        }
+            }
+        })
+
+        etResult.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(changed: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                changed.takeIf { etResult.hasFocus() }
+                        ?.let { if (it.isEmpty())  "0" else it }
+                        ?.also { if (it.isEmpty()) etResult.setText(it.toString()) }
+                        ?.let { it.toString()
+                                .toFloat()
+                                .also { if (it == 0.0f) etResult.apply { setSelection(0, text.length) } }
+                                .div(addBetTranslation.rating)
+                                .toString()
+                                .let { etBet.setText(it) }
+                        }
+            }
+        })
+
+        btBetUp.setOnClickListener { presenter.onChangeValue(etBet, { it.plus(VALUE_DIF) } ) }
+        btBetDown.setOnClickListener { presenter.onChangeValue(etBet, { it.minus(VALUE_DIF) }) }
+        btResultUp.setOnClickListener { presenter.onChangeValue(etResult, { it.plus(VALUE_DIF) } ) }
+        btResultDown.setOnClickListener { presenter.onChangeValue(etResult, { it.minus(VALUE_DIF) } ) }
+
     }
+
+
 
 
     //TODO Add compatibility

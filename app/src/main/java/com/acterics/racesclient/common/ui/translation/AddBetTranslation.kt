@@ -8,11 +8,12 @@ import android.os.Parcelable
  */
 data class AddBetTranslation(
         var addBetHolder: String,
-        var participantId: Long
-) : Parcelable {
+        var participantId: Long,
+        var rating: Float) : Parcelable {
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readLong()
+            source.readLong(),
+            source.readFloat()
     )
 
     override fun describeContents() = 0
@@ -20,6 +21,7 @@ data class AddBetTranslation(
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(addBetHolder)
         writeLong(participantId)
+        writeFloat(rating)
     }
 
     companion object {

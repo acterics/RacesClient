@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
-import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.gone
@@ -52,16 +50,22 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     @Inject lateinit var addBetUseCase: AddBetUseCase
     @InjectPresenter lateinit var presenter: MainActivityPresenter
 
+
     @ProvidePresenter
     fun provideMainPresenter(): MainActivityPresenter =
             MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase, addBetUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+//            ComponentsManager.initMainComponent(this)
+        }
         setContentView(R.layout.activity_main)
+        super.onCreate(savedInstanceState)
         vNavigationDrawer.setNavigationItemSelectedListener(presenter.onNavigationItemSelectedListener)
 
     }
+
+
 
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? =
@@ -113,10 +117,8 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     }
 
     override fun injectComponent() {
-        ComponentsManager.also {
-            it.initMainComponent(this)
-            it.mainComponent!!.inject(this)
-        }
+        ComponentsManager.initMainComponent(this)
+        ComponentsManager.mainComponent!!.inject(this)
     }
 
     override fun rejectComponent() {

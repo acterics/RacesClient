@@ -12,8 +12,10 @@ import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 class AddBetItem: AbstractExpandableItem<ParticipantItem, AddBetHolder, AddBetItem>() {
 
     private val addBetTranslation: AddBetTranslation by lazy {
-        AddBetTranslation("${parent.participant.id} addBetHolder",
-                parent.participant.id)
+        AddBetTranslation(
+                "${parent.participant.id} addBetHolder",
+                parent.participant.id,
+                parent.participant.rating)
     }
     var addBetClickListener: ((addBetTranslation: AddBetTranslation, view: View?) -> Unit)? = null
 

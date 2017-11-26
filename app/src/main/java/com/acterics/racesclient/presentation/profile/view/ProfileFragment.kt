@@ -7,14 +7,12 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.DrawerLayout
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.getGlobalVisibleRect
-import com.acterics.racesclient.common.extentions.getNavigationIconView
-import com.acterics.racesclient.common.ui.ActionBarToggleBinder
 import com.acterics.racesclient.common.ui.CustomToolbarHolder
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.data.database.entity.User
@@ -26,13 +24,8 @@ import com.acterics.racesclient.presentation.profile.presenter.ProfilePresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.terrakok.cicerone.Router
-import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -46,9 +39,10 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
         private val HISTORY_FRAGMENT_POSITION = 1
     }
 
-    @Inject lateinit var toggleBinder: ActionBarToggleBinder
     @Inject lateinit var router: Router
     @Inject lateinit var appContext: Context
+    @Inject lateinit var navigationHolder: DrawerLayout
+    @Inject lateinit var navigationView: NavigationView
     @InjectPresenter lateinit var presenter: ProfilePresenter
 
     @ProvidePresenter
@@ -65,12 +59,10 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
 
         toolbarProfile.apply {
             setNavigationIcon(R.drawable.ic_menu_black)
+            setNavigationOnClickListener { navigationHolder.openDrawer(navigationView) }
             title = ""
         }
 
-        toggleBinder.apply {
-            this.toolbar = toolbarProfile
-        }.bind()
 
         vProfilePager.adapter = object: FragmentPagerAdapter(childFragmentManager) {
             override fun getItem(position: Int): Fragment {
@@ -103,12 +95,6 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
         btEdit.setOnClickListener { presenter.onEditProfileClicked() }
 
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        toggleBinder.unbind()
-    }
-
 
     override fun showUser(user: User) {
         Glide.with(context)
@@ -146,7 +132,6 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
     override fun rejectComponent() {
         ComponentsManager.clearProfileComponent()
     }
-
 
 
 }

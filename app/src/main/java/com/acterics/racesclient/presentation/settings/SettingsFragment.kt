@@ -18,7 +18,6 @@ import javax.inject.Inject
 class SettingsFragment: BaseScopedFragment() {
 
     @Inject lateinit var toolbar: Toolbar
-    @Inject lateinit var toggleBinder: ActionBarToggleBinder
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
@@ -27,15 +26,8 @@ class SettingsFragment: BaseScopedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar.title = getString(R.string.settings)
-        toggleBinder.apply {
-            this.toolbar = toolbar
-        }.bind()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        toggleBinder.unbind()
-    }
 
     override fun injectComponent() {
         ComponentsManager.mainComponent!!.inject(this)

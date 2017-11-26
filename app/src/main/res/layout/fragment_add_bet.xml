@@ -13,6 +13,77 @@
         android:layout_height="match_parent"
         android:background="@color/grey">
 
+        <EditText
+            android:id="@+id/etBet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:inputType="number"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/etBet"
+            app:layout_constraintStart_toStartOf="@+id/etBet"
+            app:layout_constraintTop_toBottomOf="@+id/etBet"
+            android:text="0"/>
+
+        <ImageView
+            android:id="@+id/btBetUp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/icv_arrow_drop_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/etBet"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btBetDown"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/icv_arrow_drop_down"
+            app:layout_constraintEnd_toEndOf="@+id/btBetUp"
+            app:layout_constraintStart_toStartOf="@+id/btBetUp"
+            app:layout_constraintTop_toBottomOf="@+id/btBetUp" />
+
+
+        <ImageView
+            android:id="@+id/btResultUp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/icv_arrow_drop_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/etResult"
+            app:layout_constraintTop_toBottomOf="@+id/etBet" />
+
+        <ImageView
+            android:id="@+id/btResultDown"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/icv_arrow_drop_down"
+            app:layout_constraintEnd_toEndOf="@+id/btResultUp"
+            app:layout_constraintStart_toStartOf="@+id/btResultUp"
+            app:layout_constraintTop_toBottomOf="@+id/btResultUp" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
