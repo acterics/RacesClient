@@ -84,6 +84,22 @@
             app:layout_constraintEnd_toEndOf="@+id/btResultUp"
             app:layout_constraintStart_toStartOf="@+id/btResultUp"
             app:layout_constraintTop_toBottomOf="@+id/btResultUp" />
+
+        <Button
+            android:id="@+id/btAddBet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_button_dark_grey"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btResultDown"
+            app:layout_constraintVertical_bias="1.0" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

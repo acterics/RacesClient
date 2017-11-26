@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.support.v4.content.res.ResourcesCompat
+import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.getUser
@@ -67,8 +68,8 @@ class ProfilePresenter(private val router: Router,
 
 
 
-    fun onEditProfileClicked() {
-        router.navigateTo(Screens.EDIT_PROFILE)
+    fun onEditProfileClicked(sharedView: View) {
+        router.navigateTo(Screens.EDIT_PROFILE, sharedView)
     }
 
 

@@ -42,7 +42,9 @@ class SplashScreenActivity: CommonMvpNavigationActivity(), SplashScreenView {
             is Replace -> {
                 val options: Bundle? = when(command.screenKey) {
                     Screens.AUTHENTICATE -> {
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, imLogo, getString(R.string.translation_name_auth_logo)).toBundle()
+                        ActivityOptionsCompat
+                                .makeSceneTransitionAnimation(this, imLogo, getString(R.string.translation_name_auth_logo))
+                                .toBundle()
                     }
                     else -> null
                 }

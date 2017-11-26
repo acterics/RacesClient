@@ -31,7 +31,7 @@ Vis choro saepe no, dico facete mei cu. In iuvaret aliquam sit, sit postea nusqu
 
 
     <string name="translation_name_auth_logo">AuthLogo</string>
-    <string name="translation_name_item_race">ItemRace</string>
+    <string name="translation_name_edit_fab">EditFab</string>
     <string name="race">Race</string>
     <string name="participants">Participants</string>
     <string name="history_race_date">Date</string>
@@ -39,5 +39,8 @@ Vis choro saepe no, dico facete mei cu. In iuvaret aliquam sit, sit postea nusqu
     <string name="history_horse_name">Horse name</string>
     <string name="history_result">Result</string>
     <string name="add_bet">Add bet</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="change_email">Change Email</string>
 
 </resources>

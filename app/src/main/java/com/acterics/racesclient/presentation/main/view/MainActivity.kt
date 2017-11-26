@@ -3,9 +3,11 @@ package com.acterics.racesclient.presentation.main.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.Gravity
+import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.extentions.gone
@@ -34,6 +36,7 @@ import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 /**
@@ -50,15 +53,13 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     @Inject lateinit var addBetUseCase: AddBetUseCase
     @InjectPresenter lateinit var presenter: MainActivityPresenter
 
+    private var sharedView = WeakReference<View>(null)
 
     @ProvidePresenter
     fun provideMainPresenter(): MainActivityPresenter =
             MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase, addBetUseCase)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-//            ComponentsManager.initMainComponent(this)
-        }
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
         vNavigationDrawer.setNavigationItemSelectedListener(presenter.onNavigationItemSelectedListener)
@@ -71,7 +72,10 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? =
         when(screenKey) {
             Screens.AUTHENTICATE -> Intent(this, AuthenticateActivity::class.java)
-            Screens.EDIT_PROFILE -> Intent(this, EditProfileActivity::class.java)
+            Screens.EDIT_PROFILE -> {
+                sharedView = WeakReference(data as View)
+                Intent(this, EditProfileActivity::class.java)
+            }
             else -> null
         }
 
@@ -97,6 +101,20 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
                 }
             }
         }
+    }
+
+    override fun getStartActivityOptions(command: Command?, intent: Intent?): Bundle? {
+       return if (command is Forward && command.screenKey == Screens.EDIT_PROFILE) {
+           sharedView.get()?.let { view ->
+               ActivityOptionsCompat
+                       .makeSceneTransitionAnimation(this, view, getString(R.string.translation_name_edit_fab))
+                       .toBundle()
+           }
+
+
+       } else {
+           null
+       }
     }
 
 

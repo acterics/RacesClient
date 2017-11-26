@@ -10,6 +10,7 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
@@ -25,6 +26,7 @@ import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_add_bet.*
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -85,8 +87,8 @@ class AddBetFragment: BaseScopedFragment(),
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(changed: CharSequence, p1: Int, p2: Int, p3: Int) {
                 changed.takeIf { etBet.hasFocus() }
-                        ?.let { if (it.isEmpty())  "0" else it }
-                        ?.also { if (it.isEmpty()) etBet.setText(it.toString()) }
+                        ?.also { if (it.isEmpty()) etBet.setText("0") }
+                        ?.takeIf { it.isNotEmpty() }
                         ?.let { it.toString()
                                 .toFloat()
                                 .also { if (it == 0.0f) etBet.apply { setSelection(0, text.length) } }
@@ -102,8 +104,8 @@ class AddBetFragment: BaseScopedFragment(),
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(changed: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 changed.takeIf { etResult.hasFocus() }
-                        ?.let { if (it.isEmpty())  "0" else it }
-                        ?.also { if (it.isEmpty()) etResult.setText(it.toString()) }
+                        ?.also { if (it.isEmpty()) etResult.setText("0") }
+                        ?.takeIf { it.isNotEmpty() }
                         ?.let { it.toString()
                                 .toFloat()
                                 .also { if (it == 0.0f) etResult.apply { setSelection(0, text.length) } }
@@ -118,11 +120,18 @@ class AddBetFragment: BaseScopedFragment(),
         btBetDown.setOnClickListener { presenter.onChangeValue(etBet, { it.minus(VALUE_DIF) }) }
         btResultUp.setOnClickListener { presenter.onChangeValue(etResult, { it.plus(VALUE_DIF) } ) }
         btResultDown.setOnClickListener { presenter.onChangeValue(etResult, { it.minus(VALUE_DIF) } ) }
+        btAddBet.setOnClickListener { presenter.onAddBet(etBet.text, addBetTranslation.rating, addBetTranslation.participantId) }
 
     }
 
 
+    override fun successAdd() {
 
+    }
+
+    override fun errorAdd(throwable: Throwable) {
+        Toast.makeText(context, throwable.message, Toast.LENGTH_LONG).show()
+    }
 
     //TODO Add compatibility
     override fun bindNavigationIcon() {

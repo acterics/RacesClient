@@ -34,4 +34,21 @@ class AddBetPresenter(private val router: Router,
                 .let { etValue.setText(it) }
     }
 
+    fun onAddBet(bet: CharSequence, rating: Float, id: Long) {
+        bet.takeIf { bet.isNotEmpty() }
+                ?.let { it
+                        .toString()
+                        .toFloat()
+                        .takeIf { it > 0.0f }
+                }
+                ?.let { addBetUseCase.execute(
+                        params = AddBetUseCase.Params(it, rating, id),
+                        onSuccess = {
+                            viewState.successAdd()
+                            router.exit()
+                        },
+                        onError = { viewState.errorAdd(it) })
+                }
+    }
+
 }
