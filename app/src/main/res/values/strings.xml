@@ -42,5 +42,8 @@ Vis choro saepe no, dico facete mei cu. In iuvaret aliquam sit, sit postea nusqu
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="change_email">Change Email</string>
+    <string name="source_camera">Camera</string>
+    <string name="source_gallery">Gallery</string>
+    <string name="change_avatar">Change Avatar</string>
 
 </resources>

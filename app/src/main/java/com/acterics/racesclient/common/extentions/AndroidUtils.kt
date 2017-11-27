@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
@@ -14,7 +15,9 @@ import android.support.v4.view.ViewCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import com.acterics.racesclient.presentation.main.view.MainActivity
+import com.bumptech.glide.Glide
 
 /**
  * Created by root on 27.09.17.
@@ -81,6 +84,20 @@ fun Int.toHSV(): FloatArray {
 
 fun Int.isLight(): Boolean {
     return this.toHSV()[2] >= AndroidConstants.LIGHT_THRESHOLD
+}
+
+fun ImageView.loadImage(url: String, centerCrop: Boolean = false) {
+    Glide.with(context)
+            .load(url)
+            .let { if (centerCrop) it.centerCrop() else it }
+            .into(this)
+}
+
+fun ImageView.loadImage(uri: Uri, centerCrop: Boolean = false) {
+    Glide.with(context)
+            .load(uri)
+            .let { if (centerCrop) it.centerCrop() else it }
+            .into(this)
 }
 
 

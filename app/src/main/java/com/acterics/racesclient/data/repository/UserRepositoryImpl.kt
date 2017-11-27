@@ -37,7 +37,7 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
     }
 
     override fun saveUser(): Single<Boolean> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use FileConsts | Settings | FileConsts Templates.
     }
 
     override fun getBetHistory(skip: Int, count: Int, caching: Boolean): Single<List<HistoryBet>> {
