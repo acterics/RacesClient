@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RacesClient</string>
+    <string name="password">Пароль</string>
+    <string name="error_invalid_email">Email не дiйсний</string>
+    <string name="sign_in">Вхiд</string>
+    <string name="sign_up">Приєднатись</string>
+    <string name="sign_in_or">або</string>
+    <string name="or">або</string>
+    <string name="profile">Профiль</string>
+    <string name="schedule">Розклад</string>
+    <string name="exit">Вихiд</string>
+    <string name="settings">Налаштування</string>
+    <string name="author_sign">Створено Олегом Липським</string>
+    <string name="races_schedule">Розклад Перегонiв</string>
+    <string name="profile_general">Основне</string>
+    <string name="profile_history">Iсторiя</string>
+    <string name="filter">Фiльтр</string>
+    <string name="race">Гонка</string>
+    <string name="participants">Учасник</string>
+    <string name="history_race_date">Дата</string>
+    <string name="history_bet">Ставка</string>
+    <string name="history_horse_name">"Iм`я гончої "</string>
+    <string name="history_result">Результат</string>
+    <string name="add_bet">Додати ставку</string>
+    <string name="last_name">Прiзвище</string>
+    <string name="first_name">Iм`я</string>
+    <string name="change_email">Змiнити Email</string>
+    <string name="source_camera">Камера</string>
+    <string name="source_gallery">Галерея</string>
+    <string name="change_avatar">Змiнити Аватар</string>
+</resources>

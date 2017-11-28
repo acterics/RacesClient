@@ -25,8 +25,12 @@ class HistoryBetItem(val historyBet: HistoryBet):
         holder.tvBet.text = historyBet.bet.bet.toString()
         holder.tvHorseName.text = historyBet.horseName
 
-        val resultRes = if (historyBet.success) { R.drawable.ic_arrow_up_green } else { R.drawable.ic_arrow_down_red }
-        holder.tvResult.text = historyBet.result.toString()
+        val resultRes = when (historyBet.success) {
+            true -> R.drawable.ic_arrow_up_green
+            false -> R.drawable.ic_arrow_down_red
+            else -> R.drawable.ic_access_time
+        }
+        holder.tvResult.text =  historyBet.result?.toString()
         holder.imResult.setImageResource(resultRes)
     }
 }

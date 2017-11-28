@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 data class RaceModel(val id: Long,
                      val title: String,
 
-                     @SerializedName("date_time")
+//                     @SerializedName("date_time")
                      val dateTime: Long,
                      val organizer: OrganizationModel,
                      val participants: List<ParticipantModel>)

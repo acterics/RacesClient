@@ -17,5 +17,5 @@ data class HistoryBetModel(
         @SerializedName("race_date")
         var raceDate: Long,
 
-        var success: Boolean,
-        var result: Float)
+        var success: Boolean?,
+        var result: Float?)

@@ -22,5 +22,5 @@ class BetMapper {
             BetEntity(from.id, from.bet, from.rating, from.participantId)
 
     fun toDto(from: HistoryBetModel): HistoryBet =
-            HistoryBet(Bet(from.bet, from.rating), DateTime(from.raceDate), from.success, from.result, from.horseName)
+            HistoryBet(Bet(from.bet, from.rating), DateTime(from.raceDate * 1000), from.success, from.result, from.horseName)
 }

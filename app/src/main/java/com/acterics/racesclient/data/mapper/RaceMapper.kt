@@ -13,7 +13,7 @@ import org.joda.time.DateTime
 class RaceMapper(private val participantMapper: ParticipantMapper,
                  private val organizationMapper: OrganizationMapper) {
     fun toDomain(from: RaceEntity): Race =
-            Race(from.id, from.title, DateTime(from.date), null, listOf())
+            Race(from.id, from.title, DateTime(from.date * 1000), null, listOf())
 
     fun toDomain(from: RaceWithOrganization): Race =
             toDomain(from.race).also {
@@ -26,7 +26,7 @@ class RaceMapper(private val participantMapper: ParticipantMapper,
                 it.participants = from.participants.map { participantMapper.toDomain(it) }
             }
     fun toDomain(from: RaceModel): Race =
-            Race(from.id, from.title, DateTime(from.dateTime),
+            Race(from.id, from.title, DateTime(from.dateTime * 1000),
                     organizationMapper.toDomain(from.organizer),
                     from.participants.map { participantMapper.toDomain(it) })
 

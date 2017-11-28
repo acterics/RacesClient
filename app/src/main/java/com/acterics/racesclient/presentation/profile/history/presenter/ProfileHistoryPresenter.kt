@@ -48,7 +48,7 @@ class ProfileHistoryPresenter(private val router: Router,
 
     fun onSortByDate() { viewState.sortBy(Comparator { object1, object2 ->
         historyItemComparator(object1, object2,
-                { historyBet1, historyBet2 -> historyBet1.date.compareTo(historyBet2.date)})
+                { historyBet1, historyBet2 -> historyBet2.date.compareTo(historyBet1.date)})
     })}
     fun onSortByName() { viewState.sortBy(Comparator { object1, object2 ->
         historyItemComparator(object1, object2,
@@ -56,11 +56,11 @@ class ProfileHistoryPresenter(private val router: Router,
     })}
     fun onSortByBet() { viewState.sortBy(Comparator { object1, object2 ->
         historyItemComparator(object1, object2,
-                { historyBet1, historyBet2 -> historyBet1.bet.bet.compareTo(historyBet2.bet.bet) })
+                { historyBet1, historyBet2 -> historyBet2.bet.bet.compareTo(historyBet1.bet.bet) })
     })}
     fun onSortByResult() { viewState.sortBy(Comparator { object1, object2 ->
         historyItemComparator(object1, object2,
-                { historyBet1, historyBet2 -> historyBet1.result.compareTo(historyBet2.result) })
+                { historyBet1, historyBet2 -> (historyBet2.result?: Float.NEGATIVE_INFINITY).compareTo(historyBet1.result ?: Float.NEGATIVE_INFINITY) })
     })}
 
     private fun onHistoryPageLoaded(history: List<HistoryBet>, currentPage: Int) {

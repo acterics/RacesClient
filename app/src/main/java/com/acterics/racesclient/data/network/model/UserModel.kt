@@ -14,4 +14,5 @@ data class UserModel(
         val lastName: String,
 
         val email: String,
-        val details: UserInfoModel)
+        val details: UserInfoModel
+)

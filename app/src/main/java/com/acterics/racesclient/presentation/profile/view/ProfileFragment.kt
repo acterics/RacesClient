@@ -60,7 +60,7 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
         super.onViewCreated(view, savedInstanceState)
 
         toolbarProfile.apply {
-            setNavigationIcon(R.drawable.ic_menu_black)
+            setNavigationIcon(R.drawable.ic_menu_white)
             setNavigationOnClickListener { navigationHolder.openDrawer(navigationView) }
             title = ""
         }
