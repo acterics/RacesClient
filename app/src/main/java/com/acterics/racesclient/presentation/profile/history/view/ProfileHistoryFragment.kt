@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.dsl.addEndlessOnScrollListener
 import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
 import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
@@ -39,7 +40,6 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     private lateinit var progressAdapter: DefaultItemAdapter
     private lateinit var headerAdapter: DefaultItemAdapter
 
-    private lateinit var endlessScrollListener : EndlessRecyclerOnScrollListener
 
     @ProvidePresenter
     fun providePresenter(): ProfileHistoryPresenter =
@@ -78,19 +78,21 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
 
 
         val historyLayoutManager = LinearLayoutManager(context)
-        endlessScrollListener = object:
-                EndlessRecyclerOnScrollListener(historyLayoutManager, 5, progressAdapter) {
-            override fun onLoadMore(currentPage: Int) {
-                rvProfileHistory.post { presenter.onLoadMore(currentPage) }
-            }
-        }
 
         rvProfileHistory.apply {
             layoutManager = historyLayoutManager
             adapter = historyAdapter
             itemAnimator = DefaultItemAnimator()
-            addOnScrollListener(endlessScrollListener)
+            addEndlessOnScrollListener {
+                footerAdapter = progressAdapter
+                pagingDelegate = pagingViewDelegate
+                visibleThreshold = 5
+                onLoadMore {
+                    page -> rvProfileHistory.post { presenter.onLoadMore(page) }
+                }
+            }
         }
+
     }
 
     override fun showHistory(history: List<HistoryBetItem>) {
@@ -98,11 +100,11 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     }
 
     override fun startPageLoading(isFirstPage: Boolean) {
-        pagingViewDelegate.startPageLoading(progressAdapter, isFirstPage)
+        pagingViewDelegate.startPageLoading(isFirstPage)
     }
 
     override fun stopPageLoading() {
-        pagingViewDelegate.stopPageLoading(progressAdapter)
+        pagingViewDelegate.stopPageLoading()
     }
 
     override fun showPagingError(message: String?, isFirstPage: Boolean) {
@@ -110,7 +112,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
     }
 
     override fun resetPage(page: Int) {
-        pagingViewDelegate.resetPage(endlessScrollListener, page)
+        pagingViewDelegate.resetPage(page)
     }
 
     override fun sortBy(comparator: Comparator<IItem<*, *>>) {

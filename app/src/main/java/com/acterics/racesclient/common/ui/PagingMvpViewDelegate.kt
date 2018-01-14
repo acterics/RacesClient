@@ -11,22 +11,27 @@ import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListene
  */
 class PagingMvpViewDelegate {
 
-    fun <T : DefaultItemAdapter> startPageLoading(progressAdapter: T, isFirstPage: Boolean) {
-        progressAdapter.clear()
-        val progressItem = if (isFirstPage) {
-            MatchParentProgressItem()
-        } else {
-            ProgressItem()
-        }.withEnabled(true)
-        progressAdapter.add(progressItem)
+    var progressAdapter: DefaultItemAdapter? = null
+    var scrollListener: EndlessRecyclerOnScrollListener? = null
+
+    fun startPageLoading(isFirstPage: Boolean) {
+        progressAdapter?.let {
+            it.clear()
+            it.add ( when (isFirstPage) {
+                true -> MatchParentProgressItem()
+                false -> ProgressItem()
+            }
+                    .withEnabled(true)
+            )
+        }
     }
 
-    fun <T : DefaultItemAdapter> stopPageLoading(progressAdapter: T) {
-        progressAdapter.clear()
+    fun stopPageLoading() {
+        progressAdapter?.clear()
     }
 
-    fun <T : EndlessRecyclerOnScrollListener> resetPage(scrollListener: T, page: Int) {
-        scrollListener.resetPageCount(page)
+    fun resetPage(page: Int) {
+        scrollListener?.resetPageCount(page)
     }
 
     fun showPageError(context: Context?, message: String?, isFirstPage: Boolean) {

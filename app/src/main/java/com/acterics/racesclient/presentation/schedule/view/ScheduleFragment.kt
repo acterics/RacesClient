@@ -8,13 +8,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.dsl.addEndlessOnScrollListener
 import com.acterics.racesclient.common.ui.*
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.presenter.SchedulePresenter
-import com.acterics.racesclient.utils.navigation.*
+import com.acterics.racesclient.presentation.navigation.*
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -37,7 +38,11 @@ class ScheduleFragment: BaseScopedFragment(),
     @Inject lateinit var router: Router
     @Inject lateinit var getRacesUseCase: GetRacesUseCase
     @Inject lateinit var pagingViewDelegate: PagingMvpViewDelegate
-    @InjectPresenter lateinit var presenter: SchedulePresenter
+
+
+    @InjectPresenter
+    lateinit var presenter: SchedulePresenter
+
     @InjectPresenter(type = PresenterType.LOCAL)
     lateinit var toolbarAnimationPresenter: BaseToolbarAnimationPresenter
 
@@ -47,7 +52,6 @@ class ScheduleFragment: BaseScopedFragment(),
 
     private val scheduleAdapter = DefaultFastItemAdapter()
     private lateinit var progressAdapter: DefaultItemAdapter
-    private lateinit var endlessScrollListener : EndlessRecyclerOnScrollListener
 
 
     private val navigationAvd by lazy {
@@ -84,18 +88,19 @@ class ScheduleFragment: BaseScopedFragment(),
         }
 
         val historyLayoutManager = LinearLayoutManager(context)
-        endlessScrollListener = object:
-                EndlessRecyclerOnScrollListener(historyLayoutManager, 5, progressAdapter) {
-            override fun onLoadMore(currentPage: Int) {
-                rvSchedule.post { presenter.onLoadMore(currentPage) }
-            }
-        }
 
         rvSchedule.apply {
             layoutManager = historyLayoutManager
             adapter = scheduleAdapter
             itemAnimator = DefaultItemAnimator()
-            addOnScrollListener(endlessScrollListener)
+            addEndlessOnScrollListener {
+                footerAdapter = progressAdapter
+                pagingDelegate = pagingViewDelegate
+                visibleThreshold = 5
+                onLoadMore {
+                    page -> rvSchedule.post { presenter.onLoadMore(page) }
+                }
+            }
         }
     }
 
@@ -115,15 +120,15 @@ class ScheduleFragment: BaseScopedFragment(),
     }
 
     override fun resetPage(page: Int) {
-        pagingViewDelegate.resetPage(endlessScrollListener, page)
+        pagingViewDelegate.resetPage(page)
     }
 
     override fun startPageLoading(isFirstPage: Boolean) {
-        pagingViewDelegate.startPageLoading(progressAdapter, isFirstPage)
+        pagingViewDelegate.startPageLoading(isFirstPage)
     }
 
     override fun stopPageLoading() {
-        pagingViewDelegate.stopPageLoading(progressAdapter)
+        pagingViewDelegate.stopPageLoading()
     }
 
     override fun showPagingError(message: String?, isFirstPage: Boolean) {
