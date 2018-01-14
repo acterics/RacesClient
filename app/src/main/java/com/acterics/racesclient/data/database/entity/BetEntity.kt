@@ -8,13 +8,17 @@ import android.arch.persistence.room.PrimaryKey
 /**
  * Created by root on 30.10.17.
  */
-@Entity(foreignKeys = arrayOf(
-        ForeignKey(
-                entity = ParticipantEntity::class,
-                parentColumns = arrayOf("participant_id"),
-                childColumns = arrayOf("participant_id"),
-                onDelete = ForeignKey.CASCADE)),
-        tableName = "bet")
+@Entity(
+        foreignKeys = [
+                (ForeignKey(
+                        entity = ParticipantEntity::class,
+                        parentColumns = arrayOf("participant_id"),
+                        childColumns = arrayOf("participant_id"),
+                        onDelete = ForeignKey.CASCADE
+                ))
+        ],
+        tableName = "bet"
+)
 data class BetEntity(
         @PrimaryKey
         @ColumnInfo(name = "id") var id: Long = 0,

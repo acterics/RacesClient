@@ -84,15 +84,16 @@ class AuthenticateActivity: CommonMvpNavigationActivity(), KeyboardMvpView {
 
     override fun onKeyboardVisibleChanged(visible: Boolean) {
         if (holderRoot!= null &&  !isAnimate) {
-            if (visible)  { showKeyboardAnimatorSet() }
-            else  { hideKeyboardAnimatorSet() }
-                    .apply {
-                        addListener(object: AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator?) { isAnimate = false }
-                            override fun onAnimationStart(animation: Animator?) { isAnimate = true }
-                        })
-                        start()
-                    }
+            when (visible) {
+                true -> showKeyboardAnimatorSet()
+                false -> hideKeyboardAnimatorSet()
+            }.also {
+                it.addListener(object: AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) { isAnimate = false }
+                    override fun onAnimationStart(animation: Animator?) { isAnimate = true }
+                })
+                it.start()
+            }
         }
     }
 

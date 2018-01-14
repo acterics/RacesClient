@@ -12,9 +12,9 @@ class GetBetHistoryUseCase(private val userRepository: UserRepository,
                            private val scheduler: ExecutionScheduler):
         UseCase.AsSingle<List<HistoryBet>, GetBetHistoryUseCase.Params>() {
 
-    override fun build(params: Params?): Single<List<HistoryBet>> =
-        userRepository.getBetHistory(params!!.skip, params.count, false)
-                .compose(scheduler.highPrioritySingle())
+    override fun build(params: Params?): Single<List<HistoryBet>> = userRepository
+            .getBetHistory(params!!.skip, params.count, false)
+            .compose(scheduler.highPrioritySingle())
 
 
     data class Params(val skip: Int,

@@ -56,12 +56,12 @@ class SchedulePresenter(private val router: Router,
 
 
     fun onScheduleItemClick(view: View?, item: ScheduleItem?) : Boolean {
-        sharedElements.apply {
+        with(sharedElements) {
             clear()
-            item?.let {
-                put(item.scheduleRaceTranslation.holderTranslationName, view)
-                put(item.scheduleRaceTranslation.titleTranslationName, view?.findViewById(R.id.tvRaceTitle))
-                put(item.scheduleRaceTranslation.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
+            item?.scheduleRaceTranslation?.let {
+                put(it.holderTranslationName, view)
+                put(it.titleTranslationName, view?.findViewById(R.id.tvRaceTitle))
+                put(it.organizerTranslationName, view?.findViewById(R.id.tvRaceOrganizer))
             }
         }
         viewState.startToolbarAnimation()
@@ -72,8 +72,9 @@ class SchedulePresenter(private val router: Router,
     private fun onSchedulePageLoaded(races: List<Race>, currentPage: Int) {
         page = currentPage
         viewState.stopPageLoading()
-        viewState.showRaces(races
-                .map { race -> ScheduleItem(race) })
+        viewState.showRaces(races.map {
+            race -> ScheduleItem(race)
+        })
         loading = false
     }
 

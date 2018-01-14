@@ -8,11 +8,6 @@ import com.mikepenz.fastadapter_extensions.items.ProgressItem
  */
 class MatchParentProgressItem : ProgressItem() {
 
-    override fun getType(): Int {
-        return R.id.holder_progress
-    }
-
-    override fun getLayoutRes(): Int {
-        return R.layout.item_race_first_progress
-    }
+    override fun getType() = R.id.holder_progress
+    override fun getLayoutRes() = R.layout.item_race_first_progress
 }

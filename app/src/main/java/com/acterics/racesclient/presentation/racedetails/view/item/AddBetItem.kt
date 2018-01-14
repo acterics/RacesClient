@@ -27,7 +27,7 @@ class AddBetItem: AbstractExpandableItem<ParticipantItem, AddBetHolder, AddBetIt
 
     override fun bindView(holder: AddBetHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
-        holder.btAddBet.apply {
+        with(holder.btAddBet) {
             setOnClickListener { view -> addBetClickListener?.invoke(addBetTranslation, view) }
             setSupportTranslationName(addBetTranslation.addBetHolder)
         }

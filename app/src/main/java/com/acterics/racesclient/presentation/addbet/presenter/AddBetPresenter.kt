@@ -24,8 +24,10 @@ class AddBetPresenter(private val router: Router,
 
 
     fun onChangeValue(etValue: EditText, operator: (Float) -> Float) {
-        etValue.apply { requestFocus() }
-                .apply { setSelection(0, text.length) }
+        etValue.apply {
+                    requestFocus()
+                    setSelection(0, text.length)
+                }
                 .run { text.toString() }
                 .toFloat()
                 .let { operator(it) }

@@ -10,6 +10,7 @@ data class UserModel(
 
         @SerializedName("first_name")
         val firstName: String,
+
         @SerializedName("last_name")
         val lastName: String,
 

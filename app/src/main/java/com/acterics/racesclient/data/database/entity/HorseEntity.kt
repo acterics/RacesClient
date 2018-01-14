@@ -9,7 +9,8 @@ import android.arch.persistence.room.PrimaryKey
  * Created by root on 18.10.17.
  */
 @Entity(tableName = "horse")
-data class HorseEntity(@PrimaryKey
-                       @ColumnInfo(name = "id") var id: Long = 0,
-                       @ColumnInfo(name = "horse_name") var name: String = ""
+data class HorseEntity(
+        @PrimaryKey
+        @ColumnInfo(name = "id") var id: Long = 0,
+        @ColumnInfo(name = "horse_name") var name: String = ""
 )

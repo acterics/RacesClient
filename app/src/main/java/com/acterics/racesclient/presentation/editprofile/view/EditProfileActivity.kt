@@ -64,7 +64,7 @@ class EditProfileActivity: CommonMvpNavigationActivity(), EditProfileView {
         setContentView(R.layout.activity_edit_profile)
         super.onCreate(savedInstanceState)
 
-        btAccept.apply {
+        with (btAccept) {
             (drawable as AnimatedVectorDrawable).start()
             setOnClickListener { presenter.onAcceptClick() }
         }

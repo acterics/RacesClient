@@ -39,7 +39,8 @@ class RaceRepositoryImpl(private val apiService: ApiService,
     }
 
     private fun raceDatabaseRequest(raceId: Long): Single<Race>  {
-        return appDatabase.raceDao().getRace(raceId)
+        return appDatabase.raceDao()
+                .getRace(raceId)
                 .map { raceMapper.toDomain(it) }
     }
 

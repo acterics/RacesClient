@@ -8,5 +8,6 @@ import com.google.gson.annotations.SerializedName
 data class BetRequest(
         @SerializedName("participant_id")
         val participantId: Long,
+
         val bet: Float,
         val rating: Float)

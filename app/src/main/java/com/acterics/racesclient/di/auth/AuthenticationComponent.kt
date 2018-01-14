@@ -10,7 +10,7 @@ import dagger.Subcomponent
  */
 
 @AuthenticationScope
-@Subcomponent(modules = arrayOf(AuthenticationModule::class))
+@Subcomponent(modules = [(AuthenticationModule::class)])
 interface AuthenticationComponent {
 
     @Subcomponent.Builder

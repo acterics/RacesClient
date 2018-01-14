@@ -22,23 +22,16 @@ class HistoryBetHeaderItem: AbstractItem<HistoryBetHeaderItem, HistoryBetItemHol
 
     override fun bindView(holder: HistoryBetItemHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
-        holder.tvDate.apply {
-            setText(R.string.history_race_date)
-            setOnClickListener { dateClickListener?.invoke() }
-        }
-        holder.tvBet.apply {
-            setText(R.string.history_bet)
-            setOnClickListener { betClickListener?.invoke() }
-        }
-        holder.tvHorseName.apply {
-            setText(R.string.history_horse_name)
-            setOnClickListener { nameClickListener?.invoke() }
-        }
+        holder.tvDate.setText(R.string.history_race_date)
+        holder.tvDate.setOnClickListener { dateClickListener?.invoke() }
 
-        holder.tvResult.apply {
-            setText(R.string.history_result)
-            setOnClickListener { resultClickListener?.invoke() }
-        }
+        holder.tvBet.setText(R.string.history_bet)
+        holder.tvBet.setOnClickListener { betClickListener?.invoke() }
 
+        holder.tvHorseName.setText(R.string.history_horse_name)
+        holder.tvHorseName.setOnClickListener { nameClickListener?.invoke() }
+
+        holder.tvResult.setText(R.string.history_result)
+        holder.tvResult.setOnClickListener { resultClickListener?.invoke() }
     }
 }

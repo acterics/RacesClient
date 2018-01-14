@@ -15,9 +15,7 @@ object ComponentsManager {
     lateinit var appComponent: AppComponent
 
     var authenticationComponent by notNullLazy {
-        appComponent
-                .authenticateComponentBuilder()
-                .build()
+        appComponent.authenticateComponentBuilder().build()
     }
 
     var mainComponent: MainComponent? = null

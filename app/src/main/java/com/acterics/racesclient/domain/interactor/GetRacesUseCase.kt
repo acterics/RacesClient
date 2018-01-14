@@ -16,10 +16,9 @@ class GetRacesUseCase
 
 
     private var loaded = false
-    override fun build(params: Params?): Single<List<Race>> =
-        raceRepository.getSchedulePage(params!!.skip, params.count, false )
-                .compose(scheduler.highPrioritySingle())
-
+    override fun build(params: Params?): Single<List<Race>> = raceRepository
+            .getSchedulePage(params!!.skip, params.count, false )
+            .compose(scheduler.highPrioritySingle())
 
     data class Params(val skip: Int,
                       val count: Int)

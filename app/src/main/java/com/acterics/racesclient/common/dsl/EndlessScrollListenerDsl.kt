@@ -36,6 +36,7 @@ class EndlessOnScrollListenerHelper(val recyclerView: RecyclerView) {
             }
         }
 
+
         pagingDelegate?.let {
             it.progressAdapter = footerAdapter
             it.scrollListener = scrollListener

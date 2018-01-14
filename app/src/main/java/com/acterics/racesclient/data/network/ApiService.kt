@@ -25,14 +25,14 @@ interface ApiService {
     fun getUser(): Single<BaseResponse<UserModel>>
 
     @GET("races/")
-    fun getRaces(@Query("skip") skip: Int, @Query("count") count: Int): Single<BaseResponse<ScheduleResponse>>
+    fun getRaces(@Query("skip") skip: Int,
+                 @Query("count") count: Int): Single<BaseResponse<ScheduleResponse>>
 
     @GET("races/{id}")
     fun getRace(@Path("id") raceId: Long): Single<BaseResponse<RaceModel>>
 
     @POST("bet/")
-    fun addBet(@Body betRequest: BetRequest):
-            Single<BaseResponse<BooleanResponse>>
+    fun addBet(@Body betRequest: BetRequest): Single<BaseResponse<BooleanResponse>>
 
     @GET("bet/")
     fun getBets(@Query("skip") skip: Int,

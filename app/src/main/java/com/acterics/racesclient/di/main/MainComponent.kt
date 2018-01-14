@@ -13,7 +13,7 @@ import dagger.Subcomponent
  * Created by root on 29.10.17.
  */
 @MainScope
-@Subcomponent(modules = arrayOf(MainModule::class))
+@Subcomponent(modules = [(MainModule::class)])
 interface MainComponent {
 
     @Subcomponent.Builder

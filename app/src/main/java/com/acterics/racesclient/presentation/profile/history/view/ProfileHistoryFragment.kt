@@ -64,7 +64,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
         progressAdapter = ItemAdapter()
         headerAdapter = ItemAdapter()
 
-        historyAdapter.apply {
+        with(historyAdapter) {
             addAdapter(0, headerAdapter)
             addAdapter(2, progressAdapter)
         }
@@ -79,7 +79,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
 
         val historyLayoutManager = LinearLayoutManager(context)
 
-        rvProfileHistory.apply {
+        with(rvProfileHistory) {
             layoutManager = historyLayoutManager
             adapter = historyAdapter
             itemAnimator = DefaultItemAnimator()

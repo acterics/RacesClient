@@ -8,14 +8,18 @@ import com.acterics.racesclient.data.database.entity.*
 /**
  * Created by root on 24.10.17.
  */
-@Database(entities = arrayOf(
-        RaceEntity::class,
-        HorseEntity::class,
-        ParticipantEntity::class,
-        OrganizationEntity::class,
-        BetEntity::class
-        ),
-        version = 9 , exportSchema = false) abstract class AppDatabase : RoomDatabase() {
+@Database(
+        entities = [
+            (RaceEntity::class),
+            (HorseEntity::class),
+            (ParticipantEntity::class),
+            (OrganizationEntity::class),
+            (BetEntity::class)
+        ],
+        version = 9,
+        exportSchema = false
+)
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun raceDao(): RaceDao
     abstract fun horseDao(): HorseDao

@@ -148,7 +148,7 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     override fun hideToolbar() { toolbar.gone() }
 
     override fun showToolbar() {
-        toolbar.apply {
+        with (toolbar) {
             visible()
             setNavigationOnClickListener({ openDrawer() })
         }

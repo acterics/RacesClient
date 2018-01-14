@@ -74,7 +74,7 @@ class RaceDetailPresenter(private val router: Router,
 
 
     private fun onAddBet(addBetTranslation: AddBetTranslation, view: View?) {
-        sharedElements.apply {
+        with(sharedElements) {
             clear()
             put(addBetTranslation.addBetHolder, view)
         }

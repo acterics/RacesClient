@@ -12,14 +12,14 @@ import javax.inject.Singleton
  * Created by root on 28.09.17.
  */
 @Singleton
-@Component(modules = arrayOf(
-        NavigationModule::class,
-        AppModule::class,
-        ApiModule::class,
-        BuildModule::class,
-        NetworkModule::class,
-        DataModule::class
-))
+@Component(modules = [
+    (NavigationModule::class),
+    (AppModule::class),
+    (ApiModule::class),
+    (BuildModule::class),
+    (NetworkModule::class),
+    (DataModule::class)
+])
 interface AppComponent {
     fun authenticateComponentBuilder(): AuthenticationComponent.Builder
     fun mainComponentBuilder(): MainComponent.Builder

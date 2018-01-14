@@ -12,10 +12,13 @@ data class HistoryBetModel(
 
         @SerializedName("participant_id")
         var participantId: Long,
+
         @SerializedName("horse_name")
         var horseName: String,
+
         @SerializedName("race_date")
         var raceDate: Long,
 
         var success: Boolean?,
-        var result: Float?)
+        var result: Float?
+)

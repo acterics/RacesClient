@@ -16,8 +16,8 @@ import io.reactivex.Single
 class SignUpUseCase(private val apiService: ApiService,
                     private val scheduler: ExecutionScheduler,
                     private val context: Context): UseCase.AsSingle<UseCase.None, SignUpRequest>() {
-    override fun build(params: SignUpRequest?): Single<None> =
-        apiService.signUp(params ?: throw IllegalArgumentException())
+    override fun build(params: SignUpRequest?): Single<None> = apiService
+            .signUp(params ?: throw IllegalArgumentException())
                 .checkNetworkSingle()
                 .doOnSuccess { context.saveToken(it.token) }
                 .flatMap { apiService.getUser() }

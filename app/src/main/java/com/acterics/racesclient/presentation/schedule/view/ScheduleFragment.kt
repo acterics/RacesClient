@@ -80,7 +80,7 @@ class ScheduleFragment: BaseScopedFragment(),
         progressAdapter = items()
         toolbar.title = getString(R.string.schedule)
 
-        scheduleAdapter.apply {
+        with(scheduleAdapter) {
             addAdapter(1, progressAdapter)
             withOnClickListener { v, _, item, _ ->
                 presenter.onScheduleItemClick(v, item as ScheduleItem)
@@ -89,7 +89,7 @@ class ScheduleFragment: BaseScopedFragment(),
 
         val historyLayoutManager = LinearLayoutManager(context)
 
-        rvSchedule.apply {
+        with(rvSchedule) {
             layoutManager = historyLayoutManager
             adapter = scheduleAdapter
             itemAnimator = DefaultItemAnimator()

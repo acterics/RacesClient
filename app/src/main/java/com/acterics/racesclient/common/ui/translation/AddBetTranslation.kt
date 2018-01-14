@@ -9,7 +9,8 @@ import android.os.Parcelable
 data class AddBetTranslation(
         var addBetHolder: String,
         var participantId: Long,
-        var rating: Float) : Parcelable {
+        var rating: Float
+) : Parcelable {
     constructor(source: Parcel) : this(
             source.readString(),
             source.readLong(),

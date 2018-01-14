@@ -51,7 +51,8 @@ class SignInFragment: BaseScopedFragment(), SignInView {
         btSignIn.setOnClickListener {
             presenter.onSignInButtonClick(
                     etSignInEmail.text.toString(),
-                    etSignInPassword.text.toString())
+                    etSignInPassword.text.toString()
+            )
         }
     }
 

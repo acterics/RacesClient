@@ -19,15 +19,15 @@ import javax.inject.Inject
 class SignInUseCase(private val apiService: ApiService,
                     private val scheduler: ExecutionScheduler,
                     private val context: Context): UseCase.AsSingle<UseCase.None, SignInRequest>() {
-    override fun build(params: SignInRequest?): Single<None> =
-            apiService.signIn(params ?: throw IllegalArgumentException())
-                    .checkNetworkSingle()
-                    .map { context.saveToken(it.token) }
-                    .flatMap { apiService.getUser() }
-                    .checkNetworkSingle()
-                    .map { User(it.id, it.firstName, it.lastName, it.email, it.details.avatar ?: "") }
-                    .doOnSuccess { context.login(it) }
-                    .map { None() }
-                    .compose(scheduler.highPrioritySingle())
+    override fun build(params: SignInRequest?): Single<None> = apiService
+            .signIn(params ?: throw IllegalArgumentException())
+            .checkNetworkSingle()
+            .map { context.saveToken(it.token) }
+            .flatMap { apiService.getUser() }
+            .checkNetworkSingle()
+            .map { User(it.id, it.firstName, it.lastName, it.email, it.details.avatar ?: "") }
+            .doOnSuccess { context.login(it) }
+            .map { None() }
+            .compose(scheduler.highPrioritySingle())
 
 }

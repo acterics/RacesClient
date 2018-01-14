@@ -101,19 +101,19 @@ class RaceDetailFragment: BaseScopedFragment(),
             tvRaceOrganizer.text = organizationTitle
         }
 
-        toolbar.apply {
+        with(toolbar) {
             title = getString(R.string.race)
             setNavigationOnClickListener { presenter.onBack() }
         }
 
         progressAdapter = items()
 
-        participantsAdapter.apply {
+        with(participantsAdapter) {
             addAdapter(1, progressAdapter)
             addExtension(expandableExtension)
         }
 
-        rvParticipants.apply {
+        with(rvParticipants) {
             layoutManager = LinearLayoutManager(context)
             adapter = participantsAdapter
             itemAnimator = DefaultItemAnimator()

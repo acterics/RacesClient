@@ -8,7 +8,7 @@ import dagger.Subcomponent
  * Created by root on 03.11.17.
  */
 @ProfileScope
-@Subcomponent(modules = arrayOf(ProfileModule::class))
+@Subcomponent(modules = [(ProfileModule::class)])
 interface ProfileComponent {
 
     @Subcomponent.Builder

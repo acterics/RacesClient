@@ -15,12 +15,9 @@ class GetRaceDetailsUseCase
                     private val scheduler: ExecutionScheduler): UseCase.AsSingle<Race, GetRaceDetailsUseCase.Params>() {
 
 
-
-    override fun build(params: Params?): Single<Race> {
-        return raceRepository.getRaceDetails(params!!.raceId, false)
-                .compose(scheduler.highPrioritySingle())
-    }
-
+    override fun build(params: Params?): Single<Race> = raceRepository
+            .getRaceDetails(params!!.raceId, false)
+            .compose(scheduler.highPrioritySingle())
 
     data class Params(val raceId: Long)
 }
