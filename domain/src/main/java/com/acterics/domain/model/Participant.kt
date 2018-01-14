@@ -1,4 +1,5 @@
-package com.acterics.racesclient.domain.model
+package com.acterics.domain.model
+
 
 /**
  * Created by root on 30.10.17.

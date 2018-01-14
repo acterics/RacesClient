@@ -1,8 +1,7 @@
-package com.acterics.racesclient.domain.repository
+package com.acterics.domain.repository
 
-import com.acterics.racesclient.data.database.entity.User
-import com.acterics.racesclient.domain.model.Bet
-import com.acterics.racesclient.domain.model.dto.HistoryBet
+import com.acterics.domain.model.Bet
+import com.acterics.domain.model.dto.HistoryBet
 import io.reactivex.Single
 
 /**
@@ -16,6 +15,6 @@ interface UserRepository {
             Single<List<HistoryBet>>
 
 
-    fun getUser(): Single<User>
+//    fun getUser(): Single<User>
     fun saveUser(): Single<Boolean>
 }

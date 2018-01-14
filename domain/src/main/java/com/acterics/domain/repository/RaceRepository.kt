@@ -1,7 +1,7 @@
-package com.acterics.racesclient.domain.repository
+package com.acterics.domain.repository
 
 
-import com.acterics.racesclient.domain.model.Race
+import com.acterics.domain.model.Race
 import io.reactivex.Single
 
 /**

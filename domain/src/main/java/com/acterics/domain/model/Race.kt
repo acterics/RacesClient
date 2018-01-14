@@ -1,4 +1,4 @@
-package com.acterics.racesclient.domain.model
+package com.acterics.domain.model
 
 import org.joda.time.DateTime
 

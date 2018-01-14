@@ -1,6 +1,6 @@
-package com.acterics.racesclient.domain.model.dto
+package com.acterics.domain.model.dto
 
-import com.acterics.racesclient.domain.model.Bet
+import com.acterics.domain.model.Bet
 import org.joda.time.DateTime
 
 /**
