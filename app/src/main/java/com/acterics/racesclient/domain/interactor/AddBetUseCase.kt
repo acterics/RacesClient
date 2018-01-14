@@ -1,8 +1,8 @@
 package com.acterics.racesclient.domain.interactor
 
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.domain.model.Bet
-import com.acterics.racesclient.domain.repository.UserRepository
+import com.acterics.domain.model.Bet
+import com.acterics.domain.repository.UserRepository
 import io.reactivex.Single
 
 /**

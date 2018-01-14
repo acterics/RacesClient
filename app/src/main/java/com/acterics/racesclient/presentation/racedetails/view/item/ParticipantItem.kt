@@ -3,7 +3,7 @@ package com.acterics.racesclient.presentation.racedetails.view.item
 import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.DefaultExpandableItem
-import com.acterics.racesclient.domain.model.Participant
+import com.acterics.domain.model.Participant
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**
@@ -17,7 +17,7 @@ class ParticipantItem(internal val participant: Participant):
     init {
         withSubItems(ArrayList<DefaultExpandableItem>().apply {
             participant.bets?.let {
-                this.addAll(it.map { BetItem(it) })
+                addAll(it.map { BetItem(it) })
             }
         })
         isBetOn = participant.bets?.isEmpty() != true
@@ -25,25 +25,19 @@ class ParticipantItem(internal val participant: Participant):
 
 
 
-    override fun getViewHolder(v: View): ParticipantHolder {
-        return ParticipantHolder(v)
-    }
+    override fun getViewHolder(v: View) = ParticipantHolder(v)
+    override fun getType() = R.id.itemParticipation
+    override fun getLayoutRes() = R.layout.item_participant
 
-    override fun getType(): Int {
-        return R.id.itemParticipation
-    }
-
-    override fun getLayoutRes(): Int {
-        return R.layout.item_participant
-    }
 
     override fun bindView(holder: ParticipantHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
-        holder.tvHorseName.text = participant.horse?.name
-        holder.tvHorseRating.text = participant.rating.toString()
+        with (participant) {
+            holder.tvHorseName.text = horse?.name
+            holder.tvHorseRating.text = "$rating"
+        }
+
         val betDrawableRes = if (isBetOn) R.drawable.ic_bet_on else R.drawable.ic_bet_off
-
-
         holder.btBet.setImageResource(betDrawableRes)
     }
 

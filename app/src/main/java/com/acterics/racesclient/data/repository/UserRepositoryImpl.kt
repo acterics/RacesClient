@@ -10,9 +10,9 @@ import com.acterics.racesclient.data.mapper.BetMapper
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.BetModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
-import com.acterics.racesclient.domain.model.Bet
-import com.acterics.racesclient.domain.model.dto.HistoryBet
-import com.acterics.racesclient.domain.repository.UserRepository
+import com.acterics.domain.model.Bet
+import com.acterics.domain.model.dto.HistoryBet
+import com.acterics.domain.repository.UserRepository
 import io.reactivex.Single
 import io.reactivex.rxkotlin.toSingle
 
@@ -32,7 +32,7 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
                 .flatMap { Single.just(betMapper.toDomain(request)) }
     }
 
-    override fun getUser(): Single<User> {
+    fun getUser(): Single<User> {
         return Single.just(context.getUser())
     }
 

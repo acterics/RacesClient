@@ -2,7 +2,7 @@ package com.acterics.racesclient.presentation.racedetails.view.item
 
 import android.view.View
 import com.acterics.racesclient.R
-import com.acterics.racesclient.domain.model.Bet
+import com.acterics.domain.model.Bet
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**
@@ -16,8 +16,11 @@ class BetItem(private val bet: Bet):
 
     override fun bindView(holder: BetHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
-        holder.tvBet.text = bet.bet.toString()
-        holder.tvAward.text = (bet.bet * (1 + bet.rating)).toString()
+        with (bet) {
+            holder.tvBet.text = "$bet"
+            holder.tvAward.text = (bet * (1 + rating)).toString()
+        }
+
     }
 
 }

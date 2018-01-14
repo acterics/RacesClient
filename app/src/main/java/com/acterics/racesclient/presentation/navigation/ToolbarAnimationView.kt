@@ -1,4 +1,4 @@
-package com.acterics.racesclient.utils.navigation
+package com.acterics.racesclient.presentation.navigation
 
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType

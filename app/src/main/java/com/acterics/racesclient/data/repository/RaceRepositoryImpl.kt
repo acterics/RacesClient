@@ -6,8 +6,8 @@ import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.mapper.RaceMapper
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.RaceModel
-import com.acterics.racesclient.domain.model.Race
-import com.acterics.racesclient.domain.repository.RaceRepository
+import com.acterics.domain.model.Race
+import com.acterics.domain.repository.RaceRepository
 import io.reactivex.Single
 import io.reactivex.rxkotlin.toSingle
 

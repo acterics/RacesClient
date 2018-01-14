@@ -4,7 +4,7 @@ import android.view.View
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
-import com.acterics.racesclient.domain.model.Race
+import com.acterics.domain.model.Race
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.view.ScheduleView
 import com.arellomobile.mvp.InjectViewState

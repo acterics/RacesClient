@@ -1,4 +1,4 @@
-package com.acterics.racesclient.utils.keyboard
+package com.acterics.racesclient.presentation.keyboard
 
 import android.graphics.Rect
 import android.view.View

@@ -2,7 +2,7 @@ package com.acterics.racesclient.di.profile
 
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
-import com.acterics.racesclient.domain.repository.UserRepository
+import com.acterics.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 

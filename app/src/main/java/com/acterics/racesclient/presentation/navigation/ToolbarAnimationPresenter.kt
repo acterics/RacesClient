@@ -1,8 +1,7 @@
-package com.acterics.racesclient.utils.navigation
+package com.acterics.racesclient.presentation.navigation
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import timber.log.Timber
 
 /**
  * Created by root on 11.11.17.

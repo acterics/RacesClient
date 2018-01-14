@@ -2,7 +2,7 @@ package com.acterics.racesclient.presentation.profile.history.presenter
 
 import com.acterics.racesclient.common.ui.DefaultItem
 import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
-import com.acterics.racesclient.domain.model.dto.HistoryBet
+import com.acterics.domain.model.dto.HistoryBet
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.view.ProfileHistoryView
 import com.arellomobile.mvp.InjectViewState

@@ -7,7 +7,7 @@ import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.extentions.suffixedFormattedDate
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
-import com.acterics.racesclient.domain.model.Race
+import com.acterics.domain.model.Race
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**
@@ -15,35 +15,33 @@ import com.mikepenz.fastadapter.items.AbstractItem
  */
 class ScheduleItem(var race: Race) : AbstractItem<ScheduleItem, ScheduleItemHolder>() {
     var scheduleRaceTranslation = ScheduleRaceTranslation(
-            race.id, race.title, race.organizer!!.name,
+            race.id,
+            race.title,
+            race.organizer!!.name,
             "${race.title} holder",
             "${race.title} title",
             "${race.title} organizer"
     )
 
-    override fun getViewHolder(v: View): ScheduleItemHolder {
-        return ScheduleItemHolder(v)
-    }
-
-    override fun getLayoutRes(): Int {
-        return R.layout.item_race
-    }
-
-    override fun getType(): Int {
-        return R.id.itemRace
-    }
+    override fun getViewHolder(v: View) = ScheduleItemHolder(v)
+    override fun getLayoutRes() = R.layout.item_race
+    override fun getType() = R.id.itemRace
 
     override fun bindView(holder: ScheduleItemHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
-        holder.tvRaceTitle.text = race.title
-        holder.tvRaceOrganizer.text = race.organizer?.name
-        holder.tvRaceDate.text = race.dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE)
-        holder.tvRaceTime.text = race.dateTime.formattedDate(Formats.SCHEDULE_TIME)
+        with(race) {
+            holder.tvRaceTitle.text = title
+            holder.tvRaceOrganizer.text = organizer?.name
+            holder.tvRaceDate.text = dateTime.suffixedFormattedDate(Formats.SCHEDULE_DATE)
+            holder.tvRaceTime.text = dateTime.formattedDate(Formats.SCHEDULE_TIME)
+        }
 
-        holder.itemView.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
-        holder.tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
-        holder.tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
+        with(scheduleRaceTranslation) {
+            holder.itemView.setSupportTranslationName(holderTranslationName)
+            holder.tvRaceTitle.setSupportTranslationName(titleTranslationName)
+            holder.tvRaceOrganizer.setSupportTranslationName(organizerTranslationName)
+        }
 
     }
 }

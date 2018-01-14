@@ -3,7 +3,7 @@ package com.acterics.racesclient.data.mapper
 import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import com.acterics.racesclient.data.database.entity.relation.ParticipantWithHorse
 import com.acterics.racesclient.data.network.model.ParticipantModel
-import com.acterics.racesclient.domain.model.Participant
+import com.acterics.domain.model.Participant
 import java.util.Arrays.asList
 
 /**

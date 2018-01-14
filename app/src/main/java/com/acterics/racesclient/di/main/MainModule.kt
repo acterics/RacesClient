@@ -4,18 +4,16 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.ui.ActionBarToggleBinder
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
-import com.acterics.racesclient.domain.repository.RaceRepository
-import com.acterics.racesclient.domain.repository.UserRepository
+import com.acterics.domain.repository.RaceRepository
+import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.presentation.main.view.MainActivity
 import dagger.Module
 import dagger.Provides
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by root on 29.10.17.

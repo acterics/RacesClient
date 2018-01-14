@@ -4,14 +4,13 @@ import android.view.View
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
-import com.acterics.racesclient.domain.model.Race
+import com.acterics.domain.model.Race
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
 import com.acterics.racesclient.presentation.racedetails.view.item.AddBetItem
 import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 
 /**
  * Created by root on 15.10.17.
@@ -59,10 +58,11 @@ class RaceDetailPresenter(private val router: Router,
 
     private fun onDetailsLoaded(details: Race) {
         viewState.stopParticipantsLoading()
-        viewState.showParticipants( details.participants
-                .map { ParticipantItem(it)
-                        .apply { subItems.add(getAddBetSubItem(this)) }
-                } )
+        viewState.showParticipants( details.participants.map {
+            ParticipantItem(it).apply {
+                subItems.add(getAddBetSubItem(this))
+            }
+        })
         loaded = true
     }
 
@@ -107,8 +107,8 @@ class RaceDetailPresenter(private val router: Router,
 
 
     private fun getAddBetSubItem(participantItem: ParticipantItem): AddBetItem =
-        AddBetItem().also {
-            it.withParent(participantItem)
-            it.addBetClickListener = {translation, view -> onAddBet(translation, view) }
+        AddBetItem().apply {
+            withParent(participantItem)
+            addBetClickListener = {translation, view -> onAddBet(translation, view) }
         }
 }

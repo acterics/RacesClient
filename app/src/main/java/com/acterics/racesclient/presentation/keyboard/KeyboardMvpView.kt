@@ -1,4 +1,4 @@
-package com.acterics.racesclient.utils.keyboard
+package com.acterics.racesclient.presentation.keyboard
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy

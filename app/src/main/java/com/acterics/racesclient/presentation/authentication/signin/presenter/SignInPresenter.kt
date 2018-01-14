@@ -1,6 +1,5 @@
 package com.acterics.racesclient.presentation.authentication.signin.presenter
 
-import android.content.Context
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.data.network.model.request.SignInRequest
@@ -16,7 +15,6 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class SignInPresenter(private val emailValidator: EmailValidator,
-                      private val context: Context,
                       private val signInUseCase: SignInUseCase,
                       private val router: Router): MvpPresenter<SignInView>() {
 

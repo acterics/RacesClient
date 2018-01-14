@@ -2,7 +2,7 @@ package com.acterics.racesclient.data.mapper
 
 import com.acterics.racesclient.data.database.entity.OrganizationEntity
 import com.acterics.racesclient.data.network.model.OrganizationModel
-import com.acterics.racesclient.domain.model.Organization
+import com.acterics.domain.model.Organization
 import javax.inject.Inject
 
 /**

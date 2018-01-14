@@ -23,8 +23,8 @@ import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter
-import com.acterics.racesclient.utils.navigation.ToolbarAnimationPresenter
-import com.acterics.racesclient.utils.navigation.ToolbarAnimationView
+import com.acterics.racesclient.presentation.navigation.ToolbarAnimationPresenter
+import com.acterics.racesclient.presentation.navigation.ToolbarAnimationView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -38,19 +38,25 @@ import javax.inject.Inject
  * Created by root on 15.10.17.
  */
 class RaceDetailFragment: BaseScopedFragment(),
-        RaceDetailView, ToolbarAnimationView,
+        RaceDetailView,
+        ToolbarAnimationView,
         SharedElementsHolder {
 
     lateinit var scheduleRaceTranslation: ScheduleRaceTranslation
 
     private val participantsAdapter = DefaultFastItemAdapter()
     private val expandableExtension = ExpandableExtension<DefaultItem>()
+
     private lateinit var progressAdapter: DefaultItemAdapter
 
     @Inject lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
     @Inject lateinit var router: Router
     @Inject lateinit var toolbar: Toolbar
-    @InjectPresenter lateinit var presenter: RaceDetailPresenter
+
+
+    @InjectPresenter
+    lateinit var presenter: RaceDetailPresenter
+
     @InjectPresenter(type = PresenterType.LOCAL)
     lateinit var toolbarAnimationPresenter: ToolbarAnimationPresenter
 
@@ -86,12 +92,14 @@ class RaceDetailFragment: BaseScopedFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        holderRaceDetails.setSupportTranslationName(scheduleRaceTranslation.holderTranslationName)
-        tvRaceTitle.setSupportTranslationName(scheduleRaceTranslation.titleTranslationName)
-        tvRaceOrganizer.setSupportTranslationName(scheduleRaceTranslation.organizerTranslationName)
+        with(scheduleRaceTranslation) {
+            holderRaceDetails.setSupportTranslationName(holderTranslationName)
+            tvRaceTitle.setSupportTranslationName(titleTranslationName)
+            tvRaceTitle.text = raceTitle
 
-        tvRaceOrganizer.text = scheduleRaceTranslation.organizationTitle
-        tvRaceTitle.text = scheduleRaceTranslation.raceTitle
+            tvRaceOrganizer.setSupportTranslationName(organizerTranslationName)
+            tvRaceOrganizer.text = organizationTitle
+        }
 
         toolbar.apply {
             title = getString(R.string.race)

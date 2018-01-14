@@ -15,7 +15,8 @@ class AddBetItem: AbstractExpandableItem<ParticipantItem, AddBetHolder, AddBetIt
         AddBetTranslation(
                 "${parent.participant.id} addBetHolder",
                 parent.participant.id,
-                parent.participant.rating)
+                parent.participant.rating
+        )
     }
     var addBetClickListener: ((addBetTranslation: AddBetTranslation, view: View?) -> Unit)? = null
 
