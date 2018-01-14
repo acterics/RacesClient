@@ -4,8 +4,6 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.Toolbar
-import android.text.Editable
-import android.text.TextWatcher
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -13,27 +11,26 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
+import com.acterics.racesclient.common.dsl.addTextChangeListener
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.presentation.addbet.presenter.AddBetPresenter
-import com.acterics.racesclient.utils.navigation.ToolbarAnimationPresenter
-import com.acterics.racesclient.utils.navigation.ToolbarAnimationView
+import com.acterics.racesclient.presentation.navigation.ToolbarAnimationPresenter
+import com.acterics.racesclient.presentation.navigation.ToolbarAnimationView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_add_bet.*
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by root on 07.11.17.
  */
-class AddBetFragment: BaseScopedFragment(),
-        AddBetView, ToolbarAnimationView {
+class AddBetFragment: BaseScopedFragment(), AddBetView, ToolbarAnimationView {
 
     companion object {
         private const val VALUE_DIF = 5
@@ -53,8 +50,7 @@ class AddBetFragment: BaseScopedFragment(),
     }
 
     @ProvidePresenter
-    fun provideAddBetPresenter(): AddBetPresenter =
-            AddBetPresenter(router, addBetUseCase)
+    fun provideAddBetPresenter(): AddBetPresenter = AddBetPresenter(router, addBetUseCase)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,10 +78,9 @@ class AddBetFragment: BaseScopedFragment(),
         toolbar.apply { setNavigationOnClickListener { presenter.onBack() } }
         holderAddBet.setSupportTranslationName(addBetTranslation.addBetHolder)
 
-        etBet.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(changed: CharSequence, p1: Int, p2: Int, p3: Int) {
+
+        etBet.addTextChangeListener {
+            onTextChanged { changed, _, _, _ ->
                 changed.takeIf { etBet.hasFocus() }
                         ?.also { if (it.isEmpty()) etBet.setText("0") }
                         ?.takeIf { it.isNotEmpty() }
@@ -97,24 +92,24 @@ class AddBetFragment: BaseScopedFragment(),
                                 .let { etResult.setText(it) }
                         }
             }
-        })
+        }
 
-        etResult.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(changed: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        etResult.addTextChangeListener {
+            onTextChanged { changed, _, _, _ ->
                 changed.takeIf { etResult.hasFocus() }
                         ?.also { if (it.isEmpty()) etResult.setText("0") }
                         ?.takeIf { it.isNotEmpty() }
-                        ?.let { it.toString()
-                                .toFloat()
-                                .also { if (it == 0.0f) etResult.apply { setSelection(0, text.length) } }
-                                .div(addBetTranslation.rating)
-                                .toString()
-                                .let { etBet.setText(it) }
+                        ?.let {
+                            it.toString()
+                                    .toFloat()
+                                    .also { if (it == 0.0f) etResult.apply { setSelection(0, text.length) } }
+                                    .div(addBetTranslation.rating)
+                                    .toString()
+                                    .let { etBet.setText(it) }
                         }
             }
-        })
+        }
+
 
         btBetUp.setOnClickListener { presenter.onChangeValue(etBet, { it.plus(VALUE_DIF) } ) }
         btBetDown.setOnClickListener { presenter.onChangeValue(etBet, { it.minus(VALUE_DIF) }) }

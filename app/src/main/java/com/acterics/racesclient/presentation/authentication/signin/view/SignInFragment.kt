@@ -2,13 +2,12 @@ package com.acterics.racesclient.presentation.authentication.signin.view
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.dsl.addTextChangeListener
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.domain.interactor.SignInUseCase
@@ -34,27 +33,19 @@ class SignInFragment: BaseScopedFragment(), SignInView {
 
     @ProvidePresenter
     fun provideSignInPresenter() =
-            SignInPresenter(emailValidator, appContext, signInUseCase, router)
+            SignInPresenter(emailValidator, signInUseCase, router)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        etSignInEmail.addTextChangedListener( object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                presenter.onEmailInputChanged(s)
-            }
-        })
+        etSignInEmail.addTextChangeListener {
+            onTextChanged { text, _, _, _ -> presenter.onEmailInputChanged(text) }
+        }
 
-        etSignInPassword.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                presenter.onPasswordInputChanged(s)
-            }
-        })
+        etSignInPassword.addTextChangeListener {
+            onTextChanged { text, _, _, _ -> presenter.onPasswordInputChanged(text) }
+        }
 
         btToSignUp.setOnClickListener{ presenter.onSignUpButtonClick() }
         btSignIn.setOnClickListener {
