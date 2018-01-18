@@ -2,6 +2,7 @@ package com.acterics.racesclient
 
 import android.app.Application
 import android.content.Context
+import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
@@ -29,6 +30,11 @@ abstract class ApplicationTestCase {
         MockitoAnnotations.initMocks(ApplicationTestCase::class)
         base
     }
+
+
+
+
+
 
 
 }
