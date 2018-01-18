@@ -69,6 +69,11 @@ android {
             buildConfigField "String", "ROOT", '"https://races-app.herokuapp.com/api/v1/"'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     sourceSets { main { java.srcDirs = ['src/main/java'] } }
 }
 
@@ -81,6 +86,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation dependencies.jUnit
+    testCompile dependencies.assertJ7
+    testCompile dependencies.mockito
+    testCompile dependencies.robolectric
+    testCompile dependencies.dagger
+    testCompile dependencies.supportAnnotations
+    testProvided dependencies.javaxAnnotations
     androidTestImplementation(dependencies.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
