@@ -1,23 +1,12 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.25.0'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: 'jacocosettings.gradle'
-
+apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
+apply from: 'jacocosettings.gradle'
+
+
 
 ext {
     API_VERSION = 'v1'
@@ -26,16 +15,18 @@ ext {
 
 android {
 
+    def configurations = rootProject.extensions.getByName('ext')
 
-    compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    compileSdkVersion configurations['androidCompileSdkVersion']
+    buildToolsVersion configurations['androidBuildToolsVersion']
     defaultConfig {
-        applicationId "com.acterics.racesclient"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 7
-        versionName "0.2-$versionCode"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId configurations['androidApplicationId']
+        minSdkVersion configurations['androidMinSdkVersion']
+        targetSdkVersion configurations['androidTargetSdkVersion']
+        versionCode configurations['androidVersionCode']
+        versionName configurations['androidVersionName']
+        testInstrumentationRunner configurations['testInstrumentationRunner']
+        testApplicationId configurations['testApplicationId']
     }
 
     signingConfigs {
@@ -54,7 +45,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -81,82 +72,85 @@ android {
     sourceSets { main { java.srcDirs = ['src/main/java'] } }
 }
 
+
+
 dependencies {
+
+    def dependencies = rootProject.ext.dependencies
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+    testImplementation dependencies.jUnit
+    androidTestImplementation(dependencies.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+
+    implementation dependencies.kotlinStdLib
 
     //UI
-    compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile('com.mikepenz:fastadapter:3.0.0@aar') {
+    compile dependencies.glide
+    compile(dependencies.fastAdapter) {
         transitive = true
     }
-    compile 'com.mikepenz:fastadapter-commons:3.0.0@aar'
-    compile 'com.mikepenz:fastadapter-extensions-expandable:3.0.0@aar'
-    compile 'com.mikepenz:fastadapter-extensions:3.0.0@aar'
+    compile dependencies.fastAdapterCommons
+    compile dependencies.fastAdapterExtensions
+    compile dependencies.fastAdapterExtensionsExpandable
 
-    compile 'net.danlew:android.joda:2.9.9'
-    compile group: 'org.joda', name: 'joda-money', version: '0.12'
+    compile dependencies.joda
+    compile dependencies.jodaMoney
 
-    compile 'com.android.support:recyclerview-v7:27.0.2'
-    compile 'com.android.support:cardview-v7:27.0.2'
-    compile 'com.android.support:support-v4:27.0.2'
-    compile 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile dependencies.supportRecyclerView
+    compile dependencies.supportCardView
+    compile dependencies.supportV4
+    compile dependencies.supportDesign
+    implementation dependencies.supportAppCompatV7
+    implementation dependencies.supportConstraintLayout
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
+    implementation dependencies.mpAndroidChart
 
     //Room
-    compile "android.arch.persistence.room:runtime:$roomVersion"
-    compile "android.arch.persistence.room:rxjava2:$roomVersion"
-    kapt "android.arch.persistence.room:compiler:$roomVersion"
+    compile dependencies.room
+    compile dependencies.roomRx
+    kapt dependencies.roomCompiler
 
     //MVP
-    compile "com.arello-mobile:moxy:1.5.3"
-    compile "com.arello-mobile:moxy-app-compat:1.5.3"
-    compile "com.arello-mobile:moxy-android:1.5.3"
-    kapt "com.arello-mobile:moxy-compiler:1.5.3"
+    compile dependencies.moxy
+    compile dependencies.moxyAppCompat
+    compile dependencies.moxyAndroid
+    kapt dependencies.moxyCompiler
 
     //Navigation
-    compile 'ru.terrakok.cicerone:cicerone:2.1.0'
+    compile dependencies.cicerone
 
     //DI
-    compile "com.google.dagger:dagger:2.11"
-    compile "com.android.support:support-annotations:27.0.2"
-    kapt "com.google.dagger:dagger-compiler:2.11"
-    provided "javax.annotation:jsr250-api:1.0"
+    compile dependencies.dagger
+    compile dependencies.supportAnnotations
+    provided dependencies.javaxAnnotations
+    kapt dependencies.daggerCompiler
 
     //Rx
-    compile "io.reactivex.rxjava2:rxjava:2.1.5"
-    compile "io.reactivex.rxjava2:rxkotlin:2.1.0"
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile dependencies.rxJava
+    compile dependencies.rxKotlin
+    compile dependencies.rxAndroid
+
+    compile dependencies.retrofit
+    compile dependencies.retrofitConverterGson
+    compile dependencies.retrofitAdapterRx
+    compile dependencies.okHttpLoggingInterceptor
 
 
+    compile(dependencies.crashlitics) {
+        transitive = true
+    }
+    compile dependencies.timber
 
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    //API
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-
-    //Log
-    debugCompile 'com.jakewharton.timber:timber:4.6.0'
-    debugCompile 'com.facebook.stetho:stetho:1.5.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    debugCompile dependencies.stetho
+    debugCompile dependencies.leakCanary
 
 
     compile project (':domain')
 
-
-    compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
-        transitive = true
-    }
 }
 
 kapt {

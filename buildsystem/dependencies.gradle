@@ -1,0 +1,111 @@
+ext {
+    //Android
+    androidBuildToolsVersion = '27.0.2'
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 27
+    androidCompileSdkVersion = 27
+
+
+    //Libraries
+
+    androidSupportLibraryVersion = '27.0.2'
+    androidSupportConstrainLayoutVersion = '1.0.2'
+
+    kotlinVersion = '1.2.10'
+
+    glideVersion = '3.8.0'
+    fastAdapterVersion = '3.0.0@aar'
+
+    mpAndroidChartVersion = 'v3.0.3'
+
+    roomVersion = '1.0.0'
+    moxyVersion = '1.5.3'
+    ciceroneVersion = '2.1.0'
+
+    daggerVersion = '2.11'
+    javaxAnnotationsVersion = '1.0'
+
+    rxJavaVersion = '2.1.5'
+    rxKotlinVersion = '2.1.0'
+    rxAndroidVersion = '2.0.1'
+
+    retrofitVersion = '2.3.0'
+    okHttpVersion = '3.9.1'
+
+    crashliticsVersion = '2.7.0@aar'
+
+    timberVersion = '4.6.0'
+
+    jodaVersion = '2.9.9'
+    jodaMoneyVersion = '0.12'
+
+    //DevTools
+    stethoVersion = '1.5.0'
+    leakCanaryVersion = '1.5.4'
+
+    //Testing
+    jUnitVersion = '4.12'
+    espressoVersion = '3.0.1'
+
+
+    dependencies = [
+
+            kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
+
+            glide: "com.github.bumptech.glide:glide:$glideVersion",
+
+            fastAdapter: "com.mikepenz:fastadapter:$fastAdapterVersion",
+            fastAdapterCommons: "com.mikepenz:fastadapter-commons:$fastAdapterVersion",
+            fastAdapterExtensions: "com.mikepenz:fastadapter-extensions:$fastAdapterVersion",
+            fastAdapterExtensionsExpandable: "com.mikepenz:fastadapter-extensions-expandable:$fastAdapterVersion",
+
+            mpAndroidChart: "com.github.PhilJay:MPAndroidChart:$mpAndroidChartVersion",
+
+            supportRecyclerView: "com.android.support:recyclerview-v7:$androidSupportLibraryVersion",
+            supportCardView: "com.android.support:cardview-v7:$androidSupportLibraryVersion",
+            supportV4: "com.android.support:support-v4:$androidSupportLibraryVersion",
+            supportDesign: "com.android.support:design:$androidSupportLibraryVersion",
+            supportAppCompatV7: "com.android.support:appcompat-v7:$androidSupportLibraryVersion",
+            supportConstraintLayout: "com.android.support.constraint:constraint-layout:$androidSupportConstrainLayoutVersion",
+            supportAnnotations: "com.android.support:support-annotations:$androidSupportLibraryVersion",
+
+            joda: "net.danlew:android.joda:$jodaVersion",
+            jodaMoney: "org.joda:joda-money:$jodaMoneyVersion",
+
+            room: "android.arch.persistence.room:runtime:$roomVersion",
+            roomRx: "android.arch.persistence.room:rxjava2:$roomVersion",
+            roomCompiler: "android.arch.persistence.room:compiler:$roomVersion",
+
+            moxy: "com.arello-mobile:moxy-app-compat:$moxyVersion",
+            moxyAppCompat: "com.arello-mobile:moxy-app-compat:$moxyVersion",
+            moxyAndroid: "com.arello-mobile:moxy-android:$moxyVersion",
+            moxyCompiler: "com.arello-mobile:moxy-compiler:$moxyVersion",
+
+            cicerone: "ru.terrakok.cicerone:cicerone:$ciceroneVersion",
+
+            dagger: "com.google.dagger:dagger:$daggerVersion",
+            daggerCompiler: "com.google.dagger:dagger-compiler:$daggerVersion",
+            javaxAnnotations: "javax.annotation:jsr250-api:$javaxAnnotationsVersion",
+
+            rxJava: "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxKotlin: "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+
+            retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitAdapterRx: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+
+            okHttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
+
+            timber: "com.jakewharton.timber:timber:$timberVersion",
+            crashlitics: "com.crashlytics.sdk.android:crashlytics:$crashliticsVersion",
+
+
+            stetho: "com.facebook.stetho:stetho:$stethoVersion",
+            leakCanary: "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion",
+
+
+            espresso: "com.android.support.test.espresso:espresso-core:$espressoVersion",
+            jUnit: "junit:junit:$jUnitVersion",
+    ]
+}

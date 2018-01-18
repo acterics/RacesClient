@@ -2,11 +2,15 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    compile 'net.danlew:android.joda:2.9.9'
-    compile "io.reactivex.rxjava2:rxjava:2.1.5"
-    compile "io.reactivex.rxjava2:rxkotlin:2.1.0"
+    def dependencies = rootProject.ext.dependencies
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    compile dependencies.joda
+    compile dependencies.rxJava
+    compile dependencies.rxKotlin
+
+    implementation dependencies.kotlinStdLib
 }
 
 sourceCompatibility = "1.7"
