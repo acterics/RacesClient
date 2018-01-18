@@ -50,7 +50,7 @@ class UserRepositoryImpl(private val appDatabase: AppDatabase,
 
     private fun cacheBetRequest(betModel: BetModel): Single<Bet> =
         betModel.toSingle()
-                .doOnSuccess { appDatabase.betDao().insert(betMapper.toEntry(betModel)) }
+                .doOnSuccess { appDatabase.betDao().insert(betMapper.toEntity(betModel)) }
                 .map { betMapper.toDomain(it) }
 
 }

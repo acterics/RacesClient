@@ -18,9 +18,11 @@ class BetMapper {
 
     fun toDomain(from: BetRequest): Bet = Bet(from.bet, from.rating)
 
-    fun toEntry(from: BetModel): BetEntity =
+    fun toEntity(from: BetModel): BetEntity =
             BetEntity(from.id, from.bet, from.rating, from.participantId)
 
+
+    //TODO move to another mapper
     fun toDto(from: HistoryBetModel): HistoryBet =
             HistoryBet(Bet(from.bet, from.rating), DateTime(from.raceDate * 1000), from.success, from.result, from.horseName)
 }

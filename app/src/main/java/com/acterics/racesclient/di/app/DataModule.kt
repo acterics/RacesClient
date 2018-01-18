@@ -16,7 +16,7 @@ import javax.inject.Singleton
  * Created by root on 30.10.17.
  */
 @Module
-class DataModule {
+open class DataModule {
 
     @Provides
     @Singleton
