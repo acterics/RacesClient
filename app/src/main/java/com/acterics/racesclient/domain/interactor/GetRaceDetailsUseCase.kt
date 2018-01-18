@@ -1,8 +1,8 @@
 package com.acterics.racesclient.domain.interactor
 
-import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.domain.model.Race
 import com.acterics.domain.repository.RaceRepository
+import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import io.reactivex.Single
 import javax.inject.Inject
 

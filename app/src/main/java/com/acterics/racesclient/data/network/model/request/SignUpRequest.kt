@@ -1,6 +1,5 @@
 package com.acterics.racesclient.data.network.model.request
 
-import com.acterics.racesclient.data.database.entity.User
 import com.google.gson.annotations.SerializedName
 
 /**

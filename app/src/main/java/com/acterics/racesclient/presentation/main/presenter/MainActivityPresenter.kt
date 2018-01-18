@@ -1,9 +1,7 @@
 package com.acterics.racesclient.presentation.main.presenter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.support.v4.app.Fragment
-import android.support.v4.content.res.ResourcesCompat
 import android.view.MenuItem
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens

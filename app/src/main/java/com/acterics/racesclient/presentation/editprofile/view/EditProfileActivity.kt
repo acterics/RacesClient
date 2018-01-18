@@ -5,25 +5,24 @@ import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AlertDialog
 import com.acterics.racesclient.R
+import com.acterics.racesclient.common.constants.FileConsts.PIC_URI
+import com.acterics.racesclient.common.extentions.createDirIfNotExists
 import com.acterics.racesclient.common.extentions.getUser
+import com.acterics.racesclient.common.extentions.loadImage
 import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.presentation.editprofile.presenter.EditProfilePresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
-import android.provider.MediaStore
-import com.acterics.racesclient.common.constants.FileConsts.PIC_URI
-import com.acterics.racesclient.common.extentions.createDirIfNotExists
-import com.acterics.racesclient.common.extentions.loadImage
 
 
 /**

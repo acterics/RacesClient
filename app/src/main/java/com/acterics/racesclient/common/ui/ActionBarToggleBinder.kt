@@ -5,8 +5,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.extentions.notNullLazy
-import com.acterics.racesclient.presentation.main.view.MainActivity
 
 /**
  * Created by root on 09.11.17.

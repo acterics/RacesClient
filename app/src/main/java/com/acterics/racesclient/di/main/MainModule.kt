@@ -3,14 +3,14 @@ package com.acterics.racesclient.di.main
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
+import com.acterics.domain.repository.RaceRepository
+import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.domain.interactor.GetRacesUseCase
-import com.acterics.domain.repository.RaceRepository
-import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.presentation.main.view.MainActivity
 import dagger.Module
 import dagger.Provides

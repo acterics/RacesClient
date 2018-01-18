@@ -1,8 +1,8 @@
 package com.acterics.racesclient.presentation.racedetails.view.item
 
 import android.view.View
-import com.acterics.racesclient.R
 import com.acterics.domain.model.Bet
+import com.acterics.racesclient.R
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
 /**

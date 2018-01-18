@@ -1,10 +1,10 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
 import android.view.View
+import com.acterics.domain.model.Race
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
-import com.acterics.domain.model.Race
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
 import com.acterics.racesclient.presentation.racedetails.view.item.AddBetItem
 import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem

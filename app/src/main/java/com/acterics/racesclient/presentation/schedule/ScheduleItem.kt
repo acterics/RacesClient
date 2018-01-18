@@ -1,13 +1,13 @@
 package com.acterics.racesclient.presentation.schedule
 
 import android.view.View
+import com.acterics.domain.model.Race
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Formats
 import com.acterics.racesclient.common.extentions.formattedDate
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.extentions.suffixedFormattedDate
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
-import com.acterics.domain.model.Race
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

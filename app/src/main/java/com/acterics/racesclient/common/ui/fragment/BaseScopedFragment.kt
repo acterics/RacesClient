@@ -2,7 +2,6 @@ package com.acterics.racesclient.common.ui.fragment
 
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatFragment
-import timber.log.Timber
 
 /**
  * Created by root on 29.10.17.

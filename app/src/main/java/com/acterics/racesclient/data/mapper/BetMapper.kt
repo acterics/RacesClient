@@ -1,11 +1,11 @@
 package com.acterics.racesclient.data.mapper
 
+import com.acterics.domain.model.Bet
+import com.acterics.domain.model.dto.HistoryBet
 import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.network.model.BetModel
 import com.acterics.racesclient.data.network.model.HistoryBetModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
-import com.acterics.domain.model.Bet
-import com.acterics.domain.model.dto.HistoryBet
 import org.joda.time.DateTime
 
 /**

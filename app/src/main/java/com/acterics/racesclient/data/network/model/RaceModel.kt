@@ -1,8 +1,5 @@
 package com.acterics.racesclient.data.network.model
 
-import com.google.gson.annotations.SerializedName
-import org.joda.time.DateTime
-
 /**
  * Created by root on 21.10.17.
  */

@@ -2,11 +2,6 @@ package com.acterics.racesclient.common.constants
 
 import android.net.Uri
 import android.os.Environment
-import android.os.Environment.getExternalStorageDirectory
-import java.nio.file.Files.exists
-
-
-
 
 
 /**

@@ -1,10 +1,10 @@
 package com.acterics.racesclient.data.mapper
 
+import com.acterics.domain.model.Race
 import com.acterics.racesclient.data.database.entity.RaceEntity
 import com.acterics.racesclient.data.database.entity.relation.RaceWithOrganization
 import com.acterics.racesclient.data.database.entity.relation.RaceWithParticipants
 import com.acterics.racesclient.data.network.model.RaceModel
-import com.acterics.domain.model.Race
 import org.joda.time.DateTime
 
 /**

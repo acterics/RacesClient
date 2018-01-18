@@ -1,13 +1,13 @@
 package com.acterics.racesclient.data.repository
 
+import com.acterics.domain.model.Race
+import com.acterics.domain.repository.RaceRepository
 import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.common.extentions.listMap
 import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.mapper.RaceMapper
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.RaceModel
-import com.acterics.domain.model.Race
-import com.acterics.domain.repository.RaceRepository
 import io.reactivex.Single
 import io.reactivex.rxkotlin.toSingle
 

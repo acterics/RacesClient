@@ -1,7 +1,5 @@
 package com.acterics.racesclient.data.network
 
-import com.acterics.racesclient.data.network.model.BetModel
-import com.acterics.racesclient.data.network.model.HistoryBetModel
 import com.acterics.racesclient.data.network.model.RaceModel
 import com.acterics.racesclient.data.network.model.UserModel
 import com.acterics.racesclient.data.network.model.request.BetRequest

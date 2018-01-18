@@ -6,12 +6,9 @@ import com.acterics.racesclient.common.extentions.login
 import com.acterics.racesclient.common.extentions.saveToken
 import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.data.network.ApiService
-import com.acterics.racesclient.data.network.model.UserModel
 import com.acterics.racesclient.data.network.model.request.SignInRequest
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
 import io.reactivex.Single
-import io.reactivex.SingleObserver
-import javax.inject.Inject
 
 /**
  * Created by root on 26.10.17.

@@ -1,10 +1,10 @@
 package com.acterics.racesclient.presentation.profile.history
 
 import android.view.View
+import com.acterics.domain.model.dto.HistoryBet
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Formats
 import com.acterics.racesclient.common.extentions.formattedDate
-import com.acterics.domain.model.dto.HistoryBet
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

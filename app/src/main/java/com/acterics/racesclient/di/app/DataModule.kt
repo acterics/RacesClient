@@ -1,13 +1,13 @@
 package com.acterics.racesclient.di.app
 
 import android.content.Context
+import com.acterics.domain.repository.RaceRepository
+import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.mapper.*
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.repository.RaceRepositoryImpl
 import com.acterics.racesclient.data.repository.UserRepositoryImpl
-import com.acterics.domain.repository.RaceRepository
-import com.acterics.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

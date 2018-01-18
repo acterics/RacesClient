@@ -1,6 +1,9 @@
 package com.acterics.racesclient.data.repository
 
 import android.content.Context
+import com.acterics.domain.model.Bet
+import com.acterics.domain.model.dto.HistoryBet
+import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.common.extentions.getUser
 import com.acterics.racesclient.common.extentions.listMap
@@ -10,9 +13,6 @@ import com.acterics.racesclient.data.mapper.BetMapper
 import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.BetModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
-import com.acterics.domain.model.Bet
-import com.acterics.domain.model.dto.HistoryBet
-import com.acterics.domain.repository.UserRepository
 import io.reactivex.Single
 import io.reactivex.rxkotlin.toSingle
 

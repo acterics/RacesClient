@@ -1,8 +1,6 @@
 package com.acterics.racesclient.common.ui.activity
 
-import android.app.Fragment
 import android.os.Bundle
-import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.navigation.BaseMvpNavigationView
 import com.acterics.racesclient.common.ui.navigation.NavigatorProvider
 import com.arellomobile.mvp.MvpAppCompatActivity

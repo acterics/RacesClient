@@ -3,7 +3,6 @@ package com.acterics.racesclient.common.dsl
 import android.support.v7.widget.RecyclerView
 import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
-import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener
 
 /**

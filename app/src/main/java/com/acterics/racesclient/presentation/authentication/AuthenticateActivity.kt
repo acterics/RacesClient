@@ -16,9 +16,9 @@ import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.presentation.authentication.signin.view.SignInFragment
 import com.acterics.racesclient.presentation.authentication.signup.view.SignUpFragment
-import com.acterics.racesclient.presentation.main.view.MainActivity
 import com.acterics.racesclient.presentation.keyboard.KeyboardMvpView
 import com.acterics.racesclient.presentation.keyboard.KeyboardPresenter
+import com.acterics.racesclient.presentation.main.view.MainActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_authenticate.*
 import ru.terrakok.cicerone.NavigatorHolder

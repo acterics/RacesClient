@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.acterics.racesclient.R
-import com.acterics.racesclient.common.ui.ActionBarToggleBinder
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
-import kotlinx.android.synthetic.main.fragment_settings.*
 import javax.inject.Inject
 
 /**

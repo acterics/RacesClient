@@ -1,9 +1,7 @@
 package com.acterics.racesclient.data.mapper
 
-import com.acterics.domain.model.Bet
 import com.acterics.domain.model.Horse
 import com.acterics.racesclient.ApplicationTestCase
-import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.database.entity.HorseEntity
 import com.acterics.racesclient.data.network.model.HorseModel
 import com.acterics.racesclient.di.TestComponentsManager

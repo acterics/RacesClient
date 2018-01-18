@@ -1,6 +1,5 @@
 package com.acterics.racesclient.data.mapper
 
-import com.acterics.domain.model.Horse
 import com.acterics.domain.model.Organization
 import com.acterics.racesclient.ApplicationTestCase
 import com.acterics.racesclient.data.database.entity.OrganizationEntity
@@ -8,10 +7,8 @@ import com.acterics.racesclient.data.network.model.OrganizationModel
 import com.acterics.racesclient.di.TestComponentsManager
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import javax.inject.Inject
 
 /**

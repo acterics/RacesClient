@@ -1,15 +1,12 @@
 package com.acterics.racesclient.common.extentions
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
+import android.provider.MediaStore
 import com.acterics.racesclient.common.constants.FileConsts
 import java.io.File
-import android.provider.MediaStore
-
-
 
 
 /**
