@@ -5,9 +5,7 @@ ext {
     androidTargetSdkVersion = 27
     androidCompileSdkVersion = 27
 
-
     //Libraries
-
     androidSupportLibraryVersion = '27.0.2'
     androidSupportConstrainLayoutVersion = '1.0.2'
 
@@ -15,13 +13,11 @@ ext {
 
     glideVersion = '3.8.0'
     fastAdapterVersion = '3.0.0@aar'
-
     mpAndroidChartVersion = 'v3.0.3'
 
     roomVersion = '1.0.0'
     moxyVersion = '1.5.3'
     ciceroneVersion = '2.1.0'
-
     daggerVersion = '2.11'
     javaxAnnotationsVersion = '1.0'
 
@@ -46,6 +42,17 @@ ext {
     //Testing
     jUnitVersion = '4.12'
     espressoVersion = '3.0.1'
+    assertJVersion7 = '2.9.0'
+    assertJVersion8 = '3.9.0'
+    mockitoVersion = '2.13.0'
+    dexmakerVersion = '2.12.1'
+    robolectricVersion = '3.6.1'
+
+    //Server
+    javalinVersion = '1.2.0'
+    jacksonVersion = '2.9.2'
+    jpaVersion = '1.0.0.Final'
+    postgresDriverVersion = '9.4-1206-jdbc42'
 
 
     dependencies = [
@@ -104,8 +111,20 @@ ext {
             stetho: "com.facebook.stetho:stetho:$stethoVersion",
             leakCanary: "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion",
 
+            javalin: "io.javalin:javalin:$javalinVersion",
+            jackson: "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion",
+            jpa: "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:$jpaVersion",
+            postgresql: "org.postgresql:postgresql:$postgresDriverVersion",
+
 
             espresso: "com.android.support.test.espresso:espresso-core:$espressoVersion",
             jUnit: "junit:junit:$jUnitVersion",
+            assertJ7: "org.assertj:assertj-core:$assertJVersion7",
+            assertJ8: "org.assertj:assertj-core:$assertJVersion8",
+            mockito: "org.mockito:mockito-core:$mockitoVersion",
+            dexmaker: "com.linkedin.dexmaker:dexmaker-mockito:$dexmakerVersion",
+            robolectric: "org.robolectric:robolectric:$robolectricVersion",
+
+
     ]
 }

@@ -10,10 +10,10 @@ dependencies {
 
     implementation dependencies.kotlinStdLib
 
-    compile 'io.javalin:javalin:1.2.0'
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2"
-    compile 'org.postgresql:postgresql:9.4-1206-jdbc42'
-    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final'
+    compile dependencies.javalin
+    compile dependencies.jackson
+    compile dependencies.jpa
+    compile dependencies.postgresql
     compile project (':domain')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
