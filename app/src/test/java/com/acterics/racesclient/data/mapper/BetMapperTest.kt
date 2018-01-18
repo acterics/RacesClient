@@ -33,7 +33,7 @@ class BetMapperTest: ApplicationTestCase() {
     }
 
     @Test
-    fun testEntityToDomainMapping() {
+    fun entityToDomain() {
         val entity = createFakeBetEntity()
         val bet = betMapper.toDomain(entity)
 
@@ -44,7 +44,7 @@ class BetMapperTest: ApplicationTestCase() {
 
 
     @Test
-    fun testModelToDomainMapping() {
+    fun modelToDomain() {
         val model = createFakeBetModel()
         val bet = betMapper.toDomain(model)
 
@@ -55,7 +55,7 @@ class BetMapperTest: ApplicationTestCase() {
     }
 
     @Test
-    fun testRequestToDomainMapping() {
+    fun requestToDomain() {
         val request = createFakeBetRequest()
         val bet = betMapper.toDomain(request)
 
@@ -66,7 +66,7 @@ class BetMapperTest: ApplicationTestCase() {
 
 
     @Test
-    fun testModelToEntityMapping() {
+    fun modelToEntity() {
         val model = createFakeBetModel()
         val entity = betMapper.toEntity(model)
 

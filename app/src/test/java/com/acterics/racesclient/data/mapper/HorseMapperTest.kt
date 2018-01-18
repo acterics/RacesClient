@@ -32,7 +32,7 @@ class HorseMapperTest: ApplicationTestCase() {
 
 
     @Test
-    fun testEntityToDomainMapping() {
+    fun entityToDomain() {
         val entity = createFakeHorseEntity()
         val horse = horseMapper.toDomain(entity)
 
@@ -43,7 +43,7 @@ class HorseMapperTest: ApplicationTestCase() {
 
 
     @Test
-    fun testModelToDomainMapping() {
+    fun modelToDomain() {
         val model = createFakeHorseModel()
         val horse = horseMapper.toDomain(model)
 
@@ -54,7 +54,7 @@ class HorseMapperTest: ApplicationTestCase() {
     }
 
     @Test
-    fun testModelToEntityMapping() {
+    fun modelToEntity() {
         val model = createFakeHorseModel()
         val entity = horseMapper.toEntity(model)
 
