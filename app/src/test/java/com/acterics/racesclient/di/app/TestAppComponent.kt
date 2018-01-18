@@ -2,6 +2,7 @@ package com.acterics.racesclient.di.app
 
 import com.acterics.racesclient.data.mapper.BetMapperTest
 import com.acterics.racesclient.data.mapper.HorseMapperTest
+import com.acterics.racesclient.data.mapper.OrganizationMapperTest
 import dagger.Component
 import javax.inject.Singleton
 
@@ -20,4 +21,5 @@ import javax.inject.Singleton
 interface TestAppComponent: AppComponent {
     fun inject(test: BetMapperTest)
     fun inject(test: HorseMapperTest)
+    fun inject(test: OrganizationMapperTest)
 }
