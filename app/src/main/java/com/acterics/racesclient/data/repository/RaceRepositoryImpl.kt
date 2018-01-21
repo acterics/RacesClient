@@ -1,6 +1,7 @@
 package com.acterics.racesclient.data.repository
 
 import com.acterics.domain.model.Race
+import com.acterics.domain.model.dto.Page
 import com.acterics.domain.repository.RaceRepository
 import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.common.extentions.listMap
@@ -17,21 +18,22 @@ import io.reactivex.rxkotlin.toSingle
 class RaceRepositoryImpl(private val apiService: ApiService,
                          private val appDatabase: AppDatabase,
                          private val raceMapper: RaceMapper): RaceRepository {
-    override fun getSchedulePage(skip: Int, count: Int, caching: Boolean): Single<List<Race>> =
-        apiService.getRaces(skip, count)
+
+
+    override fun getSchedulePage(page: Page, caching: Boolean): Single<List<Race>> =
+        apiService.getRaces(page.skip, page.count)
                 .checkNetworkSingle()
                 .map { it.races }
                 .flatMap { if (caching) cacheSchedulePage(it) else Single.just(it) }
                 .listMap { raceMapper.toDomain(it) }
 
 
-    override fun getRaceDetails(raceId: Long, fromCache: Boolean): Single<Race> {
-       return appDatabase.toSingle()
+    override fun getRaceDetails(raceId: Long, fromCache: Boolean): Single<Race> =
+       fromCache.toSingle()
                .flatMap {
-                   if (fromCache) raceDatabaseRequest(raceId)
+                   if (it) raceDatabaseRequest(raceId)
                    else raceNetworkRequest(raceId)
                }
-    }
 
 
     private fun cacheSchedulePage(races: List<RaceModel>): Single<List<RaceModel>> {
