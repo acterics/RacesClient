@@ -9,7 +9,7 @@ ext {
     androidSupportLibraryVersion = '27.0.2'
     androidSupportConstrainLayoutVersion = '1.0.2'
 
-    kotlinVersion = '1.2.10'
+    kotlinVersion = '1.2.20'
 
     glideVersion = '3.8.0'
     fastAdapterVersion = '3.0.0@aar'
