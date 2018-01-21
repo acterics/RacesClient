@@ -2,6 +2,7 @@ package com.acterics.domain.repository
 
 
 import com.acterics.domain.model.Race
+import com.acterics.domain.model.dto.Page
 import io.reactivex.Single
 
 /**
@@ -9,7 +10,7 @@ import io.reactivex.Single
  */
 interface RaceRepository {
 
-    fun getSchedulePage(skip: Int, count: Int, caching: Boolean): Single<List<Race>>
+    fun getSchedulePage(page: Page, caching: Boolean): Single<List<Race>>
     fun getRaceDetails(raceId: Long, fromCache: Boolean): Single<Race>
 
 }

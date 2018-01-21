@@ -1,7 +1,10 @@
 package com.acterics.domain.repository
 
-import com.acterics.domain.model.Bet
-import com.acterics.domain.model.dto.HistoryBet
+import com.acterics.domain.model.Token
+import com.acterics.domain.model.User
+import com.acterics.domain.model.dto.SignInCredentials
+import com.acterics.domain.model.dto.SignUpCredentials
+import io.reactivex.Completable
 import io.reactivex.Single
 
 /**
@@ -9,12 +12,9 @@ import io.reactivex.Single
  */
 interface UserRepository {
 
-    fun addBet(bet: Float, rating: Float,  participationId: Long, caching: Boolean):
-            Single<Bet>
-    fun getBetHistory(skip: Int, count: Int, caching: Boolean):
-            Single<List<HistoryBet>>
-
-
-//    fun getUser(): Single<User>
-    fun saveUser(): Single<Boolean>
+    fun signInUser(signInCredentials: SignInCredentials): Single<Token>
+    fun signUpUser(signUpCredentials: SignUpCredentials): Single<Token>
+    fun getUser(caching: Boolean): Single<User>
+    fun deleteUser(): Completable
+    fun saveAuthenticateToken(token: Token): Completable
 }
