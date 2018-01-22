@@ -1,11 +1,13 @@
 package com.acterics.racesclient.di.app
 
 import android.content.Context
+import com.acterics.domain.repository.BetRepository
 import com.acterics.domain.repository.RaceRepository
 import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.data.database.AppDatabase
 import com.acterics.racesclient.data.mapper.*
 import com.acterics.racesclient.data.network.ApiService
+import com.acterics.racesclient.data.repository.BetRepositoryImpl
 import com.acterics.racesclient.data.repository.RaceRepositoryImpl
 import com.acterics.racesclient.data.repository.UserRepositoryImpl
 import dagger.Module
@@ -26,30 +28,47 @@ open class DataModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(appDatabase: AppDatabase, apiService: ApiService, context: Context, betMapper: BetMapper): UserRepository =
-            UserRepositoryImpl(appDatabase, apiService, context, betMapper)
+    fun provideUserRepository(appDatabase: AppDatabase,
+                              apiService: ApiService,
+                              context: Context,
+                              userMapper: UserMapper,
+                              tokenMapper: TokenMapper): UserRepository =
+            UserRepositoryImpl(appDatabase, apiService, context, userMapper, tokenMapper)
 
-    @Provides
     @Singleton
-    fun provideHorseMapper(): HorseMapper = HorseMapper()
+    @Provides
+    fun provideBetRepository(apiService: ApiService,
+                             betMapper: BetMapper): BetRepository {
+        return BetRepositoryImpl(apiService, betMapper)
+    }
 
-    @Provides
-    @Singleton
-    fun provideOrganizationMapper(): OrganizationMapper = OrganizationMapper()
 
-    @Provides
-    @Singleton
-    fun provideBetMapper(): BetMapper = BetMapper()
+//    @Provides
+//    @Singleton
+//    fun provideHorseMapper(): HorseMapper = HorseMapper()
 
-    @Provides
-    @Singleton
-    fun provideParticipationMapper(horseMapper: HorseMapper, betMapper: BetMapper): ParticipantMapper =
-            ParticipantMapper(horseMapper, betMapper)
+//    @Provides
+//    @Singleton
+//    fun provideOrganizationMapper(): OrganizationMapper = OrganizationMapper()
 
-    @Provides
-    @Singleton
-    fun provideRaceMapper(participantMapper: ParticipantMapper,
-                          organizationMapper: OrganizationMapper): RaceMapper =
-            RaceMapper(participantMapper, organizationMapper)
+//    @Provides
+//    @Singleton
+//    fun provideBetMapper(): BetMapper = BetMapper()
+
+//    @Provides
+//    @Singleton
+//    fun provideParticipationMapper(horseMapper: HorseMapper, betMapper: BetMapper): ParticipantMapper =
+//            ParticipantMapper(horseMapper, betMapper)
+
+//    @Provides
+//    @Singleton
+//    fun provideRaceMapper(participantMapper: ParticipantMapper,
+//                          organizationMapper: OrganizationMapper): RaceMapper =
+//            RaceMapper(participantMapper, organizationMapper)
+
+
+
+
+
 
 }

@@ -5,11 +5,8 @@ import android.support.v4.app.Fragment
 import android.view.MenuItem
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
-import com.acterics.racesclient.common.extentions.logout
+import com.acterics.racesclient.common.extentions.clearUser
 import com.acterics.racesclient.common.ui.CustomToolbarHolder
-import com.acterics.racesclient.domain.interactor.AddBetUseCase
-import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
-import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.main.view.MainActivityView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -20,10 +17,7 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class MainActivityPresenter(private val router: Router,
-                            private val context: Context,
-                            private val getRacesUseCase: GetRacesUseCase,
-                            private val getRaceDetailsUseCase: GetRaceDetailsUseCase,
-                            private val addBetUseCase: AddBetUseCase): MvpPresenter<MainActivityView>() {
+                            private val context: Context): MvpPresenter<MainActivityView>() {
 
     val onNavigationItemSelectedListener = { menuItem: MenuItem ->  onNavigationItemSelected(menuItem) }
 
@@ -51,16 +45,8 @@ class MainActivityPresenter(private val router: Router,
         viewState.closeDrawer()
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        getRaceDetailsUseCase.dispose()
-        getRacesUseCase.dispose()
-        addBetUseCase.dispose()
-    }
-
     private fun onLogout() {
-        context.logout()
+        context.clearUser()
         router.newRootScreen(Screens.AUTHENTICATE)
     }
 

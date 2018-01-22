@@ -1,13 +1,14 @@
 package com.acterics.racesclient.presentation.authentication.signin.presenter
 
+import com.acterics.domain.interactor.AuthenticateInteractor
+import com.acterics.domain.model.dto.SignInCredentials
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
-import com.acterics.racesclient.data.network.model.request.SignInRequest
-import com.acterics.racesclient.domain.interactor.SignInUseCase
 import com.acterics.racesclient.presentation.authentication.signin.view.SignInView
 import com.acterics.racesclient.utils.validators.EmailValidator
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
 
 /**
@@ -15,7 +16,7 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class SignInPresenter(private val emailValidator: EmailValidator,
-                      private val signInUseCase: SignInUseCase,
+                      private val authenticateInteractor: AuthenticateInteractor,
                       private val router: Router): MvpPresenter<SignInView>() {
 
 
@@ -37,10 +38,10 @@ class SignInPresenter(private val emailValidator: EmailValidator,
     }
 
     fun onSignInButtonClick(email: String, password: String) {
-        signInUseCase
-                .execute(params = SignInRequest(email, password),
-                        onSuccess = { onSuccessLogin()},
-                        onError = { viewState.showError(it.message) }
+        authenticateInteractor.signIn(SignInCredentials(email, password))
+                .subscribeBy(
+                        onSuccess = { onSuccessLogin() },
+                        onError = { error -> viewState.showError(error.message) }
                 )
     }
 

@@ -1,6 +1,6 @@
 package com.acterics.racesclient.presentation.authentication.signup.presenter
 
-import com.acterics.racesclient.domain.interactor.SignUpUseCase
+import com.acterics.domain.interactor.AuthenticateInteractor
 import com.acterics.racesclient.presentation.authentication.signup.view.SignUpView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -11,7 +11,8 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class SignUpPresenter(private val router: Router,
-                      private val signUpUseCase: SignUpUseCase): MvpPresenter<SignUpView>() {
+                      private val authenticateInteractor: AuthenticateInteractor):
+        MvpPresenter<SignUpView>() {
 
 
     fun onSignUpButtonClick() {

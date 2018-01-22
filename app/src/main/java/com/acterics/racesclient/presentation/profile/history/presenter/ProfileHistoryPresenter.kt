@@ -1,12 +1,14 @@
 package com.acterics.racesclient.presentation.profile.history.presenter
 
+import com.acterics.domain.interactor.ProfileInteractor
 import com.acterics.domain.model.dto.HistoryBet
+import com.acterics.domain.model.dto.Page
 import com.acterics.racesclient.common.ui.DefaultItem
-import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.view.ProfileHistoryView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
 
 /**
@@ -15,7 +17,7 @@ import ru.terrakok.cicerone.Router
 //TODO code duplication with SchedulePresenter
 @InjectViewState
 class ProfileHistoryPresenter(private val router: Router,
-                              private var getBetHistoryUseCase: GetBetHistoryUseCase):
+                              private val profileInteractor: ProfileInteractor):
         MvpPresenter<ProfileHistoryView>() {
 
     private var page = -1
@@ -38,11 +40,15 @@ class ProfileHistoryPresenter(private val router: Router,
         if (currentPage > page || page == -1 && !loading) {
             loading = true
             viewState.startPageLoading(currentPage == 0)
-            getBetHistoryUseCase.execute(
-                    params = GetBetHistoryUseCase.Params(currentPage * pageSize, pageSize),
-                    onSuccess = { history -> onHistoryPageLoaded(history, currentPage) },
-                    onError = { throwable -> onHistoryPageLoadError(throwable) }
-            )
+            profileInteractor.getBetHistory(Page(currentPage * pageSize, pageSize))
+                    .subscribeBy(
+                            onSuccess = { history ->
+                                onHistoryPageLoaded(history, currentPage)
+                            },
+                            onError = { error ->
+                                onHistoryPageLoadError(error)
+                            }
+                    )
         }
     }
 

@@ -10,8 +10,7 @@ import ru.terrakok.cicerone.Router
  * Created by root on 09.10.17.
  */
 @InjectViewState
-class EditProfilePresenter(private val router: Router,
-                           private val user: User) : MvpPresenter<EditProfileView>() {
+class EditProfilePresenter(private val router: Router) : MvpPresenter<EditProfileView>() {
 
     fun onAcceptClick() {
         viewState.performBackPress()

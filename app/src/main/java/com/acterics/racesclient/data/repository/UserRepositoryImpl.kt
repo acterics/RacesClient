@@ -24,12 +24,11 @@ import javax.inject.Inject
 /**
  * Created by root on 30.10.17.
  */
-class UserRepositoryImpl
-@Inject constructor(private val appDatabase: AppDatabase,
-                    private val apiService: ApiService,
-                    private val context: Context,
-                    private val userMapper: UserMapper,
-                    private val tokenMapper: TokenMapper): UserRepository {
+class UserRepositoryImpl(private val appDatabase: AppDatabase,
+                         private val apiService: ApiService,
+                         private val context: Context,
+                         private val userMapper: UserMapper,
+                         private val tokenMapper: TokenMapper): UserRepository {
 
 
 

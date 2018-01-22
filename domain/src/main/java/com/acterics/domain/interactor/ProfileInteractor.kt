@@ -1,5 +1,6 @@
 package com.acterics.domain.interactor
 
+import com.acterics.domain.model.User
 import com.acterics.domain.model.dto.HistoryBet
 import com.acterics.domain.model.dto.Page
 import io.reactivex.Single
@@ -9,6 +10,6 @@ import io.reactivex.Single
  */
 interface ProfileInteractor: Interactor {
 
-    fun getBetHistory(page: Page): Single<List<List<HistoryBet>>>
-    fun getUser()
+    fun getBetHistory(page: Page): Single<List<HistoryBet>>
+    fun getUser(): Single<User>
 }

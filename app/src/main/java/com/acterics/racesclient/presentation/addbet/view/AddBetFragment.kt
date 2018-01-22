@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.acterics.domain.interactor.RaceInteractor
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
 import com.acterics.racesclient.common.dsl.addTextChangeListener
@@ -16,7 +17,6 @@ import com.acterics.racesclient.common.extentions.setSupportTranslationName
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.AddBetUseCase
 import com.acterics.racesclient.presentation.addbet.presenter.AddBetPresenter
 import com.acterics.racesclient.presentation.navigation.ToolbarAnimationPresenter
 import com.acterics.racesclient.presentation.navigation.ToolbarAnimationView
@@ -39,8 +39,8 @@ class AddBetFragment: BaseScopedFragment(), AddBetView, ToolbarAnimationView {
     lateinit var addBetTranslation: AddBetTranslation
 
     @Inject lateinit var router: Router
-    @Inject lateinit var addBetUseCase: AddBetUseCase
     @Inject lateinit var toolbar: Toolbar
+    @Inject lateinit var raceInteractor: RaceInteractor
     @InjectPresenter lateinit var presenter: AddBetPresenter
     @InjectPresenter(type = PresenterType.LOCAL)
     lateinit var toolbarAnimationPresenter: ToolbarAnimationPresenter
@@ -50,7 +50,7 @@ class AddBetFragment: BaseScopedFragment(), AddBetView, ToolbarAnimationView {
     }
 
     @ProvidePresenter
-    fun provideAddBetPresenter(): AddBetPresenter = AddBetPresenter(router, addBetUseCase)
+    fun provideAddBetPresenter(): AddBetPresenter = AddBetPresenter(router, raceInteractor)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

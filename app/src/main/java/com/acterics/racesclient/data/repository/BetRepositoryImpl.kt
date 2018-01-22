@@ -16,9 +16,8 @@ import javax.inject.Inject
 /**
  * Created by oleg on 22.01.18.
  */
-class BetRepositoryImpl
-@Inject constructor(private val apiService: ApiService,
-                    private val betMapper: BetMapper): BetRepository {
+class BetRepositoryImpl(private val apiService: ApiService,
+                        private val betMapper: BetMapper): BetRepository {
 
     override fun addBet(bet: Bet, participant: Participant): Completable =
         Single.just(betMapper.toRequest(bet, participant))

@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.*
+import com.acterics.domain.interactor.RaceInteractor
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.dsl.addEndlessOnScrollListener
 import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
@@ -15,7 +16,6 @@ import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.common.ui.SharedElementsHolder
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.navigation.BaseToolbarAnimationPresenter
 import com.acterics.racesclient.presentation.navigation.BaseToolbarAnimationView
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
@@ -39,7 +39,7 @@ class ScheduleFragment: BaseScopedFragment(),
 
     @Inject lateinit var toolbar: Toolbar
     @Inject lateinit var router: Router
-    @Inject lateinit var getRacesUseCase: GetRacesUseCase
+    @Inject lateinit var raceInteractor: RaceInteractor
     @Inject lateinit var pagingViewDelegate: PagingMvpViewDelegate
 
 
@@ -51,7 +51,8 @@ class ScheduleFragment: BaseScopedFragment(),
 
 
     @ProvidePresenter
-    fun provideSchedulePresenter(): SchedulePresenter = SchedulePresenter(router, getRacesUseCase)
+    fun provideSchedulePresenter(): SchedulePresenter =
+            SchedulePresenter(router, raceInteractor)
 
     private val scheduleAdapter = DefaultFastItemAdapter()
     private lateinit var progressAdapter: DefaultItemAdapter

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.acterics.domain.interactor.AuthenticateInteractor
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.SignUpUseCase
 import com.acterics.racesclient.presentation.authentication.signup.presenter.SignUpPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -22,12 +22,12 @@ import javax.inject.Inject
 class SignUpFragment: BaseScopedFragment(), SignUpView {
 
     @Inject lateinit var router: Router
-    @Inject lateinit var signUpUseCase: SignUpUseCase
+    @Inject lateinit var authenticateInteractor: AuthenticateInteractor
     @InjectPresenter lateinit var presenter: SignUpPresenter
 
     @ProvidePresenter
     fun provideSignUpPresenter(): SignUpPresenter =
-            SignUpPresenter(router, signUpUseCase)
+            SignUpPresenter(router, authenticateInteractor)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_sign_up, container, false)

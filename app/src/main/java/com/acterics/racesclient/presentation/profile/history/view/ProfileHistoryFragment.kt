@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.acterics.domain.interactor.ProfileInteractor
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.dsl.addEndlessOnScrollListener
 import com.acterics.racesclient.common.ui.DefaultFastItemAdapter
@@ -13,7 +14,6 @@ import com.acterics.racesclient.common.ui.DefaultItemAdapter
 import com.acterics.racesclient.common.ui.PagingMvpViewDelegate
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.GetBetHistoryUseCase
 import com.acterics.racesclient.presentation.profile.history.HistoryBetHeaderItem
 import com.acterics.racesclient.presentation.profile.history.HistoryBetItem
 import com.acterics.racesclient.presentation.profile.history.presenter.ProfileHistoryPresenter
@@ -31,8 +31,8 @@ import javax.inject.Inject
 class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
 
     @Inject lateinit var pagingViewDelegate: PagingMvpViewDelegate
-    @Inject lateinit var getHistoryUseCase: GetBetHistoryUseCase
     @Inject lateinit var router: Router
+    @Inject lateinit var profileInteractor: ProfileInteractor
     @InjectPresenter lateinit var presenter: ProfileHistoryPresenter
 
     private val historyAdapter = DefaultFastItemAdapter()
@@ -42,7 +42,7 @@ class ProfileHistoryFragment: BaseScopedFragment(), ProfileHistoryView {
 
     @ProvidePresenter
     fun providePresenter(): ProfileHistoryPresenter =
-            ProfileHistoryPresenter(router, getHistoryUseCase)
+            ProfileHistoryPresenter(router, profileInteractor)
 
 
     override fun injectComponent() {

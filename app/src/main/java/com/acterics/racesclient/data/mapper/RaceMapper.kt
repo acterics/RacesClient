@@ -6,12 +6,14 @@ import com.acterics.racesclient.data.database.entity.relation.RaceWithOrganizati
 import com.acterics.racesclient.data.database.entity.relation.RaceWithParticipants
 import com.acterics.racesclient.data.network.model.RaceModel
 import org.joda.time.DateTime
+import javax.inject.Inject
 
 /**
  * Created by root on 30.10.17.
  */
-class RaceMapper(private val participantMapper: ParticipantMapper,
-                 private val organizationMapper: OrganizationMapper) {
+class RaceMapper
+@Inject constructor(private val participantMapper: ParticipantMapper,
+                    private val organizationMapper: OrganizationMapper) {
     fun toDomain(from: RaceEntity): Race =
             Race(from.id, from.title, DateTime(from.date * 1000), null, listOf())
 

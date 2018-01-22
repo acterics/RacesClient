@@ -1,14 +1,16 @@
 package com.acterics.racesclient.presentation.schedule.presenter
 
 import android.view.View
+import com.acterics.domain.interactor.RaceInteractor
 import com.acterics.domain.model.Race
+import com.acterics.domain.model.dto.Page
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Screens
-import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.schedule.ScheduleItem
 import com.acterics.racesclient.presentation.schedule.view.ScheduleView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
 
 /**
@@ -16,7 +18,7 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class SchedulePresenter(private val router: Router,
-                        private val getRacesUseCase: GetRacesUseCase):
+                        private val raceInteractor: RaceInteractor):
         MvpPresenter<ScheduleView>() {
 
     private var page = -1
@@ -46,11 +48,15 @@ class SchedulePresenter(private val router: Router,
         if (currentPage > page || page == -1 && !loading) {
             loading = true
             viewState.startPageLoading(currentPage == 0)
-            getRacesUseCase.execute(
-                    params = GetRacesUseCase.Params(currentPage * pageSize, pageSize),
-                    onSuccess = { races -> onSchedulePageLoaded(races, currentPage) },
-                    onError = { throwable -> onSchedulePageLoadError(throwable) }
-            )
+            raceInteractor.getRaceList(Page(currentPage * pageSize, pageSize))
+                    .subscribeBy(
+                            onSuccess = { races ->
+                                onSchedulePageLoaded(races, currentPage)
+                            },
+                            onError = { error ->
+                                onSchedulePageLoadError(error)
+                            }
+                    )
         }
     }
 

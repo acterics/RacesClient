@@ -18,9 +18,6 @@ import com.acterics.racesclient.common.ui.activity.CommonMvpNavigationActivity
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.AddBetUseCase
-import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
-import com.acterics.racesclient.domain.interactor.GetRacesUseCase
 import com.acterics.racesclient.presentation.addbet.view.AddBetFragment
 import com.acterics.racesclient.presentation.authentication.AuthenticateActivity
 import com.acterics.racesclient.presentation.editprofile.view.EditProfileActivity
@@ -48,16 +45,13 @@ class MainActivity: CommonMvpNavigationActivity(), MainActivityView {
     @Inject lateinit var router: Router
     @Inject lateinit var appContext: Context
     @Inject lateinit var navigationHolder: NavigatorHolder
-    @Inject lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
-    @Inject lateinit var getRacesUseCase: GetRacesUseCase
-    @Inject lateinit var addBetUseCase: AddBetUseCase
     @InjectPresenter lateinit var presenter: MainActivityPresenter
 
     private var sharedView = WeakReference<View>(null)
 
     @ProvidePresenter
     fun provideMainPresenter(): MainActivityPresenter =
-            MainActivityPresenter(router, appContext, getRacesUseCase, getRaceDetailsUseCase, addBetUseCase)
+            MainActivityPresenter(router, appContext)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main)

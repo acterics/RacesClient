@@ -5,12 +5,14 @@ import com.acterics.racesclient.data.database.entity.ParticipantEntity
 import com.acterics.racesclient.data.database.entity.relation.ParticipantWithHorse
 import com.acterics.racesclient.data.network.model.ParticipantModel
 import java.util.Arrays.asList
+import javax.inject.Inject
 
 /**
  * Created by root on 30.10.17.
  */
-class ParticipantMapper(private val horseMapper: HorseMapper,
-                        private val betMapper: BetMapper) {
+class ParticipantMapper
+@Inject constructor(private val horseMapper: HorseMapper,
+                    private val betMapper: BetMapper) {
     fun toDomain(from: ParticipantEntity): Participant =
             Participant(from.id, null, from.rating, asList())
 

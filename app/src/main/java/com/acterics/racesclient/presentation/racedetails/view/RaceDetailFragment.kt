@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.acterics.domain.interactor.RaceInteractor
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.constants.Extra
 import com.acterics.racesclient.common.extentions.setSupportTranslationName
@@ -23,7 +24,6 @@ import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
 import com.acterics.racesclient.common.ui.other.MatchParentProgressItem
 import com.acterics.racesclient.common.ui.translation.ScheduleRaceTranslation
 import com.acterics.racesclient.di.ComponentsManager
-import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.navigation.ToolbarAnimationPresenter
 import com.acterics.racesclient.presentation.navigation.ToolbarAnimationView
 import com.acterics.racesclient.presentation.racedetails.presenter.RaceDetailPresenter
@@ -52,7 +52,7 @@ class RaceDetailFragment: BaseScopedFragment(),
 
     private lateinit var progressAdapter: DefaultItemAdapter
 
-    @Inject lateinit var getRaceDetailsUseCase: GetRaceDetailsUseCase
+    @Inject lateinit var raceInteractor: RaceInteractor
     @Inject lateinit var router: Router
     @Inject lateinit var toolbar: Toolbar
 
@@ -72,7 +72,7 @@ class RaceDetailFragment: BaseScopedFragment(),
 
     @ProvidePresenter
     fun provideRaceDetailsPresenter(): RaceDetailPresenter =
-            RaceDetailPresenter(router, getRaceDetailsUseCase)
+            RaceDetailPresenter(router, raceInteractor)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

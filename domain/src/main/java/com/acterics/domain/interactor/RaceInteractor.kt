@@ -4,6 +4,7 @@ import com.acterics.domain.model.Bet
 import com.acterics.domain.model.Participant
 import com.acterics.domain.model.Race
 import com.acterics.domain.model.dto.Page
+import io.reactivex.Completable
 import io.reactivex.Single
 
 /**
@@ -13,7 +14,7 @@ interface RaceInteractor: Interactor {
 
     fun getRaceList(page: Page): Single<List<Race>>
     fun getRaceDetails(raceId: Long): Single<Race>
-    fun addBet(bet: Bet, participant: Participant)
+    fun addBet(bet: Bet, participant: Participant): Completable
 
 
 }

@@ -40,12 +40,13 @@ class EditProfileActivity: CommonMvpNavigationActivity(), EditProfileView {
 
     @InjectPresenter lateinit var presenter: EditProfilePresenter
 
+    //TODO user profile Interactor
     private val user by lazy { getUser() }
     private var newAvatarUri: Uri? = null
 
     @ProvidePresenter
     fun provideEditProfilePresenter() =
-            EditProfilePresenter(router, user)
+            EditProfilePresenter(router)
 
     override fun getNavigationIntent(screenKey: String?, data: Any?): Intent? {
         return null

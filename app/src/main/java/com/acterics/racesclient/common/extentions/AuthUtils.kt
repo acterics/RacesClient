@@ -2,8 +2,10 @@ package com.acterics.racesclient.common.extentions
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.acterics.domain.model.Token
+import com.acterics.domain.model.User
 import com.acterics.racesclient.common.constants.Extra
-import com.acterics.racesclient.data.database.entity.User
+import com.acterics.racesclient.exception.NoSavedUserException
 
 /**
 * Created by root on 27.09.17.
@@ -27,24 +29,32 @@ fun Context.getToken(): String {
 }
 
 
-fun Context.saveToken(token: String) {
+fun Context.saveToken(token: Token) {
     getAuthPreferences().edit()
-            .putString(Extra.ACCESS_TOKEN, token)
+            .putString(Extra.ACCESS_TOKEN, token.token)
             .apply()
 }
 
 
+@Throws(NoSavedUserException::class)
 fun Context.getUser(): User {
+
     val prefs = getAuthPreferences()
-    val firstName = prefs.getString(Extra.FIRST_NAME, "")
-    val lastName = prefs.getString(Extra.LAST_NAME, "")
-    val email = prefs.getString(Extra.EMAIL, "")
-    val avatar = prefs.getString(Extra.AVATAR, "")
+
     val id = prefs.getLong(Extra.USER_ID, -1)
+    if (id == -1L) {
+        throw NoSavedUserException()
+    }
+
+    val firstName = prefs.getString(Extra.FIRST_NAME, null) ?: throw NoSavedUserException()
+    val lastName = prefs.getString(Extra.LAST_NAME, null) ?: throw NoSavedUserException()
+    val email = prefs.getString(Extra.EMAIL, null) ?: throw NoSavedUserException()
+    val avatar = prefs.getString(Extra.AVATAR, "")
+
     return User(id, firstName, lastName, email, avatar)
 }
 
-fun Context.login(user: User) {
+fun Context.saveUser(user: User) {
     getAuthPreferences()
             .edit()
             .putBoolean(Extra.IS_AUTH, true)
@@ -56,7 +66,7 @@ fun Context.login(user: User) {
             .apply()
 }
 
-fun Context.logout() {
+fun Context.clearUser() {
     getAuthPreferences()
             .edit()
             .clear()

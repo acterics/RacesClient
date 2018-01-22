@@ -14,10 +14,10 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.acterics.domain.model.User
 import com.acterics.racesclient.R
 import com.acterics.racesclient.common.ui.CustomToolbarHolder
 import com.acterics.racesclient.common.ui.fragment.BaseScopedFragment
-import com.acterics.racesclient.data.database.entity.User
 import com.acterics.racesclient.di.ComponentsManager
 import com.acterics.racesclient.presentation.profile.ProfileViewModel
 import com.acterics.racesclient.presentation.profile.general.ProfileGeneralFragment
@@ -37,8 +37,8 @@ class ProfileFragment: BaseScopedFragment(), ProfileView, CustomToolbarHolder {
 
 
     companion object {
-        private val GENERAL_FRAGMENT_POSITION = 0
-        private val HISTORY_FRAGMENT_POSITION = 1
+        private const val GENERAL_FRAGMENT_POSITION = 0
+        private const val HISTORY_FRAGMENT_POSITION = 1
     }
 
     @Inject lateinit var router: Router

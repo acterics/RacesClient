@@ -1,10 +1,9 @@
 package com.acterics.racesclient.di.auth
 
-import android.content.Context
-import com.acterics.racesclient.data.network.ApiService
+import com.acterics.domain.interactor.AuthenticateInteractor
+import com.acterics.domain.repository.UserRepository
 import com.acterics.racesclient.domain.executor.ExecutionScheduler
-import com.acterics.racesclient.domain.interactor.SignInUseCase
-import com.acterics.racesclient.domain.interactor.SignUpUseCase
+import com.acterics.racesclient.domain.interactor.AuthenticateInteractorImpl
 import dagger.Module
 import dagger.Provides
 
@@ -17,16 +16,9 @@ class AuthenticationModule {
 
     @AuthenticationScope
     @Provides
-    fun provideSignInUseCase(apiService: ApiService,
-                             scheduler: ExecutionScheduler,
-                             context: Context): SignInUseCase =
-            SignInUseCase(apiService, scheduler, context)
-
-    @AuthenticationScope
-    @Provides
-    fun provideSignUpUseCase(apiService: ApiService,
-                             scheduler: ExecutionScheduler,
-                             context: Context): SignUpUseCase =
-            SignUpUseCase(apiService, scheduler, context)
+    fun provideAuthenticateInteractor(userRepository: UserRepository,
+                                      scheduler: ExecutionScheduler): AuthenticateInteractor {
+        return AuthenticateInteractorImpl(userRepository, scheduler)
+    }
 
 }

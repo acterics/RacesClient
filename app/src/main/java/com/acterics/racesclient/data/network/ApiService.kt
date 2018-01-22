@@ -1,10 +1,10 @@
 package com.acterics.racesclient.data.network
 
+import com.acterics.domain.model.dto.SignInCredentials
+import com.acterics.domain.model.dto.SignUpCredentials
 import com.acterics.racesclient.data.network.model.RaceModel
 import com.acterics.racesclient.data.network.model.UserModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
-import com.acterics.racesclient.data.network.model.request.SignInRequest
-import com.acterics.racesclient.data.network.model.request.SignUpRequest
 import com.acterics.racesclient.data.network.model.response.*
 import io.reactivex.Single
 import retrofit2.http.*
@@ -14,10 +14,10 @@ import retrofit2.http.*
  */
 interface ApiService {
     @POST("auth/sign_in/")
-    fun signIn(@Body signInRequest: SignInRequest): Single<BaseResponse<TokenResponse>>
+    fun signIn(@Body signInCredentials: SignInCredentials): Single<BaseResponse<TokenResponse>>
 
     @POST("auth/sign_up/")
-    fun signUp(@Body signUpRequest: SignUpRequest): Single<BaseResponse<TokenResponse>>
+    fun signUp(@Body signUpCredentials: SignUpCredentials): Single<BaseResponse<TokenResponse>>
 
     @GET("user/")
     fun getUser(): Single<BaseResponse<UserModel>>

@@ -1,10 +1,13 @@
 package com.acterics.racesclient.presentation.addbet.presenter
 
 import android.widget.EditText
-import com.acterics.racesclient.domain.interactor.AddBetUseCase
+import com.acterics.domain.interactor.RaceInteractor
+import com.acterics.domain.model.Bet
+import com.acterics.domain.model.Participant
 import com.acterics.racesclient.presentation.addbet.view.AddBetView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
 
 /**
@@ -12,7 +15,7 @@ import ru.terrakok.cicerone.Router
  */
 @InjectViewState
 class AddBetPresenter(private val router: Router,
-                      private val addBetUseCase: AddBetUseCase):
+                      private val raceInteractor: RaceInteractor):
         MvpPresenter<AddBetView>() {
 
 
@@ -35,19 +38,18 @@ class AddBetPresenter(private val router: Router,
     }
 
     fun onAddBet(bet: CharSequence, rating: Float, id: Long) {
-        bet.takeIf { bet.isNotEmpty() }
-                ?.let { it
-                        .toString()
-                        .toFloat()
-                        .takeIf { it > 0.0f }
-                }
-                ?.let { addBetUseCase.execute(
-                        params = AddBetUseCase.Params(it, rating, id),
-                        onSuccess = {
-                            viewState.successAdd()
-                            router.exit()
-                        },
-                        onError = { viewState.errorAdd(it) })
+        bet.toString().takeIf { bet.isNotEmpty() }
+                ?.let { it.toFloat().takeIf { it > 0.0f } }
+                ?.let { raceInteractor.addBet(Bet(it, rating), Participant(id))
+                        .subscribeBy(
+                                onComplete = {
+                                    viewState.successAdd()
+                                    router.exit()
+                                },
+                                onError = {
+                                    viewState.errorAdd(it)
+                                }
+                        )
                 }
     }
 

@@ -1,15 +1,16 @@
 package com.acterics.racesclient.presentation.racedetails.presenter
 
 import android.view.View
+import com.acterics.domain.interactor.RaceInteractor
 import com.acterics.domain.model.Race
 import com.acterics.racesclient.common.constants.Screens
 import com.acterics.racesclient.common.ui.translation.AddBetTranslation
-import com.acterics.racesclient.domain.interactor.GetRaceDetailsUseCase
 import com.acterics.racesclient.presentation.racedetails.view.RaceDetailView
 import com.acterics.racesclient.presentation.racedetails.view.item.AddBetItem
 import com.acterics.racesclient.presentation.racedetails.view.item.ParticipantItem
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
 
 /**
@@ -19,7 +20,7 @@ import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class RaceDetailPresenter(private val router: Router,
-                          private val getRaceDetailsUseCase: GetRaceDetailsUseCase):
+                          private val raceInteractor: RaceInteractor):
         MvpPresenter<RaceDetailView>() {
 
     val sharedElements = HashMap<String, View?>()
@@ -46,11 +47,15 @@ class RaceDetailPresenter(private val router: Router,
     fun loadDetails(id: Long) {
         if (!loaded) {
             viewState.startParticipantsLoading()
-            getRaceDetailsUseCase.execute(
-                    params = GetRaceDetailsUseCase.Params(id),
-                    onSuccess = { onDetailsLoaded(it) },
-                    onError = { onDetailsLoadError(it) }
-            )
+            raceInteractor.getRaceDetails(id)
+                    .subscribeBy(
+                            onSuccess = { race ->
+                                onDetailsLoaded(race)
+                            },
+                            onError = { error ->
+                                onDetailsLoadError(error)
+                            }
+                    )
         }
 
     }
