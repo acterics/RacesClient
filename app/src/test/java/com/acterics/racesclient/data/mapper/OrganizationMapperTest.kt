@@ -7,6 +7,7 @@ import com.acterics.racesclient.data.network.model.OrganizationModel
 import com.acterics.racesclient.di.TestComponentsManager
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
+import org.hamcrest.MatcherAssert.*
 import org.junit.Before
 import org.junit.Test
 import javax.inject.Inject
@@ -33,9 +34,9 @@ class OrganizationMapperTest: ApplicationTestCase() {
         val entity = createFakeOrganizationEntity()
         val organization = organizationMapper.toDomain(entity)
 
-        MatcherAssert.assertThat(organization, CoreMatchers.`is`(CoreMatchers.instanceOf(Organization::class.java)))
-        MatcherAssert.assertThat(organization.id, CoreMatchers.`is`(fakeOrganizationId))
-        MatcherAssert.assertThat(organization.name, CoreMatchers.`is`(fakeOrganizationName))
+        assertThat(organization, CoreMatchers.`is`(CoreMatchers.instanceOf(Organization::class.java)))
+        assertThat(organization.id, CoreMatchers.`is`(fakeOrganizationId))
+        assertThat(organization.name, CoreMatchers.`is`(fakeOrganizationName))
     }
 
     @Test
@@ -43,9 +44,9 @@ class OrganizationMapperTest: ApplicationTestCase() {
         val model = createFakeOrganizationModel()
         val organization = organizationMapper.toDomain(model)
 
-        MatcherAssert.assertThat(organization, CoreMatchers.`is`(CoreMatchers.instanceOf(Organization::class.java)))
-        MatcherAssert.assertThat(organization.id, CoreMatchers.`is`(fakeOrganizationId))
-        MatcherAssert.assertThat(organization.name, CoreMatchers.`is`(fakeOrganizationName))
+        assertThat(organization, CoreMatchers.`is`(CoreMatchers.instanceOf(Organization::class.java)))
+        assertThat(organization.id, CoreMatchers.`is`(fakeOrganizationId))
+        assertThat(organization.name, CoreMatchers.`is`(fakeOrganizationName))
     }
 
     @Test
@@ -53,9 +54,9 @@ class OrganizationMapperTest: ApplicationTestCase() {
         val model = createFakeOrganizationModel()
         val entity = organizationMapper.toEntity(model)
 
-        MatcherAssert.assertThat(entity, CoreMatchers.`is`(CoreMatchers.instanceOf(OrganizationEntity::class.java)))
-        MatcherAssert.assertThat(entity.id, CoreMatchers.`is`(fakeOrganizationId))
-        MatcherAssert.assertThat(entity.name, CoreMatchers.`is`(fakeOrganizationName))
+        assertThat(entity, CoreMatchers.`is`(CoreMatchers.instanceOf(OrganizationEntity::class.java)))
+        assertThat(entity.id, CoreMatchers.`is`(fakeOrganizationId))
+        assertThat(entity.name, CoreMatchers.`is`(fakeOrganizationName))
     }
 
     private fun createFakeOrganizationEntity() = OrganizationEntity(fakeOrganizationId, fakeOrganizationName)

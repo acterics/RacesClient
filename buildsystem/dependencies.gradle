@@ -45,6 +45,7 @@ ext {
     assertJVersion7 = '2.9.0'
     assertJVersion8 = '3.9.0'
     mockitoVersion = '2.13.0'
+    mockitoKotlinVersion = '1.5.0'
     dexmakerVersion = '2.12.1'
     robolectricVersion = '3.6.1'
 
@@ -122,6 +123,7 @@ ext {
             assertJ7: "org.assertj:assertj-core:$assertJVersion7",
             assertJ8: "org.assertj:assertj-core:$assertJVersion8",
             mockito: "org.mockito:mockito-core:$mockitoVersion",
+            mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion",
             dexmaker: "com.linkedin.dexmaker:dexmaker-mockito:$dexmakerVersion",
             robolectric: "org.robolectric:robolectric:$robolectricVersion",
 

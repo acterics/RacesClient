@@ -88,6 +88,7 @@ dependencies {
     testImplementation dependencies.jUnit
     testCompile dependencies.assertJ7
     testCompile dependencies.mockito
+    testCompile dependencies.mockitoKotlin
     testCompile dependencies.robolectric
     testCompile dependencies.dagger
     testCompile dependencies.supportAnnotations

@@ -9,6 +9,7 @@ import com.acterics.racesclient.common.extentions.checkNetworkSingle
 import com.acterics.racesclient.common.extentions.listMap
 import com.acterics.racesclient.data.mapper.BetMapper
 import com.acterics.racesclient.data.network.ApiService
+import com.acterics.racesclient.exception.FailedToAddBetException
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -23,7 +24,13 @@ class BetRepositoryImpl(private val apiService: ApiService,
         Single.just(betMapper.toRequest(bet, participant))
                 .flatMap { apiService.addBet(it) }
                 .checkNetworkSingle()
-                .toCompletable()
+                .flatMapCompletable {
+                    if (it.result) {
+                        Completable.complete()
+                    } else {
+                        Completable.error(FailedToAddBetException())
+                    }
+                }
 
 
     override fun getBetHistory(page: Page, caching: Boolean): Single<List<HistoryBet>> {
