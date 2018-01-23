@@ -8,18 +8,18 @@ import com.acterics.racesclient.data.network.ApiService
 import com.acterics.racesclient.data.network.model.request.BetRequest
 import com.acterics.racesclient.data.network.model.response.BaseResponse
 import com.acterics.racesclient.data.network.model.response.BooleanResponse
-import com.acterics.racesclient.di.TestComponentsManager
 import com.acterics.racesclient.exception.FailedToAddBetException
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.rubylichtenstein.rxtest.assertions.should
+import com.rubylichtenstein.rxtest.assertions.shouldHave
+import com.rubylichtenstein.rxtest.extentions.test
+import com.rubylichtenstein.rxtest.matchers.complete
+import com.rubylichtenstein.rxtest.matchers.noErrors
+import com.rubylichtenstein.rxtest.matchers.subscribed
 import io.reactivex.Single
 import org.junit.Test
-
-import org.junit.Before
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import javax.inject.Inject
 
 /**
  * Created by oleg on 22.01.18.
@@ -27,27 +27,16 @@ import javax.inject.Inject
 class BetRepositoryImplTest: ApplicationTestCase() {
 
 
-
-    private val fakeParticipantId = 123L
-    private val fakeBetValue = 55.5f
-    private val fakeBetRate = 1.4f
-    private val fakeBetRequest = BetRequest(fakeParticipantId, fakeBetValue, fakeBetRate)
-    private val fakeBet = Bet(fakeBetValue, fakeBetRate)
-    private val fakeParticipant = Participant(fakeParticipantId)
-
     private val successBooleanResponse = BooleanResponse(true)
     private val failBooleanResponse = BooleanResponse(false)
 
-    @Inject
-    lateinit var betMapper: BetMapper
+    private val fakeBetRequest = BetRequest()
+    private val fakeBet = Bet()
+    private val fakeParticipant = Participant()
 
-
-
-    @Before
-    fun setup() {
-        TestComponentsManager.initAppComponent(ApplicationTestCase.application())
-        TestComponentsManager.testAppComponent.inject(this)
-    }
+    private val mockBetMapper: BetMapper by lazy { mock<BetMapper> {
+        on { toRequest(fakeBet, fakeParticipant) } doReturn fakeBetRequest
+    } }
 
     @Test
     fun addBet_successResponse_successResult() {
@@ -55,16 +44,17 @@ class BetRepositoryImplTest: ApplicationTestCase() {
             on { addBet(fakeBetRequest) } doReturn Single.just(BaseResponse(BaseResponse.STATUS_SUCCESS, successBooleanResponse))
         }
 
-        val betRepository = BetRepositoryImpl(mockApiService, betMapper)
+        val betRepository = BetRepositoryImpl(mockApiService, mockBetMapper)
 
 
-        val testObserver = betRepository
-                .addBet(fakeBet, fakeParticipant)
-                .test()
-
-        testObserver.assertNoErrors()
-        testObserver.assertComplete()
-        testObserver.assertSubscribed()
+        betRepository.addBet(fakeBet, fakeParticipant)
+                .test {
+                    it should subscribed()
+                    it should complete()
+                    it shouldHave noErrors()
+                }
+        verify(mockApiService).addBet(fakeBetRequest)
+        verify(mockBetMapper).toRequest(fakeBet, fakeParticipant)
     }
 
     @Test
@@ -72,15 +62,15 @@ class BetRepositoryImplTest: ApplicationTestCase() {
         val mockApiService = mock<ApiService> {
             on { addBet(fakeBetRequest) } doReturn Single.just(BaseResponse(BaseResponse.STATUS_SUCCESS, failBooleanResponse))
         }
+        val betRepository = BetRepositoryImpl(mockApiService, mockBetMapper)
 
-        val betRepository = BetRepositoryImpl(mockApiService, betMapper)
-
-        val testObserver = betRepository
-                .addBet(fakeBet, fakeParticipant)
-                .test()
-
-        testObserver.assertError(FailedToAddBetException::class.java)
-        testObserver.assertSubscribed()
+        betRepository.addBet(fakeBet, fakeParticipant)
+                .test {
+                    it should subscribed()
+                    it shouldHave com.rubylichtenstein.rxtest.matchers.error(FailedToAddBetException::class.java)
+                }
+        verify(mockApiService).addBet(fakeBetRequest)
+        verify(mockBetMapper).toRequest(fakeBet, fakeParticipant)
     }
 
 
