@@ -74,7 +74,12 @@ android {
             includeAndroidResources = true
         }
     }
-    sourceSets { main { java.srcDirs = ['src/main/java'] } }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res', 'src/test/res']
+        }
+    }
 }
 
 
@@ -86,6 +91,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation dependencies.jUnit
+    testImplementation dependencies.rxTest
+    testImplementation dependencies.kluent
+    testImplementation dependencies.kluentAndroid
     testCompile dependencies.assertJ7
     testCompile dependencies.mockito
     testCompile dependencies.mockitoKotlin
@@ -161,7 +169,7 @@ dependencies {
     debugCompile dependencies.leakCanary
 
 
-    compile project (':domain')
+    compile project(':domain')
 
 }
 

@@ -1,10 +1,13 @@
 package com.acterics.racesclient.data.mapper
 
+import com.acterics.domain.model.Bet
 import com.acterics.domain.model.Horse
 import com.acterics.racesclient.ApplicationTestCase
 import com.acterics.racesclient.data.database.entity.HorseEntity
 import com.acterics.racesclient.data.network.model.HorseModel
 import com.acterics.racesclient.di.TestComponentsManager
+import org.amshove.kluent.shouldBeInstanceOf
+import org.amshove.kluent.shouldEqual
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.Before
@@ -19,24 +22,17 @@ class HorseMapperTest: ApplicationTestCase() {
     private val fakeHorseId = 123L
     private val fakeHorseName = "Flash"
 
-    @Inject
-    lateinit var horseMapper: HorseMapper
 
-    @Before
-    fun setup() {
-        TestComponentsManager.initAppComponent(application())
-        TestComponentsManager.testAppComponent.inject(this)
-    }
-
+    private val horseMapper: HorseMapper = HorseMapper()
 
     @Test
     fun entityToDomain() {
         val entity = createFakeHorseEntity()
         val horse = horseMapper.toDomain(entity)
 
-        MatcherAssert.assertThat(horse, CoreMatchers.`is`(CoreMatchers.instanceOf(Horse::class.java)))
-        MatcherAssert.assertThat(horse.id, CoreMatchers.`is`(fakeHorseId))
-        MatcherAssert.assertThat(horse.name, CoreMatchers.`is`(fakeHorseName))
+        horse shouldBeInstanceOf Horse::class
+        horse.name shouldEqual fakeHorseName
+        horse.id shouldEqual fakeHorseId
     }
 
 
@@ -45,9 +41,9 @@ class HorseMapperTest: ApplicationTestCase() {
         val model = createFakeHorseModel()
         val horse = horseMapper.toDomain(model)
 
-        MatcherAssert.assertThat(horse, CoreMatchers.`is`(CoreMatchers.instanceOf(Horse::class.java)))
-        MatcherAssert.assertThat(horse.id, CoreMatchers.`is`(fakeHorseId))
-        MatcherAssert.assertThat(horse.name, CoreMatchers.`is`(fakeHorseName))
+        horse shouldBeInstanceOf Horse::class
+        horse.name shouldEqual fakeHorseName
+        horse.id shouldEqual fakeHorseId
 
     }
 
@@ -56,9 +52,9 @@ class HorseMapperTest: ApplicationTestCase() {
         val model = createFakeHorseModel()
         val entity = horseMapper.toEntity(model)
 
-        MatcherAssert.assertThat(entity, CoreMatchers.`is`(CoreMatchers.instanceOf(HorseEntity::class.java)))
-        MatcherAssert.assertThat(entity.id, CoreMatchers.`is`(fakeHorseId))
-        MatcherAssert.assertThat(entity.name, CoreMatchers.`is`(fakeHorseName))
+        entity shouldBeInstanceOf HorseEntity::class
+        entity.name shouldEqual fakeHorseName
+        entity.id shouldEqual fakeHorseId
     }
 
 

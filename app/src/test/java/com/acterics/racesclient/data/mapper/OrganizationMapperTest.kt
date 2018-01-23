@@ -1,10 +1,13 @@
 package com.acterics.racesclient.data.mapper
 
+import com.acterics.domain.model.Horse
 import com.acterics.domain.model.Organization
 import com.acterics.racesclient.ApplicationTestCase
 import com.acterics.racesclient.data.database.entity.OrganizationEntity
 import com.acterics.racesclient.data.network.model.OrganizationModel
 import com.acterics.racesclient.di.TestComponentsManager
+import org.amshove.kluent.shouldBeInstanceOf
+import org.amshove.kluent.shouldEqual
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.*
@@ -20,23 +23,18 @@ class OrganizationMapperTest: ApplicationTestCase() {
     private val fakeOrganizationId = 123L
     private val fakeOrganizationName = "Organization"
 
-    @Inject
-    lateinit var organizationMapper: OrganizationMapper
+    private val organizationMapper: OrganizationMapper = OrganizationMapper()
 
-    @Before
-    fun setup() {
-        TestComponentsManager.initAppComponent(ApplicationTestCase.application())
-        TestComponentsManager.testAppComponent.inject(this)
-    }
+
 
     @Test
     fun entityToDomain() {
         val entity = createFakeOrganizationEntity()
         val organization = organizationMapper.toDomain(entity)
 
-        assertThat(organization, CoreMatchers.`is`(CoreMatchers.instanceOf(Organization::class.java)))
-        assertThat(organization.id, CoreMatchers.`is`(fakeOrganizationId))
-        assertThat(organization.name, CoreMatchers.`is`(fakeOrganizationName))
+        organization shouldBeInstanceOf Organization::class
+        organization.name shouldEqual fakeOrganizationName
+        organization.id shouldEqual fakeOrganizationId
     }
 
     @Test
@@ -44,9 +42,9 @@ class OrganizationMapperTest: ApplicationTestCase() {
         val model = createFakeOrganizationModel()
         val organization = organizationMapper.toDomain(model)
 
-        assertThat(organization, CoreMatchers.`is`(CoreMatchers.instanceOf(Organization::class.java)))
-        assertThat(organization.id, CoreMatchers.`is`(fakeOrganizationId))
-        assertThat(organization.name, CoreMatchers.`is`(fakeOrganizationName))
+        organization shouldBeInstanceOf Organization::class
+        organization.name shouldEqual fakeOrganizationName
+        organization.id shouldEqual fakeOrganizationId
     }
 
     @Test
@@ -54,9 +52,9 @@ class OrganizationMapperTest: ApplicationTestCase() {
         val model = createFakeOrganizationModel()
         val entity = organizationMapper.toEntity(model)
 
-        assertThat(entity, CoreMatchers.`is`(CoreMatchers.instanceOf(OrganizationEntity::class.java)))
-        assertThat(entity.id, CoreMatchers.`is`(fakeOrganizationId))
-        assertThat(entity.name, CoreMatchers.`is`(fakeOrganizationName))
+        entity shouldBeInstanceOf OrganizationEntity::class
+        entity.name shouldEqual fakeOrganizationName
+        entity.id shouldEqual fakeOrganizationId
     }
 
     private fun createFakeOrganizationEntity() = OrganizationEntity(fakeOrganizationId, fakeOrganizationName)

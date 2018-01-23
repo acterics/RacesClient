@@ -48,6 +48,8 @@ ext {
     mockitoKotlinVersion = '1.5.0'
     dexmakerVersion = '2.12.1'
     robolectricVersion = '3.6.1'
+    rxTestVersion = '1.0.5'
+    kluentVersion = '1.34'
 
     //Server
     javalinVersion = '1.2.0'
@@ -126,6 +128,9 @@ ext {
             mockitoKotlin: "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion",
             dexmaker: "com.linkedin.dexmaker:dexmaker-mockito:$dexmakerVersion",
             robolectric: "org.robolectric:robolectric:$robolectricVersion",
+            rxTest: "com.rubylichtenstein:rxtest:$rxTestVersion",
+            kluent: "org.amshove.kluent:kluent:$kluentVersion",
+            kluentAndroid: "org.amshove.kluent:kluent-android:$kluentVersion"
 
 
     ]
