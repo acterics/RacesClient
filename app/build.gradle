@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 
 apply from: 'jacocosettings.gradle'
+apply from: 'sonarqubesettings.gradle'
+
 
 
 
@@ -13,6 +14,7 @@ ext {
     API_SUFFIX = 'api'
 }
 
+
 android {
 
     def configurations = rootProject.extensions.getByName('ext')
@@ -20,6 +22,7 @@ android {
     compileSdkVersion configurations['androidCompileSdkVersion']
     buildToolsVersion configurations['androidBuildToolsVersion']
     defaultConfig {
+        multiDexEnabled true
         applicationId configurations['androidApplicationId']
         minSdkVersion configurations['androidMinSdkVersion']
         targetSdkVersion configurations['androidTargetSdkVersion']
@@ -49,20 +52,23 @@ android {
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            testCoverageEnabled = true
+        }
     }
 
     flavorDimensions "server"
     productFlavors {
-        mock {
-            dimension = "server"
-            versionNameSuffix "-mock"
-            buildConfigField "String", "ROOT", '"http://debug.com"'
-        }
-        prod {
-            dimension = "server"
-            versionNameSuffix "-prod"
-            buildConfigField "String", "ROOT", String.format('"https://races-app.herokuapp.com/%s/%s"', API_SUFFIX, API_VERSION)
-        }
+//        mock {
+//            dimension = "server"
+//            versionNameSuffix "-mock"
+//            buildConfigField "String", "ROOT", '"http://debug.com"'
+//        }
+//        prod {
+//            dimension = "server"
+//            versionNameSuffix "-prod"
+//            buildConfigField "String", "ROOT", String.format('"https://races-app.herokuapp.com/%s/%s"', API_SUFFIX, API_VERSION)
+//        }
         dev {
             dimension = "server"
             versionNameSuffix "-dev"
@@ -84,6 +90,7 @@ android {
 
 
 
+
 dependencies {
 
     def dependencies = rootProject.ext.dependencies
@@ -94,12 +101,12 @@ dependencies {
     testImplementation dependencies.rxTest
     testImplementation dependencies.kluent
     testImplementation dependencies.kluentAndroid
-    testCompile dependencies.assertJ7
-    testCompile dependencies.mockito
-    testCompile dependencies.mockitoKotlin
-    testCompile dependencies.robolectric
-    testCompile dependencies.dagger
-    testCompile dependencies.supportAnnotations
+    testImplementation dependencies.assertJ7
+    testImplementation dependencies.mockito
+    testImplementation dependencies.mockitoKotlin
+    testImplementation dependencies.robolectric
+    testImplementation dependencies.dagger
+    testImplementation dependencies.supportAnnotations
     testProvided dependencies.javaxAnnotations
     androidTestImplementation(dependencies.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -176,3 +183,4 @@ dependencies {
 kapt {
     generateStubs = true
 }
+

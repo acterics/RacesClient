@@ -1,0 +1,30 @@
+apply plugin: 'org.sonarqube'
+ext {
+
+}
+sonarqube {
+    properties {
+/* SonarQube needs to be informed about your libraries and the android.jar to understand that methods like
+* onResume() is called by the Android framework. Without that information SonarQube will very likely create warnings
+* that those methods are never used and they should be removed. Same applies for libraries where parent classes
+* are required to understand how a class works and is used. */
+
+        property 'sonar.login', '6aebc2caab4ccdbf7dd978de520b9e1c666b5f99'
+        property "sonar.host.url", 'http://localhost:9000'
+
+        property 'sonar.tests', './src/test/'
+        property 'sonar.sources', './src/main/java'
+        property "sonar.java.binaries", "${project.buildDir}/intermediates/classes/dev/debug, " +
+                "${project.buildDir}/tmp/kotlin-classes/devDebug"
+
+        property 'sonar.java.coveragePlugin', 'jacoco'
+        property 'sonar.jacoco.reportPaths', "${project.buildDir}/jacoco/testDevDebugUnitTest.exec"
+
+        property "sonar.projectName", (String) android.defaultConfig.applicationId
+        property "sonar.projectKey", android.defaultConfig.applicationId + android.defaultConfig.versionName
+        property "sonar.sourceEncoding", "UTF-8"
+
+
+    }
+}
+

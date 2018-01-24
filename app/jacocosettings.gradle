@@ -1,28 +1,44 @@
 apply plugin: 'jacoco'
 
+
 jacoco {
-    toolVersion = "0.7.1.201405082137"
+    toolVersion = "0.8.0"
+    reportsDir = file("$buildDir/reports")
 }
 
-def coverageSourceDirs = [
-        '../app/src'
-]
 
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDevDebugUnitTest") {
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDevDebugUnitTest']) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
 
-    classDirectories = fileTree(
-            dir: '../app/build/intermediates/classes',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']
+    def excludes = ['**/R.class',
+                    '**/R$*.class',
+                    '**/*$ViewInjector*.*',
+                    '**/BuildConfig.*',
+                    '**/Manifest*.*',
+                    '**/*_MembersInjector.class', //Dagger2 generated code
+                    '**/*_MembersInjector*.*', //Dagger2 generated code
+                    '**/*_*Factory*.*', //Dagger2 generated code
+                    '**/*Component*.*', //Dagger2 generated code
+                    '**/*Module*.*', //Dagger2 generated code
+                    '**/*ViewStateProvider.*', //Moxy generated code
+                    '**/*$$State.*', //Moxy generated code
+                    '**/*$$PresentersBinder.*' // Moxy generated code
+    ]
+
+    classDirectories = classDirectories = fileTree(
+            dir: "$buildDir/intermediates/classes/dev/debug",
+            excludes: excludes
+    ) + fileTree(
+            dir: "$buildDir/tmp/kotlin-classes/devDebug",
+            excludes: excludes
     )
 
-    additionalSourceDirs = files(coverageSourceDirs)
-    sourceDirectories = files(coverageSourceDirs)
+    sourceDirectories = files([
+            android.sourceSets.main.java.srcDirs,
+            "src/main/kotlin"
+    ])
     executionData = files('../app/build/jacoco/testDebug.exec')
 
     reports {
@@ -30,3 +46,12 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDevDebugUnitTest") {
         html.enabled = true
     }
 }
+
+//task copyClasses(type: Copy) {
+////    from "build/tmp/kotlin-classes/devDebugUnitTest"
+////    into "build/intermediates/classes/dev/debug"
+//
+//    from "build/tmp/kotlin-classes/devDebug"
+//    into "build/intermediates/classes/dev/debug"
+//
+//}
