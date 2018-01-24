@@ -6,19 +6,19 @@ import com.google.gson.annotations.SerializedName
  * Created by root on 03.11.17.
  */
 data class HistoryBetModel(
-        var id: Long,
-        var bet: Float,
-        var rating: Float,
+        var id: Long = 0L,
+        var bet: Float = 0f,
+        var rating: Float = 0f,
 
         @SerializedName("participant_id")
-        var participantId: Long,
+        var participantId: Long = 0L,
 
         @SerializedName("horse_name")
-        var horseName: String,
+        var horseName: String = "",
 
         @SerializedName("race_date")
-        var raceDate: Long,
+        var raceDate: Long = 0L,
 
-        var success: Boolean?,
-        var result: Float?
+        var success: Boolean? = null,
+        var result: Float? = null
 )

@@ -1,13 +1,13 @@
 package com.acterics.domain.model.dto
 
 import com.acterics.domain.model.Bet
-import org.joda.time.DateTime
+import java.util.*
 
 /**
  * Created by root on 03.11.17.
  */
-data class HistoryBet(var bet: Bet,
-                      var date: DateTime,
-                      var success: Boolean?,
-                      var result: Float?,
-                      var horseName: String)
+data class HistoryBet(var bet: Bet = Bet(),
+                      var date: Date = Date(),
+                      var success: Boolean? = null,
+                      var result: Float? = null,
+                      var horseName: String = "")

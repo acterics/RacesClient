@@ -7,7 +7,7 @@ import com.acterics.racesclient.data.database.entity.BetEntity
 import com.acterics.racesclient.data.network.model.BetModel
 import com.acterics.racesclient.data.network.model.HistoryBetModel
 import com.acterics.racesclient.data.network.model.request.BetRequest
-import org.joda.time.DateTime
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -29,5 +29,5 @@ class BetMapper
 
     //TODO move to another mapper
     fun toDto(from: HistoryBetModel): HistoryBet =
-            HistoryBet(Bet(from.bet, from.rating), DateTime(from.raceDate * 1000), from.success, from.result, from.horseName)
+            HistoryBet(Bet(from.bet, from.rating), Date(from.raceDate * 1000), from.success, from.result, from.horseName)
 }
